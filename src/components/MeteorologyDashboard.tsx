@@ -105,19 +105,9 @@ export function MeteorologyDashboard() {
               <BigMetric icon='mdi:gauge-empty' label='Absolute' value={formatValue(absPressure.state, 1, 'hPa')} color='#455a64' />
             </div>
           </GlassCard>
-
-          <div style={styles.sectionHeaderStyle}>Solar & Light</div>
-          <GlassCard title='Radiation'>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:sun-wireless' label='UV Index' value={formatValue(uvIndex.state, 0)} color='#ffeb3b' />
-              <BigMetric icon='mdi:solar-power' label='Irradiance' value={formatValue(irradiance.state, 0, 'W/m²')} color='#ff9800' />
-              <BigMetric icon='mdi:brightness-5' label='Station Lux' value={formatValue(illuminance.state, 0, 'lx')} color='#ffc107' />
-              <BigMetric icon='mdi:lightbulb-on' label='Sky Lux' value={formatValue(skyIlluminance.state, 0, 'lx')} color='#ffc107' />
-            </div>
-          </GlassCard>
         </div>
 
-        {/* COLUMN 3: PRECIPITATION */}
+        {/* COLUMN 3: PRECIPITATION & SOLAR */}
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Precipitation Tracking</div>
           <GlassCard title={`Rain Status: ${skyRainSensor.state}`}>
@@ -131,6 +121,16 @@ export function MeteorologyDashboard() {
               />
               <BigMetric icon='mdi:numeric' label='Sky Rain' value={formatValue(skyRainNumeric.state, 1, 'mm')} color='#03a9f4' />
               <BigMetric icon='mdi:calendar-star' label='Event' value={formatValue(eventRain.state, 1, 'mm')} color='#4caf50' />
+            </div>
+          </GlassCard>
+
+          <div style={styles.sectionHeaderStyle}>Solar & Light</div>
+          <GlassCard title='Radiation'>
+            <div style={styles.cardGridStyle}>
+              <BigMetric icon='mdi:sun-wireless' label='UV Index' value={formatValue(uvIndex.state, 0)} color='#ffeb3b' />
+              <BigMetric icon='mdi:solar-power' label='Irradiance' value={formatValue(irradiance.state, 0, 'W/m²')} color='#ff9800' />
+              <BigMetric icon='mdi:brightness-5' label='Station Lux' value={formatValue(illuminance.state, 0, 'lx')} color='#ffc107' />
+              <BigMetric icon='mdi:lightbulb-on' label='Sky Lux' value={formatValue(skyIlluminance.state, 0, 'lx')} color='#ffc107' />
             </div>
           </GlassCard>
         </div>
