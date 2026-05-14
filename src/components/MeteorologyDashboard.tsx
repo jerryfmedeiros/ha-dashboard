@@ -40,12 +40,11 @@ export function MeteorologyDashboard() {
 
   // Sky Thermal Cam Sensors
   const skyCondition = useEntity('sensor.sky_thermal_cam_sky_condition');
-  const skyAmbientTemp = useEntity('sensor.sky_thermal_cam_ambient_temperature');
-  const skyAmbientHum = useEntity('sensor.sky_thermal_cam_ambient_humidity');
   const skyRainSensor = useEntity('binary_sensor.sky_thermal_cam_rain_sensor');
   const skyRainNumeric = useEntity('sensor.sky_thermal_cam_rain_numeric');
   const skyBrightness = useEntity('sensor.sky_thermal_cam_sky_brightness');
   const skyAnemometerWind = useEntity('sensor.sky_thermal_cam_anemometer_wind_speed');
+  const skyIlluminance = useEntity('sensor.sky_thermal_cam_illuminance');
 
   return (
     <div style={styles.containerStyle}>
@@ -111,8 +110,9 @@ export function MeteorologyDashboard() {
           <GlassCard title='Radiation'>
             <div style={styles.cardGridStyle}>
               <BigMetric icon='mdi:sun-wireless' label='UV Index' value={formatValue(uvIndex.state, 0)} color='#ffeb3b' />
-              <BigMetric icon='mdi:brightness-5' label='Illuminance' value={formatValue(illuminance.state, 0, 'lx')} color='#ffc107' />
               <BigMetric icon='mdi:solar-power' label='Irradiance' value={formatValue(irradiance.state, 0, 'W/m²')} color='#ff9800' />
+              <BigMetric icon='mdi:brightness-5' label='Station Lux' value={formatValue(illuminance.state, 0, 'lx')} color='#ffc107' />
+              <BigMetric icon='mdi:lightbulb-on' label='Sky Lux' value={formatValue(skyIlluminance.state, 0, 'lx')} color='#ffc107' />
             </div>
           </GlassCard>
         </div>
@@ -131,14 +131,6 @@ export function MeteorologyDashboard() {
               />
               <BigMetric icon='mdi:numeric' label='Sky Rain' value={formatValue(skyRainNumeric.state, 1, 'mm')} color='#03a9f4' />
               <BigMetric icon='mdi:calendar-star' label='Event' value={formatValue(eventRain.state, 1, 'mm')} color='#4caf50' />
-            </div>
-          </GlassCard>
-
-          <div style={styles.sectionHeaderStyle}>Station Internals</div>
-          <GlassCard title='Indoor & Sky Sensors'>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:home-thermometer' label='Sky Amb T' value={formatValue(skyAmbientTemp.state, 1, '°C')} color='#ff5722' />
-              <BigMetric icon='mdi:home-water' label='Sky Amb H' value={formatValue(skyAmbientHum.state, 0, '%')} color='#03a9f4' />
             </div>
           </GlassCard>
         </div>
