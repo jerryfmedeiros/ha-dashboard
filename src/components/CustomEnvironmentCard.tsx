@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/MainDashboard.styles';
@@ -13,10 +14,19 @@ interface Flight {
 
 type BasicSensor = { state: string };
 
+const getCardinalDirection = (degree: number) => {
+  const val = Math.floor(degree / 22.5 + 0.5);
+  const arr = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  return arr[val % 16];
+};
+
 export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
+  const [windMode, setWindMode] = useState<'degree' | 'cardinal'>('degree');
+
   const weather = useEntity('weather.openweathermap');
   const uv = useEntity('sensor.calgary_uv_index');
-  const pressure = useEntity('sensor.calgary_barometric_pressure');
+  const windDir = useEntity('sensor.my_weather_station_wind_direction');
+  const windSpeed = useEntity('sensor.my_weather_station_wind_speed');
   const feelsLike = useEntity('sensor.openweathermap_apparent_temperature');
 
   const flightSensor = useEntity('sensor.current_flights_overhead');
@@ -129,13 +139,30 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
             <Icon icon='mdi:sun-wireless' style={styles.envSmallIconStyle} />
             UV: <span style={styles.envStatValueStyle}>{uv.state}</span>
           </div>
-          <div style={styles.envStatRowStyle}>
-            <Icon icon='mdi:gauge' style={styles.envSmallIconStyle} />
-            Pres: <span style={styles.envStatValueStyle}>{pressure.state}</span>
+          <div
+            style={{ ...styles.envStatRowStyle, cursor: 'pointer' }}
+            onClick={e => {
+              e.stopPropagation(); // prevent opening the modal
+              setWindMode(prev => (prev === 'degree' ? 'cardinal' : 'degree'));
+            }}
+          >
+            <Icon
+              icon='mdi:navigation'
+              style={{
+                ...styles.envSmallIconStyle,
+                transform: `rotate(${Number(windDir.state) || 0}deg)`,
+                transition: 'transform 0.5s ease',
+              }}
+            />
+            Wind:{' '}
+            <span style={styles.envStatValueStyle}>
+              {Math.round(Number(windSpeed.state))}{' '}
+              {windMode === 'cardinal' ? getCardinalDirection(Number(windDir.state) || 0) : `${Math.round(Number(windDir.state))}°`}
+            </span>
           </div>
           <div style={styles.envStatRowStyle}>
             <Icon icon='mdi:thermometer-lines' style={styles.envSmallIconStyle} />
-            Feels: <span style={styles.envStatValueStyle}>{feelsLike.state}°</span>
+            Feels: <span style={styles.envStatValueStyle}>{Math.round(Number(feelsLike.state))}°</span>
           </div>
         </div>
       </div>
