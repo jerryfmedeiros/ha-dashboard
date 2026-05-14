@@ -324,6 +324,10 @@ export const envStatsContainerStyle: React.CSSProperties = {
   fontSize: '0.8rem',
   color: '#b0bec5',
   lineHeight: '1.4',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-end',
+  gap: '4px',
 };
 
 export const envStatValueStyle: React.CSSProperties = {

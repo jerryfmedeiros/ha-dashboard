@@ -134,7 +134,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
 
         <CelestialArch />
 
-        <div style={{ ...styles.envStatsContainerStyle, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+        <div style={styles.envStatsContainerStyle}>
           <div style={{ ...styles.envStatRowStyle, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
             <Icon icon='mdi:sun-wireless' style={styles.envSmallIconStyle} />
             <span style={{ color: '#b0bec5' }}>UV:</span> <span style={styles.envStatValueStyle}>{uv.state}</span>
@@ -147,6 +147,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
               alignItems: 'center',
               justifyContent: 'flex-end',
               gap: '4px',
+              whiteSpace: 'nowrap',
             }}
             onClick={e => {
               e.stopPropagation(); // prevent opening the modal
