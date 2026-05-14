@@ -18,6 +18,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
   const litterLevel = useEntity('sensor.cat_litter_state');
   const isBinFullBinary = useEntity('binary_sensor.litter_box_garbage_can_full');
   const wasteCounter = useEntity('counter.litter_box_waste_cycles');
+  const wasteCounter2 = useEntity('counter.litter_box_2_waste_cycles');
 
   // --- LITTER BOX 2 (NEW) ---
   const litterBinStatus2 = useEntity('sensor.jq01009g24410010959_bin_state');
@@ -95,6 +96,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         'litter_full',
       (litterBinStatus.state === 'missing' || litterBinStatus2.state === 'missing') && 'litter_missing',
       (litterLevel.state === 'insufficient' || litterLevel2.state === 'insufficient') && 'litter_low',
+      (Number(wasteCounter.state) >= 20 || Number(wasteCounter2.state) >= 20) && 'litter_cycles',
       maxPM25 > 15 && 'aqi_pm25',
       maxCO2 > 1000 && 'aqi_co2',
       maxVOC > 250 && 'aqi_voc',
@@ -119,6 +121,8 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
     litterBinStatus2.state,
     litterLevel.state,
     litterLevel2.state,
+    wasteCounter.state,
+    wasteCounter2.state,
     maxPM25,
     maxCO2,
     maxVOC,
@@ -308,11 +312,18 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         </div>
       )}
 
-      {/* Box 1 Waste Counter (Add Box 2 counter here if available) */}
-      {Number(wasteCounter.state) >= 20 && (
-        <div style={styles.getBadgeStyle('#ffa500')} onClick={() => wasteCounter.service.reset()} role='button'>
+      {/* Box 1 & 2 Waste Counters */}
+      {(Number(wasteCounter.state) >= 20 || Number(wasteCounter2.state) >= 20) && (
+        <div
+          style={styles.getBadgeStyle('#ffa500')}
+          onClick={() => {
+            wasteCounter.service.reset();
+            wasteCounter2.service.reset();
+          }}
+          role='button'
+        >
           <Icon icon='mdi:sync' style={styles.badgeIconStyle} />
-          <span>{wasteCounter.state} CYCLES ×</span>
+          <span>{Math.max(Number(wasteCounter.state), Number(wasteCounter2.state))} CYCLES ×</span>
         </div>
       )}
 
