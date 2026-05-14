@@ -106,31 +106,36 @@ export function CatsDashboard() {
 
   const [popupCamera, setPopupCamera] = useState<CameraEntity | null>(null);
 
-  const prevOccupancyFeeding = useRef<string | null>(null);
-  const prevOccupancyLitter = useRef<string | null>(null);
+  const prevOccupancyFeeding = useRef(false);
+  const prevOccupancyLitter = useRef(false);
 
-  // Auto-expand cameras when motion is detected (works on mount and rising edges)
+  // Auto-expand cameras when motion is detected
   useEffect(() => {
-    const isFeedingRising = occupancyFeeding?.state === 'on' && prevOccupancyFeeding.current !== 'on';
-    const isLitterRising = occupancyLitter?.state === 'on' && prevOccupancyLitter.current !== 'on';
+    const timeoutId = setTimeout(() => {
+      const isFeeding = occupancyFeeding?.state === 'on';
+      const isLitter = occupancyLitter?.state === 'on';
 
-    if (isFeedingRising) {
-      setPopupCamera('camera.feeding_area_camera');
-    } else if (isLitterRising) {
-      setPopupCamera('camera.litter_box_area_camera');
-    }
+      // RISING EDGES (Opening)
+      if (isFeeding && !prevOccupancyFeeding.current) {
+        setPopupCamera('camera.feeding_area_camera');
+      } else if (isLitter && !prevOccupancyLitter.current) {
+        setPopupCamera('camera.litter_box_area_camera');
+      }
 
-    // Auto-close camera if motion clears and the camera is currently open
-    if (occupancyFeeding?.state === 'off' && prevOccupancyFeeding.current === 'on' && popupCamera === 'camera.feeding_area_camera') {
-      setPopupCamera(null);
-    }
-    if (occupancyLitter?.state === 'off' && prevOccupancyLitter.current === 'on' && popupCamera === 'camera.litter_box_area_camera') {
-      setPopupCamera(null);
-    }
+      // FALLING EDGES (Closing)
+      if (!isFeeding && prevOccupancyFeeding.current) {
+        setPopupCamera(curr => (curr === 'camera.feeding_area_camera' ? null : curr));
+      }
+      if (!isLitter && prevOccupancyLitter.current) {
+        setPopupCamera(curr => (curr === 'camera.litter_box_area_camera' ? null : curr));
+      }
 
-    prevOccupancyFeeding.current = occupancyFeeding?.state as string;
-    prevOccupancyLitter.current = occupancyLitter?.state as string;
-  }, [occupancyFeeding?.state, occupancyLitter?.state, popupCamera]);
+      prevOccupancyFeeding.current = isFeeding;
+      prevOccupancyLitter.current = isLitter;
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
+  }, [occupancyFeeding?.state, occupancyLitter?.state]);
 
   return (
     <div style={{ ...styles.containerStyle, height: '100vh', overflow: 'hidden', padding: '8px 12px' }}>
