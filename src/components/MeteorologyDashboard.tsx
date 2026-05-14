@@ -35,19 +35,11 @@ export function MeteorologyDashboard() {
   const irradiance = useEntity('sensor.my_weather_station_irradiance');
 
   const dailyRain = useEntity('sensor.my_weather_station_daily_rain');
-  const weeklyRain = useEntity('sensor.my_weather_station_weekly_rain');
-  const monthlyRain = useEntity('sensor.my_weather_station_monthly_rain');
-  const yearlyRain = useEntity('sensor.my_weather_station_yearly_rain');
   const eventRain = useEntity('sensor.my_weather_station_event_rain');
   const precipIntensity = useEntity('sensor.my_weather_station_precipitation_intensity');
-  const lastRain = useEntity('sensor.my_weather_station_last_rain');
 
   // Sky Thermal Cam Sensors
   const skyCondition = useEntity('sensor.sky_thermal_cam_sky_condition');
-  const skyAvgTemp = useEntity('sensor.sky_thermal_cam_sky_average_temp');
-  const skyCenterTemp = useEntity('sensor.sky_thermal_cam_sky_center_temp');
-  const skyMaxTemp = useEntity('sensor.sky_thermal_cam_sky_max_temp');
-  const skyMinTemp = useEntity('sensor.sky_thermal_cam_sky_min_temp');
   const skyAmbientTemp = useEntity('sensor.sky_thermal_cam_ambient_temperature');
   const skyAmbientHum = useEntity('sensor.sky_thermal_cam_ambient_humidity');
   const skyRainSensor = useEntity('binary_sensor.sky_thermal_cam_rain_sensor');
@@ -81,19 +73,10 @@ export function MeteorologyDashboard() {
             </div>
           </GlassCard>
 
-          <div style={styles.sectionHeaderStyle}>Sky Thermal Analysis</div>
+          <div style={styles.sectionHeaderStyle}>Sky Analysis</div>
           <GlassCard title={skyCondition.state?.replace('_', ' ') || 'Sky Status'}>
-            <div style={styles.cardGrid3ColStyle}>
-              <BigMetric icon='mdi:clouds' label='Sky Avg' value={formatValue(skyAvgTemp.state, 1, '°C')} color='#9c27b0' />
-              <BigMetric icon='mdi:target' label='Sky Center' value={formatValue(skyCenterTemp.state, 1, '°C')} color='#673ab7' />
+            <div style={styles.cardGridStyle}>
               <BigMetric icon='mdi:brightness-6' label='Brightness' value={formatValue(skyBrightness.state, 0)} color='#ffeb3b' />
-              <BigMetric icon='mdi:thermometer-chevron-up' label='Sky Max' value={formatValue(skyMaxTemp.state, 1, '°C')} color='#f44336' />
-              <BigMetric
-                icon='mdi:thermometer-chevron-down'
-                label='Sky Min'
-                value={formatValue(skyMinTemp.state, 1, '°C')}
-                color='#3f51b5'
-              />
             </div>
           </GlassCard>
         </div>
@@ -138,7 +121,7 @@ export function MeteorologyDashboard() {
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Precipitation Tracking</div>
           <GlassCard title={`Rain Status: ${skyRainSensor.state}`}>
-            <div style={styles.cardGrid3ColStyle}>
+            <div style={styles.cardGridStyle}>
               <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatValue(dailyRain.state, 1, 'mm')} color='#2196f3' />
               <BigMetric
                 icon='mdi:weather-pouring'
@@ -147,16 +130,7 @@ export function MeteorologyDashboard() {
                 color='#00bcd4'
               />
               <BigMetric icon='mdi:numeric' label='Sky Rain' value={formatValue(skyRainNumeric.state, 1, 'mm')} color='#03a9f4' />
-              <BigMetric icon='mdi:calendar-week' label='Weekly' value={formatValue(weeklyRain.state, 1, 'mm')} color='#03a9f4' />
               <BigMetric icon='mdi:calendar-star' label='Event' value={formatValue(eventRain.state, 1, 'mm')} color='#4caf50' />
-              <BigMetric icon='mdi:calendar-month' label='Monthly' value={formatValue(monthlyRain.state, 1, 'mm')} color='#3f51b5' />
-              <BigMetric icon='mdi:calendar-range' label='Yearly' value={formatValue(yearlyRain.state, 1, 'mm')} color='#673ab7' />
-              <BigMetric
-                icon='mdi:history'
-                label='Last Rain'
-                value={lastRain.state === 'unknown' ? '--' : lastRain.state}
-                color='#9e9e9e'
-              />
             </div>
           </GlassCard>
 
