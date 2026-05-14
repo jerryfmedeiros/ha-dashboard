@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CameraCard } from '@hakit/components';
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
@@ -105,6 +105,32 @@ export function CatsDashboard() {
   const doloresWater = useEntity('sensor.dolores_water_visits_today' as never) as unknown as BasicEntity;
 
   const [popupCamera, setPopupCamera] = useState<CameraEntity | null>(null);
+
+  const prevOccupancyFeeding = useRef<string | null>(null);
+  const prevOccupancyLitter = useRef<string | null>(null);
+
+  // Auto-expand cameras when motion is detected (works on mount and rising edges)
+  useEffect(() => {
+    const isFeedingRising = occupancyFeeding?.state === 'on' && prevOccupancyFeeding.current !== 'on';
+    const isLitterRising = occupancyLitter?.state === 'on' && prevOccupancyLitter.current !== 'on';
+
+    if (isFeedingRising) {
+      setPopupCamera('camera.feeding_area_camera');
+    } else if (isLitterRising) {
+      setPopupCamera('camera.litter_box_area_camera');
+    }
+
+    // Auto-close camera if motion clears and the camera is currently open
+    if (occupancyFeeding?.state === 'off' && prevOccupancyFeeding.current === 'on' && popupCamera === 'camera.feeding_area_camera') {
+      setPopupCamera(null);
+    }
+    if (occupancyLitter?.state === 'off' && prevOccupancyLitter.current === 'on' && popupCamera === 'camera.litter_box_area_camera') {
+      setPopupCamera(null);
+    }
+
+    prevOccupancyFeeding.current = occupancyFeeding?.state as string;
+    prevOccupancyLitter.current = occupancyLitter?.state as string;
+  }, [occupancyFeeding?.state, occupancyLitter?.state, popupCamera]);
 
   return (
     <div style={{ ...styles.containerStyle, height: '100vh', overflow: 'hidden', padding: '8px 12px' }}>
