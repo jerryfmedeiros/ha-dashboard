@@ -4,6 +4,7 @@ import { ThemeProvider, Row, Column } from '@hakit/components';
 import { MainDashboard } from './components/MainDashboard.tsx';
 import { AstroDashboard } from './components/AstroPanel';
 import { SecurityDashboard } from './components/SecurityDashboard';
+import { MeteorologyDashboard } from './components/MeteorologyDashboard.tsx';
 import { appTheme } from './styles/theme.ts';
 import { CatsDashboard } from './components/CatsDashboard.tsx';
 import { CommandCenterDashboard } from './components/CommandCenterDashboard.tsx';
@@ -51,6 +52,7 @@ export function App() {
             { id: 'astro', icon: 'mdi:telescope', activeIcon: 'mdi:telescope' },
             { id: 'security', icon: 'mdi:shield-outline', activeIcon: 'mdi:shield' },
             { id: 'media', icon: 'mdi:music', activeIcon: 'mdi:music' },
+            { id: 'meteorology', icon: 'mdi:weather-station', activeIcon: 'mdi:weather-station' },
             { id: 'office', icon: 'mdi:chart-bar', activeIcon: 'mdi:chart-bar' },
           ].map(item => {
             const isActive = activeView === item.id;
@@ -90,9 +92,11 @@ export function App() {
           {activeView === 'overview' && <MainDashboard />}
           {activeView === 'cats' && <CatsDashboard />}
           {activeView === 'astro' && <AstroDashboard />}
-          {activeView === 'security' && <SecurityDashboard />}
-          {activeView === 'media' && <MediaDashboard />}
-          {activeView === 'office' && <CommandCenterDashboard />}
+          { activeView === 'security' && <SecurityDashboard />}
+          { activeView === 'media' && <MediaDashboard />}
+          { activeView === 'meteorology' && <MeteorologyDashboard />}
+          { activeView === 'office' && <CommandCenterDashboard />}
+
         </Column>
       </Row>
     </HassConnect>
