@@ -50,7 +50,7 @@ export function MeteorologyDashboard() {
   const skyMinTemp = useEntity('sensor.sky_thermal_cam_sky_min_temp');
   const skyAmbientTemp = useEntity('sensor.sky_thermal_cam_ambient_temperature');
   const skyAmbientHum = useEntity('sensor.sky_thermal_cam_ambient_humidity');
-  const skyRainSensor = useEntity('sensor.sky_thermal_cam_rain_sensor');
+  const skyRainSensor = useEntity('binary_sensor.sky_thermal_cam_rain_sensor');
   const skyRainNumeric = useEntity('sensor.sky_thermal_cam_rain_numeric');
   const skyBrightness = useEntity('sensor.sky_thermal_cam_sky_brightness');
   const skyAnemometerWind = useEntity('sensor.sky_thermal_cam_anemometer_wind_speed');
@@ -72,23 +72,28 @@ export function MeteorologyDashboard() {
         {/* COLUMN 1: CURRENT CONDITIONS & SKY */}
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Current Conditions</div>
-          <GlassCard title="Atmosphere">
+          <GlassCard title='Atmosphere'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:thermometer" label="Temp" value={formatValue(temp.state, 1, '°C')} color="#ff9800" />
-              <BigMetric icon="mdi:account-question" label="Feels Like" value={formatValue(feelsLike.state, 1, '°C')} color="#ff5722" />
-              <BigMetric icon="mdi:water-percent" label="Humidity" value={formatValue(humidity.state, 0, '%')} color="#03a9f4" />
-              <BigMetric icon="mdi:thermometer-water" label="Dew Point" value={formatValue(dewPoint.state, 1, '°C')} color="#00bcd4" />
+              <BigMetric icon='mdi:thermometer' label='Temp' value={formatValue(temp.state, 1, '°C')} color='#ff9800' />
+              <BigMetric icon='mdi:account-question' label='Feels Like' value={formatValue(feelsLike.state, 1, '°C')} color='#ff5722' />
+              <BigMetric icon='mdi:water-percent' label='Humidity' value={formatValue(humidity.state, 0, '%')} color='#03a9f4' />
+              <BigMetric icon='mdi:thermometer-water' label='Dew Point' value={formatValue(dewPoint.state, 1, '°C')} color='#00bcd4' />
             </div>
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Sky Thermal Analysis</div>
           <GlassCard title={skyCondition.state?.replace('_', ' ') || 'Sky Status'}>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:clouds" label="Sky Avg" value={formatValue(skyAvgTemp.state, 1, '°C')} color="#9c27b0" />
-              <BigMetric icon="mdi:target" label="Sky Center" value={formatValue(skyCenterTemp.state, 1, '°C')} color="#673ab7" />
-              <BigMetric icon="mdi:brightness-6" label="Brightness" value={formatValue(skyBrightness.state, 0)} color="#ffeb3b" />
-              <BigMetric icon="mdi:thermometer-chevron-up" label="Sky Max" value={formatValue(skyMaxTemp.state, 1, '°C')} color="#f44336" />
-              <BigMetric icon="mdi:thermometer-chevron-down" label="Sky Min" value={formatValue(skyMinTemp.state, 1, '°C')} color="#3f51b5" />
+            <div style={styles.cardGrid3ColStyle}>
+              <BigMetric icon='mdi:clouds' label='Sky Avg' value={formatValue(skyAvgTemp.state, 1, '°C')} color='#9c27b0' />
+              <BigMetric icon='mdi:target' label='Sky Center' value={formatValue(skyCenterTemp.state, 1, '°C')} color='#673ab7' />
+              <BigMetric icon='mdi:brightness-6' label='Brightness' value={formatValue(skyBrightness.state, 0)} color='#ffeb3b' />
+              <BigMetric icon='mdi:thermometer-chevron-up' label='Sky Max' value={formatValue(skyMaxTemp.state, 1, '°C')} color='#f44336' />
+              <BigMetric
+                icon='mdi:thermometer-chevron-down'
+                label='Sky Min'
+                value={formatValue(skyMinTemp.state, 1, '°C')}
+                color='#3f51b5'
+              />
             </div>
           </GlassCard>
         </div>
@@ -96,30 +101,35 @@ export function MeteorologyDashboard() {
         {/* COLUMN 2: WIND & PRESSURE */}
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Wind Dynamics</div>
-          <GlassCard title="Wind Speed & Direction">
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:weather-windy" label="Speed" value={formatValue(windSpeed.state, 1, 'km/h')} color="#4caf50" />
-              <BigMetric icon="mdi:wind-power" label="Gust" value={formatValue(windGust.state, 1, 'km/h')} color="#8bc34a" />
-              <BigMetric icon="mdi:compass-outline" label="Direction" value={formatValue(windDir.state, 0, '°')} color="#cddc39" />
-              <BigMetric icon="mdi:speedometer" label="Max Gust" value={formatValue(maxGust.state, 1, 'km/h')} color="#4caf50" />
-              <BigMetric icon="mdi:weather-windy-variant" label="Sky Wind" value={formatValue(skyAnemometerWind.state, 1, 'km/h')} color="#81c784" />
+          <GlassCard title='Wind Speed & Direction'>
+            <div style={styles.cardGrid3ColStyle}>
+              <BigMetric icon='mdi:weather-windy' label='Speed' value={formatValue(windSpeed.state, 1, 'km/h')} color='#4caf50' />
+              <BigMetric icon='mdi:wind-power' label='Gust' value={formatValue(windGust.state, 1, 'km/h')} color='#8bc34a' />
+              <BigMetric icon='mdi:compass-outline' label='Direction' value={formatValue(windDir.state, 0, '°')} color='#cddc39' />
+              <BigMetric icon='mdi:speedometer' label='Max Gust' value={formatValue(maxGust.state, 1, 'km/h')} color='#4caf50' />
+              <BigMetric
+                icon='mdi:weather-windy-variant'
+                label='Sky Wind'
+                value={formatValue(skyAnemometerWind.state, 1, 'km/h')}
+                color='#81c784'
+              />
             </div>
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Barometric Pressure</div>
-          <GlassCard title="Pressure Readings">
+          <GlassCard title='Pressure Readings'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:gauge" label="Relative" value={formatValue(relPressure.state, 1, 'hPa')} color="#607d8b" />
-              <BigMetric icon="mdi:gauge-empty" label="Absolute" value={formatValue(absPressure.state, 1, 'hPa')} color="#455a64" />
+              <BigMetric icon='mdi:gauge' label='Relative' value={formatValue(relPressure.state, 1, 'hPa')} color='#607d8b' />
+              <BigMetric icon='mdi:gauge-empty' label='Absolute' value={formatValue(absPressure.state, 1, 'hPa')} color='#455a64' />
             </div>
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Solar & Light</div>
-          <GlassCard title="Radiation">
+          <GlassCard title='Radiation'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:sun-wireless" label="UV Index" value={formatValue(uvIndex.state, 0)} color="#ffeb3b" />
-              <BigMetric icon="mdi:brightness-5" label="Illuminance" value={formatValue(illuminance.state, 0, 'lx')} color="#ffc107" />
-              <BigMetric icon="mdi:solar-power" label="Irradiance" value={formatValue(irradiance.state, 0, 'W/m²')} color="#ff9800" />
+              <BigMetric icon='mdi:sun-wireless' label='UV Index' value={formatValue(uvIndex.state, 0)} color='#ffeb3b' />
+              <BigMetric icon='mdi:brightness-5' label='Illuminance' value={formatValue(illuminance.state, 0, 'lx')} color='#ffc107' />
+              <BigMetric icon='mdi:solar-power' label='Irradiance' value={formatValue(irradiance.state, 0, 'W/m²')} color='#ff9800' />
             </div>
           </GlassCard>
         </div>
@@ -128,23 +138,33 @@ export function MeteorologyDashboard() {
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Precipitation Tracking</div>
           <GlassCard title={`Rain Status: ${skyRainSensor.state}`}>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:weather-rainy" label="Daily" value={formatValue(dailyRain.state, 1, 'mm')} color="#2196f3" />
-              <BigMetric icon="mdi:weather-pouring" label="Intensity" value={formatValue(precipIntensity.state, 1, 'mm/h')} color="#00bcd4" />
-              <BigMetric icon="mdi:numeric" label="Sky Rain" value={formatValue(skyRainNumeric.state, 1, 'mm')} color="#03a9f4" />
-              <BigMetric icon="mdi:calendar-week" label="Weekly" value={formatValue(weeklyRain.state, 1, 'mm')} color="#03a9f4" />
-              <BigMetric icon="mdi:calendar-star" label="Event" value={formatValue(eventRain.state, 1, 'mm')} color="#4caf50" />
-              <BigMetric icon="mdi:calendar-month" label="Monthly" value={formatValue(monthlyRain.state, 1, 'mm')} color="#3f51b5" />
-              <BigMetric icon="mdi:calendar-range" label="Yearly" value={formatValue(yearlyRain.state, 1, 'mm')} color="#673ab7" />
-              <BigMetric icon="mdi:history" label="Last Rain" value={lastRain.state === 'unknown' ? '--' : lastRain.state} color="#9e9e9e" />
+            <div style={styles.cardGrid3ColStyle}>
+              <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatValue(dailyRain.state, 1, 'mm')} color='#2196f3' />
+              <BigMetric
+                icon='mdi:weather-pouring'
+                label='Intensity'
+                value={formatValue(precipIntensity.state, 1, 'mm/h')}
+                color='#00bcd4'
+              />
+              <BigMetric icon='mdi:numeric' label='Sky Rain' value={formatValue(skyRainNumeric.state, 1, 'mm')} color='#03a9f4' />
+              <BigMetric icon='mdi:calendar-week' label='Weekly' value={formatValue(weeklyRain.state, 1, 'mm')} color='#03a9f4' />
+              <BigMetric icon='mdi:calendar-star' label='Event' value={formatValue(eventRain.state, 1, 'mm')} color='#4caf50' />
+              <BigMetric icon='mdi:calendar-month' label='Monthly' value={formatValue(monthlyRain.state, 1, 'mm')} color='#3f51b5' />
+              <BigMetric icon='mdi:calendar-range' label='Yearly' value={formatValue(yearlyRain.state, 1, 'mm')} color='#673ab7' />
+              <BigMetric
+                icon='mdi:history'
+                label='Last Rain'
+                value={lastRain.state === 'unknown' ? '--' : lastRain.state}
+                color='#9e9e9e'
+              />
             </div>
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Station Internals</div>
-          <GlassCard title="Indoor & Sky Sensors">
+          <GlassCard title='Indoor & Sky Sensors'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon="mdi:home-thermometer" label="Sky Amb T" value={formatValue(skyAmbientTemp.state, 1, '°C')} color="#ff5722" />
-              <BigMetric icon="mdi:home-water" label="Sky Amb H" value={formatValue(skyAmbientHum.state, 0, '%')} color="#03a9f4" />
+              <BigMetric icon='mdi:home-thermometer' label='Sky Amb T' value={formatValue(skyAmbientTemp.state, 1, '°C')} color='#ff5722' />
+              <BigMetric icon='mdi:home-water' label='Sky Amb H' value={formatValue(skyAmbientHum.state, 0, '%')} color='#03a9f4' />
             </div>
           </GlassCard>
         </div>

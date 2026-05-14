@@ -92,11 +92,10 @@ export function App() {
           {activeView === 'overview' && <MainDashboard />}
           {activeView === 'cats' && <CatsDashboard />}
           {activeView === 'astro' && <AstroDashboard />}
-          { activeView === 'security' && <SecurityDashboard />}
-          { activeView === 'media' && <MediaDashboard />}
-          { activeView === 'meteorology' && <MeteorologyDashboard />}
-          { activeView === 'office' && <CommandCenterDashboard />}
-
+          {activeView === 'security' && <SecurityDashboard />}
+          {activeView === 'media' && <MediaDashboard />}
+          {activeView === 'meteorology' && <MeteorologyDashboard />}
+          {activeView === 'office' && <CommandCenterDashboard />}
         </Column>
       </Row>
     </HassConnect>
