@@ -134,13 +134,20 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
 
         <CelestialArch />
 
-        <div style={styles.envStatsContainerStyle}>
-          <div style={styles.envStatRowStyle}>
+        <div style={{ ...styles.envStatsContainerStyle, display: 'flex', flexDirection: 'column', gap: '4px' }}>
+          <div style={{ ...styles.envStatRowStyle, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
             <Icon icon='mdi:sun-wireless' style={styles.envSmallIconStyle} />
-            UV: <span style={styles.envStatValueStyle}>{uv.state}</span>
+            <span style={{ color: '#b0bec5' }}>UV:</span> <span style={styles.envStatValueStyle}>{uv.state}</span>
           </div>
           <div
-            style={{ ...styles.envStatRowStyle, cursor: 'pointer' }}
+            style={{
+              ...styles.envStatRowStyle,
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              gap: '4px',
+            }}
             onClick={e => {
               e.stopPropagation(); // prevent opening the modal
               setWindMode(prev => (prev === 'degree' ? 'cardinal' : 'degree'));
@@ -154,15 +161,16 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
                 transition: 'transform 0.5s ease',
               }}
             />
-            Wind:{' '}
+            <span style={{ color: '#b0bec5' }}>Wind:</span>
             <span style={styles.envStatValueStyle}>
               {Math.round(Number(windSpeed.state))}{' '}
               {windMode === 'cardinal' ? getCardinalDirection(Number(windDir.state) || 0) : `${Math.round(Number(windDir.state))}°`}
             </span>
           </div>
-          <div style={styles.envStatRowStyle}>
+          <div style={{ ...styles.envStatRowStyle, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
             <Icon icon='mdi:thermometer-lines' style={styles.envSmallIconStyle} />
-            Feels: <span style={styles.envStatValueStyle}>{Math.round(Number(feelsLike.state))}°</span>
+            <span style={{ color: '#b0bec5' }}>Feels:</span>{' '}
+            <span style={styles.envStatValueStyle}>{Math.round(Number(feelsLike.state))}°</span>
           </div>
         </div>
       </div>
