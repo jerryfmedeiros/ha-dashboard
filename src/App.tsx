@@ -52,7 +52,7 @@ export function App() {
             { id: 'astro', icon: 'mdi:telescope', activeIcon: 'mdi:telescope' },
             { id: 'security', icon: 'mdi:shield-outline', activeIcon: 'mdi:shield' },
             { id: 'media', icon: 'mdi:music', activeIcon: 'mdi:music' },
-            { id: 'meteorology', icon: 'mdi:weather-station', activeIcon: 'mdi:weather-station' },
+            { id: 'meteorology', icon: 'mdi:weather-partly-cloudy', activeIcon: 'mdi:weather-partly-cloudy' },
             { id: 'office', icon: 'mdi:chart-bar', activeIcon: 'mdi:chart-bar' },
           ].map(item => {
             const isActive = activeView === item.id;
