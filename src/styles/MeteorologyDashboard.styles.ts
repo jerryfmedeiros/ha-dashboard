@@ -22,7 +22,7 @@ export const headerStyle: React.CSSProperties = {
 export const mainGridStyle: React.CSSProperties = {
   display: 'grid',
   gridTemplateColumns: 'repeat(3, 1fr)',
-  gridTemplateRows: 'auto auto 1fr',
+  alignItems: 'start',
   gap: '1rem',
   flex: 1,
   minHeight: 0,
@@ -55,7 +55,4 @@ export const scrollableColumnStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   gap: '1rem',
-  overflowY: 'auto',
-  height: '100%',
-  paddingRight: '4px',
 };
