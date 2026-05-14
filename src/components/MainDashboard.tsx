@@ -95,9 +95,13 @@ export function MainDashboard() {
   const [popupCamera, setPopupCamera] = useState<SecurityCamera | null>(null);
 
   const doorbellSensor = useEntity('binary_sensor.reolink_video_doorbell_wifi_person');
+  const doorbellVehicle = useEntity('binary_sensor.reolink_video_doorbell_wifi_vehicle');
   const frontYardSensor = useEntity('binary_sensor.front_yard_person');
+  const frontYardVehicle = useEntity('binary_sensor.front_yard_vehicle');
   const backDoorSensor = useEntity('binary_sensor.back_door_person');
+  const backDoorVehicle = useEntity('binary_sensor.back_door_vehicle');
   const backYardSensor = useEntity('binary_sensor.back_yard_person');
+  const backYardVehicle = useEntity('binary_sensor.back_yard_vehicle');
 
   const prevDoorbell = useRef(false);
   const prevFrontYard = useRef(false);
@@ -108,10 +112,10 @@ export function MainDashboard() {
     // We use a timeout to defer state updates to the next tick.
     // This fixes the ESLint 'synchronous setState in effect' error.
     const timeoutId = setTimeout(() => {
-      const isDoorbell = doorbellSensor.state === 'on';
-      const isFront = frontYardSensor.state === 'on';
-      const isBackD = backDoorSensor.state === 'on';
-      const isBackY = backYardSensor.state === 'on';
+      const isDoorbell = doorbellSensor.state === 'on' || doorbellVehicle.state === 'on';
+      const isFront = frontYardSensor.state === 'on' || frontYardVehicle.state === 'on';
+      const isBackD = backDoorSensor.state === 'on' || backDoorVehicle.state === 'on';
+      const isBackY = backYardSensor.state === 'on' || backYardVehicle.state === 'on';
 
       // RISING EDGES (Opening)
       if (isDoorbell && !prevDoorbell.current) setPopupCamera('camera.reolink_video_doorbell_camera_fluent');
@@ -140,7 +144,16 @@ export function MainDashboard() {
     }, 0);
 
     return () => clearTimeout(timeoutId);
-  }, [doorbellSensor.state, frontYardSensor.state, backDoorSensor.state, backYardSensor.state]);
+  }, [
+    doorbellSensor.state,
+    doorbellVehicle.state,
+    frontYardSensor.state,
+    frontYardVehicle.state,
+    backDoorSensor.state,
+    backDoorVehicle.state,
+    backYardSensor.state,
+    backYardVehicle.state,
+  ]);
 
   return (
     <div style={styles.containerStyle}>
