@@ -53,6 +53,8 @@ export const BigMetric = ({
   unit,
   color = '#fff',
   nightMode,
+  onClick,
+  iconStyle,
 }: {
   icon: string;
   label: string;
@@ -60,8 +62,11 @@ export const BigMetric = ({
   unit?: string;
   color?: string;
   nightMode?: boolean;
+  onClick?: () => void;
+  iconStyle?: React.CSSProperties;
 }) => (
   <div
+    onClick={onClick}
     style={{
       flex: 1,
       display: 'flex',
@@ -73,9 +78,11 @@ export const BigMetric = ({
       border: nightMode ? '1px solid rgba(255, 68, 68, 0.1)' : '1px solid rgba(255, 255, 255, 0.02)',
       minWidth: 0,
       gap: '1px',
+      cursor: onClick ? 'pointer' : 'default',
+      transition: 'all 0.2s ease',
     }}
   >
-    <Icon icon={icon} style={{ fontSize: '1.2rem', color: nightMode ? '#ff4444' : color, marginBottom: '1px' }} />
+    <Icon icon={icon} style={{ fontSize: '1.2rem', color: nightMode ? '#ff4444' : color, marginBottom: '1px', ...iconStyle }} />
     <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px' }}>
       <span style={{ fontSize: '1.1rem', fontWeight: 900, color: nightMode ? '#ff4444' : '#fff', lineHeight: 1 }}>
         <SafeValue value={value} />

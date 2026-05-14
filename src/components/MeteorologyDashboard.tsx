@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useEntity } from '@hakit/core';
 import { GlassCard, BigMetric } from './MetricUi.tsx';
 import * as styles from '../styles/MeteorologyDashboard.styles';
@@ -9,7 +10,15 @@ const formatRawValue = (value: string | undefined | null, decimals = 1) => {
   return Number(num.toFixed(decimals)).toLocaleString();
 };
 
+const getCardinalDirection = (degree: number) => {
+  const val = Math.floor(degree / 22.5 + 0.5);
+  const arr = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+  return arr[val % 16];
+};
+
 export function MeteorologyDashboard() {
+  const [windMode, setWindMode] = useState<'degree' | 'cardinal'>('degree');
+
   // Weather Station Sensors
   const temp = useEntity('sensor.my_weather_station_temperature');
   const feelsLike = useEntity('sensor.my_weather_station_feels_like');
@@ -90,7 +99,18 @@ export function MeteorologyDashboard() {
               <BigMetric icon='mdi:weather-windy' label='Speed' value={formatRawValue(windSpeed.state, 1)} unit='km/h' color='#4caf50' />
               <BigMetric icon='mdi:wind-power' label='Gust' value={formatRawValue(windGust.state, 1)} unit='km/h' color='#8bc34a' />
               <BigMetric icon='mdi:speedometer' label='Max Gust' value={formatRawValue(maxGust.state, 1)} unit='km/h' color='#4caf50' />
-              <BigMetric icon='mdi:compass-outline' label='Direction' value={formatRawValue(windDir.state, 0)} unit='°' color='#cddc39' />
+              <BigMetric
+                icon='mdi:navigation'
+                iconStyle={{
+                  transform: `rotate(${Number(windDir.state) || 0}deg)`,
+                  transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                }}
+                label='Direction'
+                value={windMode === 'cardinal' ? getCardinalDirection(Number(windDir.state) || 0) : formatRawValue(windDir.state, 0)}
+                unit={windMode === 'degree' ? '°' : undefined}
+                color='#cddc39'
+                onClick={() => setWindMode(prev => (prev === 'degree' ? 'cardinal' : 'degree'))}
+              />
             </div>
           </GlassCard>
 
