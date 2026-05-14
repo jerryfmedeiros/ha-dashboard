@@ -25,7 +25,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
   const isBinFullBinary2 = useEntity('binary_sensor.jq01009g24410010959_garbage_can_full');
 
   // --- PETS & FOUNTAIN ---
-  const feederEmpty = useEntity('binary_sensor.pet_feeder_empty_food');
+  const feederEmpty = useEntity('binary_sensor.pet_feeder_problem');
   const fountainWater = useEntity('sensor.smart_fountain_water_level');
   const fountainFilter = useEntity('sensor.smart_fountain_filter_life');
   const fountainPump = useEntity('sensor.smart_fountain_pump_cleaning_due');
