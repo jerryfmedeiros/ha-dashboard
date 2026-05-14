@@ -50,12 +50,14 @@ export const BigMetric = ({
   icon,
   label,
   value,
+  unit,
   color = '#fff',
   nightMode,
 }: {
   icon: string;
   label: string;
   value: DisplayValue;
+  unit?: string;
   color?: string;
   nightMode?: boolean;
 }) => (
@@ -70,13 +72,27 @@ export const BigMetric = ({
       borderRadius: '10px',
       border: nightMode ? '1px solid rgba(255, 68, 68, 0.1)' : '1px solid rgba(255, 255, 255, 0.02)',
       minWidth: 0,
-      gap: '2px',
+      gap: '1px',
     }}
   >
-    <Icon icon={icon} style={{ fontSize: '1.2rem', color: nightMode ? '#ff4444' : color, marginBottom: '2px' }} />
-    <span style={{ fontSize: '1rem', fontWeight: 900, color: nightMode ? '#ff4444' : '#fff', lineHeight: 1 }}>
-      <SafeValue value={value} />
-    </span>
+    <Icon icon={icon} style={{ fontSize: '1.2rem', color: nightMode ? '#ff4444' : color, marginBottom: '1px' }} />
+    <div style={{ display: 'flex', alignItems: 'baseline', gap: '2px' }}>
+      <span style={{ fontSize: '1.1rem', fontWeight: 900, color: nightMode ? '#ff4444' : '#fff', lineHeight: 1 }}>
+        <SafeValue value={value} />
+      </span>
+      {unit && (
+        <span
+          style={{
+            fontSize: '0.6rem',
+            fontWeight: 700,
+            color: nightMode ? 'rgba(255, 68, 68, 0.6)' : 'rgba(255,255,255,0.5)',
+            textTransform: 'lowercase',
+          }}
+        >
+          {unit}
+        </span>
+      )}
+    </div>
     <span
       style={{
         fontSize: '0.55rem',
