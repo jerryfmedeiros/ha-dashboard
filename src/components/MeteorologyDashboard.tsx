@@ -1,5 +1,7 @@
-import { useState } from 'react';
-import { useEntity } from '@hakit/core';
+import { useState, useMemo } from 'react';
+import { useEntity, useHistory } from '@hakit/core';
+import type { EntityName } from '@hakit/core';
+import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
 import { GlassCard, BigMetric } from './MetricUi.tsx';
 import * as styles from '../styles/MeteorologyDashboard.styles';
 
@@ -16,37 +18,118 @@ const getCardinalDirection = (degree: number) => {
   return arr[val % 16];
 };
 
+// --- SPARKLINE CHART COMPONENT ---
+const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: string }) => {
+  const historyData = useHistory(entityId, { hoursToShow: 12, significantChangesOnly: true });
+
+  const chartData = useMemo(() => {
+    if (!historyData || historyData.loading || !historyData.entityHistory) return null;
+    return (historyData.entityHistory as any[])
+      .map(entry => ({ value: Number(entry.state ?? entry.s) }))
+      .filter(entry => !isNaN(entry.value));
+  }, [historyData]);
+
+  if (!chartData || chartData.length === 0) {
+    return (
+      <div
+        style={{
+          height: '50px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          fontSize: '0.5rem',
+          color: 'rgba(255,255,255,0.2)',
+        }}
+      >
+        {historyData.loading ? 'Gathering history...' : 'No trend data'}
+      </div>
+    );
+  }
+
+  const values = chartData.map(d => d.value);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+
+  const gradientId = `spark-${entityId.replace(/\./g, '-')}`;
+
+  return (
+    <div style={{ width: '100%', height: '55px', marginTop: '4px', opacity: 1, position: 'relative' }}>
+      <ResponsiveContainer width='100%' height='100%'>
+        <AreaChart data={chartData} margin={{ top: 5, right: 2, left: 2, bottom: 5 }}>
+          <defs>
+            <linearGradient id={gradientId} x1='0' y1='0' x2='0' y2='1'>
+              <stop offset='0%' stopColor={color} stopOpacity={0.5} />
+              <stop offset='100%' stopColor={color} stopOpacity={0} />
+            </linearGradient>
+          </defs>
+
+          {/* YAxis handles the scaling/domain, hide it so it doesn't draw ticks/lines */}
+          <YAxis hide domain={[min - (max - min) * 0.1, max + (max - min) * 0.1]} />
+
+          <Area
+            type='monotone'
+            dataKey='value'
+            stroke={color}
+            strokeWidth={2}
+            fillOpacity={1}
+            fill={`url(#${gradientId})`}
+            isAnimationActive={true}
+            animationDuration={1000}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+};
+
 export function MeteorologyDashboard() {
   const [windMode, setWindMode] = useState<'degree' | 'cardinal'>('degree');
 
-  // Weather Station Sensors
-  const temp = useEntity('sensor.my_weather_station_temperature');
-  const feelsLike = useEntity('sensor.my_weather_station_feels_like');
-  const humidity = useEntity('sensor.my_weather_station_humidity');
-  const dewPoint = useEntity('sensor.my_weather_station_dew_point');
-  const relPressure = useEntity('sensor.my_weather_station_relative_pressure');
-  const absPressure = useEntity('sensor.my_weather_station_absolute_pressure');
-  const windSpeed = useEntity('sensor.my_weather_station_wind_speed');
-  const windGust = useEntity('sensor.my_weather_station_wind_gust');
-  const maxGust = useEntity('sensor.my_weather_station_max_gust');
-  const windDir = useEntity('sensor.my_weather_station_wind_direction');
-  const uvIndex = useEntity('sensor.my_weather_station_uv_index');
-  const illuminance = useEntity('sensor.my_weather_station_illuminance');
-  const irradiance = useEntity('sensor.my_weather_station_irradiance');
+  // Weather Station Sensors (GW3000B Hub)
+  const temp = useEntity('sensor.gw3000b_outdoor_temperature');
+  const feelsLike = useEntity('sensor.gw3000b_feels_like_temperature');
+  const humidity = useEntity('sensor.gw3000b_humidity');
+  const dewPoint = useEntity('sensor.gw3000b_dewpoint');
+  const absPressure = useEntity('sensor.gw3000b_absolute_pressure');
+  const windSpeed = useEntity('sensor.gw3000b_wind_speed');
+  const windDir = useEntity('sensor.gw3000b_wind_direction');
+  const dailyRain = useEntity('sensor.gw3000b_daily_rain');
+  const rain24h = useEntity('sensor.gw3000b_24h_rain');
+  const rainRate = useEntity('sensor.gw3000b_rain_rate');
 
-  const dailyRain = useEntity('sensor.my_weather_station_daily_rain');
-  const eventRain = useEntity('sensor.my_weather_station_event_rain');
-  const precipIntensity = useEntity('sensor.my_weather_station_precipitation_intensity');
+  // Solar Sensors
+  const solarLux = useEntity('sensor.gw3000b_solar_lux');
+  const solarRadiation = useEntity('sensor.gw3000b_solar_radiation');
+  const uvIndex = useEntity('sensor.gw3000b_uv_index');
 
-  // Sky Thermal Cam Sensors
-  const skyCondition = useEntity('sensor.sky_thermal_cam_sky_condition');
-  const skyRainSensor = useEntity('binary_sensor.sky_thermal_cam_rain_sensor');
-  const skyRainNumeric = useEntity('sensor.sky_thermal_cam_rain_numeric');
-  const skyBrightness = useEntity('sensor.sky_thermal_cam_sky_brightness');
-  const skyIlluminance = useEntity('sensor.sky_thermal_cam_illuminance');
+  // Alerts
+  const weatherWarnings = useEntity('sensor.calgary_warnings');
+  const hasAlert = weatherWarnings.state !== '0' && weatherWarnings.state !== 'unknown' && weatherWarnings.state !== 'unavailable';
+
+  // Dynamic Styles
+  const isRaining = Number(rainRate.state) > 0;
+  const isWindy = Number(windSpeed.state) > 30;
 
   return (
     <div style={styles.containerStyle}>
+      <style>{`
+        @keyframes sway {
+          0% { transform: rotate(-10deg); }
+          50% { transform: rotate(10deg); }
+          100% { transform: rotate(-10deg); }
+        }
+        @keyframes pulse-rain {
+          0% { box-shadow: 0 0 5px rgba(0, 188, 212, 0.2); }
+          50% { box-shadow: 0 0 20px rgba(0, 188, 212, 0.6); }
+          100% { box-shadow: 0 0 5px rgba(0, 188, 212, 0.2); }
+        }
+        @keyframes alert-pulse {
+          0% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
+          50% { opacity: 0.8; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+          100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
+        }
+      `}</style>
+
       <div style={styles.headerStyle}>
         <div>
           <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
@@ -57,6 +140,30 @@ export function MeteorologyDashboard() {
           </div>
         </div>
       </div>
+
+      {/* WEATHER ALERT BANNER */}
+      {hasAlert && (
+        <div
+          style={{
+            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+            border: '1px solid rgba(255, 68, 68, 0.5)',
+            borderRadius: '12px',
+            padding: '8px 16px',
+            marginBottom: '12px',
+            color: '#ff4444',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            fontSize: '0.8rem',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+            animation: 'alert-pulse 2s infinite',
+          }}
+        >
+          ⚠️ ACTIVE WEATHER WARNING FOR CALGARY
+          {weatherWarnings.attributes?.title && ` - ${weatherWarnings.attributes.title}`}
+        </div>
+      )}
 
       <div style={styles.mainGridStyle}>
         {/* COLUMN 1: CURRENT CONDITIONS & SKY */}
@@ -82,13 +189,6 @@ export function MeteorologyDashboard() {
               />
             </div>
           </GlassCard>
-
-          <div style={styles.sectionHeaderStyle}>Sky Analysis</div>
-          <GlassCard title={skyCondition.state?.replace('_', ' ') || 'Sky Status'}>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:brightness-6' label='Brightness' value={formatRawValue(skyBrightness.state, 0)} color='#ffeb3b' />
-            </div>
-          </GlassCard>
         </div>
 
         {/* COLUMN 2: WIND & PRESSURE */}
@@ -96,9 +196,14 @@ export function MeteorologyDashboard() {
           <div style={styles.sectionHeaderStyle}>Wind Dynamics</div>
           <GlassCard title='Wind Speed & Direction'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:weather-windy' label='Speed' value={formatRawValue(windSpeed.state, 1)} unit='km/h' color='#4caf50' />
-              <BigMetric icon='mdi:wind-power' label='Gust' value={formatRawValue(windGust.state, 1)} unit='km/h' color='#8bc34a' />
-              <BigMetric icon='mdi:speedometer' label='Max Gust' value={formatRawValue(maxGust.state, 1)} unit='km/h' color='#4caf50' />
+              <BigMetric
+                icon='mdi:weather-windy'
+                iconStyle={isWindy ? { animation: 'sway 0.5s infinite ease-in-out' } : undefined}
+                label='Speed'
+                value={formatRawValue(windSpeed.state, 1)}
+                unit='km/h'
+                color='#4caf50'
+              />
               <BigMetric
                 icon='mdi:navigation'
                 iconStyle={{
@@ -115,10 +220,18 @@ export function MeteorologyDashboard() {
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Barometric Pressure</div>
-          <GlassCard title='Pressure Readings'>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:gauge' label='Relative' value={formatRawValue(relPressure.state, 1)} unit='hPa' color='#607d8b' />
-              <BigMetric icon='mdi:gauge-empty' label='Absolute' value={formatRawValue(absPressure.state, 1)} unit='hPa' color='#455a64' />
+          <GlassCard title='Pressure Trend'>
+            <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
+              <div style={styles.cardGridStyle}>
+                <BigMetric
+                  icon='mdi:gauge-empty'
+                  label='Absolute'
+                  value={formatRawValue(absPressure.state, 1)}
+                  unit='hPa'
+                  color='#455a64'
+                />
+              </div>
+              <SparklineChart entityId='sensor.gw3000b_absolute_pressure' color='#455a64' />
             </div>
           </GlassCard>
         </div>
@@ -126,20 +239,21 @@ export function MeteorologyDashboard() {
         {/* COLUMN 3: PRECIPITATION & SOLAR */}
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Precipitation Tracking</div>
-          <GlassCard title={`Rain Status: ${skyRainSensor.state}`}>
-            <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatRawValue(dailyRain.state, 1)} unit='mm' color='#2196f3' />
-              <BigMetric
-                icon='mdi:weather-pouring'
-                label='Intensity'
-                value={formatRawValue(precipIntensity.state, 1)}
-                unit='mm/h'
-                color='#00bcd4'
-              />
-              <BigMetric icon='mdi:numeric' label='Sky Rain' value={formatRawValue(skyRainNumeric.state, 1)} unit='mm' color='#03a9f4' />
-              <BigMetric icon='mdi:calendar-star' label='Event' value={formatRawValue(eventRain.state, 1)} unit='mm' color='#4caf50' />
-            </div>
-          </GlassCard>
+          <div style={isRaining ? { animation: 'pulse-rain 2s infinite', borderRadius: '16px' } : undefined}>
+            <GlassCard title='Rain Accumulation'>
+              <div style={styles.cardGridStyle}>
+                <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatRawValue(dailyRain.state, 1)} unit='mm' color='#2196f3' />
+                <BigMetric icon='mdi:history' label='24h Rain' value={formatRawValue(rain24h.state, 1)} unit='mm' color='#3f51b5' />
+                <BigMetric
+                  icon='mdi:weather-pouring'
+                  label='Rain Rate'
+                  value={formatRawValue(rainRate.state, 1)}
+                  unit='mm/h'
+                  color='#00bcd4'
+                />
+              </div>
+            </GlassCard>
+          </div>
 
           <div style={styles.sectionHeaderStyle}>Solar & Light</div>
           <GlassCard title='Radiation'>
@@ -148,24 +262,11 @@ export function MeteorologyDashboard() {
               <BigMetric
                 icon='mdi:solar-power'
                 label='Irradiance'
-                value={formatRawValue(irradiance.state, 0)}
+                value={formatRawValue(solarRadiation.state, 0)}
                 unit='W/m²'
                 color='#ff9800'
               />
-              <BigMetric
-                icon='mdi:brightness-5'
-                label='Station Lux'
-                value={formatRawValue(illuminance.state, 0)}
-                unit='lx'
-                color='#ffc107'
-              />
-              <BigMetric
-                icon='mdi:lightbulb-on'
-                label='Sky Lux'
-                value={formatRawValue(skyIlluminance.state, 0)}
-                unit='lx'
-                color='#ffc107'
-              />
+              <BigMetric icon='mdi:brightness-5' label='Illuminance' value={formatRawValue(solarLux.state, 0)} unit='lx' color='#ffc107' />
             </div>
           </GlassCard>
         </div>

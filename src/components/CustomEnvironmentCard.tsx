@@ -25,8 +25,8 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
 
   const weather = useEntity('weather.openweathermap');
   const uv = useEntity('sensor.calgary_uv_index');
-  const windDir = useEntity('sensor.my_weather_station_wind_direction');
-  const windSpeed = useEntity('sensor.my_weather_station_wind_speed');
+  const windDir = useEntity('sensor.gw3000b_wind_direction');
+  const windSpeed = useEntity('sensor.gw3000b_wind_speed');
   const feelsLike = useEntity('sensor.openweathermap_apparent_temperature');
 
   const flightSensor = useEntity('sensor.current_flights_overhead');

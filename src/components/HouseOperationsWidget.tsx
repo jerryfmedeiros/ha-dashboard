@@ -38,18 +38,41 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
   const water = useEntity('sensor.house_water_daily' as never) as unknown as BasicSensor;
   const gas = useEntity('sensor.house_gas_daily' as never) as unknown as BasicSensor;
 
+  const elecLive = useEntity('sensor.energy_monitor_power_minute_average');
+  const waterLive = useEntity('sensor.house_water_flow_rate');
+  const gasLive = useEntity('sensor.house_gas_flow_rate');
+
+  const isElecActive = Number(elecLive.state) > 10;
+  const isWaterActive = Number(waterLive.state) > 0.5;
+  const isGasActive = Number(gasLive.state) > 0.1;
+
   // This size stays the same for the top utilities row
   const iconSize = '1.2rem';
 
   return (
     <div onClick={onClick} style={styles.containerStyle} className='glass-card'>
+      <style>{`
+        @keyframes utility-pulse {
+          0% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+          50% { transform: scale(1.2); filter: drop-shadow(0 0 8px currentColor); }
+          100% { transform: scale(1); filter: drop-shadow(0 0 0px transparent); }
+        }
+      `}</style>
+
       {/* UTILITIES SECTION */}
       <div>
         <div style={styles.sectionTitleStyle}>Usage Today</div>
         <div style={styles.utilitiesRowStyle}>
           {/* ELECTRICITY */}
           <div style={styles.utilityItemStyle}>
-            <Icon icon='mdi:flash' style={{ fontSize: iconSize, color: '#FFD700' }} />
+            <Icon
+              icon='mdi:flash'
+              style={{
+                fontSize: iconSize,
+                color: '#FFD700',
+                animation: isElecActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
+              }}
+            />
             <div style={styles.utilityValueStyle}>
               {formatUtility(electricity?.state, 1)}
               <span style={styles.utilityUnitStyle}>kWh</span>
@@ -58,7 +81,14 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
 
           {/* WATER */}
           <div style={styles.utilityItemStyle}>
-            <Icon icon='mdi:water' style={{ fontSize: iconSize, color: '#00d4ff' }} />
+            <Icon
+              icon='mdi:water'
+              style={{
+                fontSize: iconSize,
+                color: '#00d4ff',
+                animation: isWaterActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
+              }}
+            />
             <div style={styles.utilityValueStyle}>
               {formatUtility(water?.state, 0)}
               <span style={styles.utilityUnitStyle}>L</span>
@@ -67,7 +97,14 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
 
           {/* GAS */}
           <div style={styles.utilityItemStyle}>
-            <Icon icon='mdi:fire' style={{ fontSize: iconSize, color: '#ff5722' }} />
+            <Icon
+              icon='mdi:fire'
+              style={{
+                fontSize: iconSize,
+                color: '#ff5722',
+                animation: isGasActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
+              }}
+            />
             <div style={styles.utilityValueStyle}>
               {formatUtility(gas?.state, 2)}
               <span style={styles.utilityUnitStyle}>m³</span>

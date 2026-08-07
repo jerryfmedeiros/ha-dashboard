@@ -34,6 +34,41 @@ const formatCurrency = (val: string | number | undefined) => {
 };
 
 // ==========================================
+// LIVE FLOW INDICATOR
+// ==========================================
+const LiveFlowIndicator = ({ isActive, color }: { isActive: boolean; color: string }) => {
+  return (
+    <div
+      style={{
+        width: '4px',
+        height: '30px',
+        backgroundColor: 'rgba(0,0,0,0.2)',
+        borderRadius: '2px',
+        margin: '0 auto',
+        position: 'relative',
+        overflow: 'hidden',
+        opacity: isActive ? 1 : 0.2,
+        transition: 'opacity 0.5s ease',
+      }}
+    >
+      {isActive && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '-100%',
+            left: 0,
+            right: 0,
+            height: '100%',
+            background: `linear-gradient(to bottom, transparent, ${color}, transparent)`,
+            animation: 'flowDown 1.5s linear infinite',
+          }}
+        />
+      )}
+    </div>
+  );
+};
+
+// ==========================================
 // CUSTOM CHART COMPONENT
 // ==========================================
 const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: string; unit: string }) => {
@@ -71,7 +106,7 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
     <ResponsiveContainer width='100%' height='100%'>
       <AreaChart data={chartData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
         <defs>
-          <linearGradient id={`color-${entityId}`} x1='0' y1='0' x2='0' y2='1'>
+          <linearGradient id={`color-${entityId.replace(/[\.\_]/g, '-')}`} x1='0' y1='0' x2='0' y2='1'>
             <stop offset='5%' stopColor={color} stopOpacity={0.4} />
             <stop offset='95%' stopColor={color} stopOpacity={0} />
           </linearGradient>
@@ -90,7 +125,6 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
             borderRadius: '12px',
           }}
           itemStyle={{ color: color, fontWeight: 800 }}
-          // FIXED: Use 'readonly' to satisfy the strict Recharts Tooltip types
           formatter={(value: string | number | readonly (string | number)[] | undefined) => {
             const num = Number(Array.isArray(value) ? value[0] : value);
             const displayValue = !isNaN(num) ? num.toFixed(2) : '--';
@@ -104,7 +138,7 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
           stroke={color}
           strokeWidth={2}
           fillOpacity={1}
-          fill={`url(#color-${entityId})`}
+          fill={`url(#color-${entityId.replace(/[\.\_]/g, '-')})`}
           isAnimationActive={true}
         />
       </AreaChart>
@@ -122,6 +156,7 @@ export function UtilitiesDetails() {
   const elecTotal = useEntity('sensor.house_electricity_lifetime_total' as never) as unknown as BasicSensor;
   const elecCostToday = useEntity('sensor.house_electricity_cost_today' as never) as unknown as BasicSensor;
   const elecCostMonth = useEntity('sensor.house_electricity_cost_month' as never) as unknown as BasicSensor;
+  const elecLive = useEntity('sensor.energy_monitor_power_minute_average' as never) as unknown as BasicSensor;
 
   // --- WATER ---
   const waterDaily = useEntity('sensor.house_water_daily' as never) as unknown as BasicSensor;
@@ -129,6 +164,7 @@ export function UtilitiesDetails() {
   const waterTotal = useEntity('sensor.house_water_house_water_2' as never) as unknown as BasicSensor;
   const waterCostToday = useEntity('sensor.house_water_cost_today' as never) as unknown as BasicSensor;
   const waterCostMonth = useEntity('sensor.house_water_cost_monthly' as never) as unknown as BasicSensor;
+  const waterLive = useEntity('sensor.house_water_flow_rate' as never) as unknown as BasicSensor;
 
   // --- GAS ---
   const gasDaily = useEntity('sensor.house_gas_daily' as never) as unknown as BasicSensor;
@@ -136,15 +172,25 @@ export function UtilitiesDetails() {
   const gasTotal = useEntity('sensor.house_gas_m3' as never) as unknown as BasicSensor;
   const gasCostToday = useEntity('sensor.house_gas_cost_today' as never) as unknown as BasicSensor;
   const gasCostMonth = useEntity('sensor.house_gas_cost_month' as never) as unknown as BasicSensor;
+  const gasLive = useEntity('sensor.house_gas_flow_rate' as never) as unknown as BasicSensor;
 
   return (
     <div style={styles.popupContainerStyle}>
+      <style>{`
+        @keyframes flowDown {
+          0% { transform: translateY(0); }
+          100% { transform: translateY(200%); }
+        }
+      `}</style>
+
       {/* ELECTRICITY COLUMN */}
       <div style={styles.columnStyle}>
         <div style={styles.headerStyle}>
           <Icon icon='mdi:flash' style={{ fontSize: '1.8rem', color: '#FFD700' }} />
           <span style={styles.headerTitleStyle}>Electricity</span>
         </div>
+
+        <LiveFlowIndicator isActive={Number(elecLive?.state) > 10} color='#FFD700' />
 
         <div style={styles.dataRowStyle}>
           <div>
@@ -187,6 +233,8 @@ export function UtilitiesDetails() {
           <Icon icon='mdi:water' style={{ fontSize: '1.8rem', color: '#00d4ff' }} />
           <span style={styles.headerTitleStyle}>Water</span>
         </div>
+
+        <LiveFlowIndicator isActive={Number(waterLive?.state) > 0.5} color='#00d4ff' />
 
         <div style={styles.dataRowStyle}>
           <div>
@@ -231,6 +279,8 @@ export function UtilitiesDetails() {
           <Icon icon='mdi:fire' style={{ fontSize: '1.8rem', color: '#ff5722' }} />
           <span style={styles.headerTitleStyle}>Gas</span>
         </div>
+
+        <LiveFlowIndicator isActive={Number(gasLive?.state) > 0.1} color='#ff5722' />
 
         <div style={styles.dataRowStyle}>
           <div>
