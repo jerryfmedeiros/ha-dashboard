@@ -102,11 +102,14 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
     );
   }
 
+  // Single source of truth so the <defs> id and the fill url() can never drift.
+  const gradientId = `color-${entityId.replace(/[._]/g, '-')}`;
+
   return (
     <ResponsiveContainer width='100%' height='100%'>
       <AreaChart data={chartData} margin={{ top: 5, right: 5, left: -25, bottom: 0 }}>
         <defs>
-          <linearGradient id={`color-${entityId.replace(/[\.\_]/g, '-')}`} x1='0' y1='0' x2='0' y2='1'>
+          <linearGradient id={gradientId} x1='0' y1='0' x2='0' y2='1'>
             <stop offset='5%' stopColor={color} stopOpacity={0.4} />
             <stop offset='95%' stopColor={color} stopOpacity={0} />
           </linearGradient>
@@ -138,7 +141,7 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
           stroke={color}
           strokeWidth={2}
           fillOpacity={1}
-          fill={`url(#color-${entityId.replace(/[\.\_]/g, '-')})`}
+          fill={`url(#${gradientId})`}
           isAnimationActive={true}
         />
       </AreaChart>

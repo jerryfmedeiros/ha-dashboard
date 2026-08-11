@@ -29,18 +29,26 @@ interface ControllerProps {
 export function AutoDashboardController({ activeView, setActiveView }: ControllerProps) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Which rules are currently firing. Several rules can share one targetView
+  // (both cat sensors point at 'cats'), so we only leave a view once EVERY
+  // rule for it has cleared — otherwise one sensor going quiet would drag the
+  // user away while the other is still active.
+  const activeRulesRef = useRef<Set<string>>(new Set());
+
   // If the user manually clicks the sidebar to go to a different dashboard,
   // kill the timeout so we don't yank them back to the Overview randomly.
   useEffect(() => {
     const isAutoTriggeredView = DASHBOARD_RULES.some(rule => rule.targetView === activeView);
     if (!isAutoTriggeredView && timeoutRef.current) {
       clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
   }, [activeView]);
 
   // Fired whenever any Watcher says "I just triggered!"
   const handleTrigger = useCallback(
-    (targetView: string, timeoutMs: number) => {
+    (entityId: string, targetView: string, timeoutMs: number) => {
+      activeRulesRef.current.add(entityId);
       setActiveView(targetView);
 
       // Reset the central timer
@@ -54,11 +62,19 @@ export function AutoDashboardController({ activeView, setActiveView }: Controlle
 
   // Fired whenever any Watcher says "I just cleared!"
   const handleClear = useCallback(
-    (targetView: string) => {
+    (entityId: string, targetView: string) => {
+      activeRulesRef.current.delete(entityId);
+
+      // Another sensor may still be holding this view open (e.g. the cat left
+      // the litter box but is still at the feeder) — stay put if so.
+      const stillHeld = DASHBOARD_RULES.some(rule => rule.targetView === targetView && activeRulesRef.current.has(rule.entityId));
+      if (stillHeld) return;
+
       // Only return to overview if we are currently looking at the view that was triggered
       setActiveView(currentView => {
         if (currentView === targetView) {
           if (timeoutRef.current) clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
           return 'overview';
         }
         return currentView;
@@ -81,8 +97,8 @@ export function AutoDashboardController({ activeView, setActiveView }: Controlle
           key={rule.entityId}
           entityId={rule.entityId as EntityName}
           triggerState='on'
-          onTrigger={() => handleTrigger(rule.targetView, rule.timeoutMs)}
-          onClear={() => handleClear(rule.targetView)}
+          onTrigger={() => handleTrigger(rule.entityId, rule.targetView, rule.timeoutMs)}
+          onClear={() => handleClear(rule.entityId, rule.targetView)}
         />
       ))}
     </>

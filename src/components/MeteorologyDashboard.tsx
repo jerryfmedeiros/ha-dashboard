@@ -24,7 +24,8 @@ const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: stri
 
   const chartData = useMemo(() => {
     if (!historyData || historyData.loading || !historyData.entityHistory) return null;
-    return (historyData.entityHistory as any[])
+    // HA history rows arrive either expanded ({ state }) or minified ({ s }).
+    return (historyData.entityHistory as ReadonlyArray<{ state?: string | number; s?: string | number }>)
       .map(entry => ({ value: Number(entry.state ?? entry.s) }))
       .filter(entry => !isNaN(entry.value));
   }, [historyData]);
@@ -50,6 +51,12 @@ const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: stri
   const min = Math.min(...values);
   const max = Math.max(...values);
 
+  // A flat series (common for pressure over 12h) gives max - min === 0, which
+  // would produce a zero-width domain and render nothing. Fall back to a small
+  // absolute pad so the line still draws, centred.
+  const spread = max - min;
+  const pad = spread > 0 ? spread * 0.1 : Math.max(Math.abs(max) * 0.001, 0.5);
+
   const gradientId = `spark-${entityId.replace(/\./g, '-')}`;
 
   return (
@@ -64,7 +71,7 @@ const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: stri
           </defs>
 
           {/* YAxis handles the scaling/domain, hide it so it doesn't draw ticks/lines */}
-          <YAxis hide domain={[min - (max - min) * 0.1, max + (max - min) * 0.1]} />
+          <YAxis hide domain={[min - pad, max + pad]} />
 
           <Area
             type='monotone'
@@ -123,7 +130,9 @@ export function MeteorologyDashboard() {
           50% { box-shadow: 0 0 20px rgba(0, 188, 212, 0.6); }
           100% { box-shadow: 0 0 5px rgba(0, 188, 212, 0.2); }
         }
-        @keyframes alert-pulse {
+        /* Namespaced: 'alert-pulse' is already taken by MainDashboard.styles.ts
+           with a different body, and @keyframes are global. */
+        @keyframes weather-alert-pulse {
           0% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
           50% { opacity: 0.8; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
           100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
@@ -157,7 +166,7 @@ export function MeteorologyDashboard() {
             display: 'flex',
             alignItems: 'center',
             gap: '8px',
-            animation: 'alert-pulse 2s infinite',
+            animation: 'weather-alert-pulse 2s infinite',
           }}
         >
           ⚠️ ACTIVE WEATHER WARNING FOR CALGARY

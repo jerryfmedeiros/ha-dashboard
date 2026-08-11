@@ -2,6 +2,7 @@ import { useEffect, useRef, useMemo } from 'react';
 import { useEntity, useEntities, useService } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/MainDashboard.styles';
+import { formatScaled, isUnavailable } from '../utils/format';
 
 export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
   // ==========================================
@@ -63,9 +64,12 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
   const maxCO2 = getMaxValue(co2Sensors);
   const maxVOC = getMaxValue(vocSensors);
 
-  const waterValueRaw = Number(fountainWater.state) || 0;
-  const waterLiters = (waterValueRaw / 1000).toFixed(1);
-  const isVacuumCleaning = vacuumStatus.state.toLowerCase().includes('cleaning');
+  // NB: an offline fountain must NOT read as 0 — that would trip the low-water
+  // badge and wake the tablet screen every time the sensor drops out.
+  const waterValueRaw = isUnavailable(fountainWater.state) ? null : Number(fountainWater.state);
+  const isFountainLow = waterValueRaw !== null && !isNaN(waterValueRaw) && waterValueRaw < 900;
+  const waterLiters = formatScaled(fountainWater.state, 1000, 1);
+  const isVacuumCleaning = vacuumStatus.state?.toLowerCase().includes('cleaning') ?? false;
   const isGarbageTomorrow = Object.values(binSensors).some(s => Number(s.state) === 1);
 
   // ==========================================
@@ -85,7 +89,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
       dryerFinished.state === 'on' && 'dryer_done',
       dishwasherFinished.state === 'on' && 'dishwasher_done',
       feederEmpty.state === 'on' && 'feeder_empty',
-      waterValueRaw <= 900 && 'fountain_low',
+      isFountainLow && 'fountain_low',
       Number(fountainFilter.state) <= 0 && 'fountain_filter',
       Number(fountainPump.state) <= 0 && 'fountain_pump',
       // Combined Litter Logic (Screen wakes if either box has an issue)
@@ -112,7 +116,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
     dryerFinished.state,
     dishwasherFinished.state,
     feederEmpty.state,
-    waterValueRaw,
+    isFountainLow,
     fountainFilter.state,
     fountainPump.state,
     isBinFullBinary.state,
@@ -328,7 +332,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
       )}
 
       {/* FOUNTAIN ALERTS */}
-      {waterValueRaw < 900 && (
+      {isFountainLow && (
         <div style={styles.getBadgeStyle('#ff4d4d', true)}>
           <Icon icon='mdi:water-percent-alert' style={styles.badgeIconStyle} />
           <span>FOUNTAIN LOW: {waterLiters}L</span>

@@ -4,6 +4,7 @@ import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/CatsDashboard.styles';
 import { BigMetric, GlassCard } from './MetricUi';
+import { formatScaled, formatWithUnit } from '../utils/format';
 
 // ==========================================
 // TYPES & HELPER COMPONENTS
@@ -184,9 +185,9 @@ export function CatsDashboard() {
                 value={feederEmpty?.state === 'on' ? 'Empty' : 'OK'}
                 color={feederEmpty?.state === 'on' ? '#f44336' : '#4caf50'}
               />
-              <BigMetric icon='mdi:water-percent' label='Water' value={(Number(fountainWater.state) / 1000).toFixed(1)} color='#03a9f4' />
-              <BigMetric icon='mdi:air-filter' label='Filter' value={`${fountainFilter?.state}d`} color='#9c27b0' />
-              <BigMetric icon='mdi:water-pump' label='Pump' value={`${fountainPump?.state}d`} color='#ff9800' />
+              <BigMetric icon='mdi:water-percent' label='Water' value={formatScaled(fountainWater?.state, 1000, 1)} color='#03a9f4' />
+              <BigMetric icon='mdi:air-filter' label='Filter' value={formatWithUnit(fountainFilter?.state, 'd')} color='#9c27b0' />
+              <BigMetric icon='mdi:water-pump' label='Pump' value={formatWithUnit(fountainPump?.state, 'd')} color='#ff9800' />
             </div>
 
             <div

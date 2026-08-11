@@ -43,9 +43,21 @@ export function MainDashboard() {
 
     const intervalId = setInterval(refreshCameras, 10 * 60 * 1000);
 
+    // Nightly reload. Checking for an exact HH:MM is unreliable — setInterval
+    // drifts and the 03:00 minute can be missed entirely, skipping the reload
+    // for another 24h. Instead, reload the first time we observe a tick at or
+    // past 03:00 on a date we haven't reloaded for yet.
+    const REFRESH_HOUR = 3;
+    const dayKey = (d: Date) => d.toDateString();
+    // Seed with today if we're already past the hour, so a mount at 09:00
+    // doesn't reload immediately.
+    const startup = new Date();
+    let lastRefreshDay = startup.getHours() >= REFRESH_HOUR ? dayKey(startup) : null;
+
     const dailyRefreshInterval = setInterval(() => {
       const now = new Date();
-      if (now.getHours() === 3 && now.getMinutes() === 0) {
+      if (now.getHours() >= REFRESH_HOUR && lastRefreshDay !== dayKey(now)) {
+        lastRefreshDay = dayKey(now);
         window.location.reload();
       }
     }, 60000);

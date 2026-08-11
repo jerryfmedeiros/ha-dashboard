@@ -5,11 +5,14 @@ import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from '../components/MetricUi';
 import * as styles from '../styles/SecurityDashboard.styles';
 
-type SecurityCamera =
-  | 'camera.reolink_video_doorbell_camera_fluent'
-  | 'camera.back_door_fluent'
-  | 'camera.front_yard_fluent'
-  | 'camera.back_yard_fluent';
+const SECURITY_CAMERAS = [
+  { entity: 'camera.reolink_video_doorbell_camera_fluent', label: 'Doorbell' },
+  { entity: 'camera.back_door_fluent', label: 'Back Door' },
+  { entity: 'camera.front_yard_fluent', label: 'Front Yard' },
+  { entity: 'camera.back_yard_fluent', label: 'Back Yard' },
+] as const;
+
+type SecurityCamera = (typeof SECURITY_CAMERAS)[number]['entity'];
 
 interface AlarmService {
   alarmArmHome: (args?: { code?: string }) => void;
@@ -72,23 +75,16 @@ export function SecurityDashboard() {
       <div style={styles.macroLayoutStyle}>
         {/* CAMERA GRID */}
         <div style={{ ...styles.cameraGridStyle, flex: 1.8 }}>
-          {(
-            [
-              'camera.reolink_video_doorbell_camera_fluent',
-              'camera.back_door_fluent',
-              'camera.front_yard_fluent',
-              'camera.back_yard_fluent',
-            ] as const
-          ).map(cam => (
+          {SECURITY_CAMERAS.map(cam => (
             <div
-              key={cam}
+              key={cam.entity}
               style={{ ...styles.cameraWrapperStyle, position: 'relative', overflow: 'hidden', cursor: 'pointer' }}
-              onClick={() => setExpandedCamera(cam)}
+              onClick={() => setExpandedCamera(cam.entity)}
             >
               {/* THE FIX: Click catcher overlay ensures the div's onClick fires */}
               <div style={{ position: 'absolute', inset: 0, zIndex: 10 }} />
 
-              <CameraCard hideName entity={cam} view='motion' hideFooter hideViewControls style={styles.cameraCardStyle} />
+              <CameraCard hideName entity={cam.entity} view='motion' hideFooter hideViewControls style={styles.cameraCardStyle} />
 
               <div
                 style={{
@@ -104,7 +100,7 @@ export function SecurityDashboard() {
                   color: '#fff',
                 }}
               >
-                {cam.split('_')[1]?.toUpperCase() || 'CAM'}
+                {cam.label.toUpperCase()}
               </div>
             </div>
           ))}
