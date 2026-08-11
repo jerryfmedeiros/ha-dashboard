@@ -1,8 +1,10 @@
 // this is an auto generated file, do not change this manually
 
-import { ServiceFunction, ServiceFunctionTypes } from '@hakit/core';
-declare module '@hakit/core' {
-  export interface CustomSupportedServices<T extends ServiceFunctionTypes = 'target'> {
+import { ServiceFunction, ServiceFunctionTypes } from "@hakit/core";
+declare module "@hakit/core" {
+  export interface CustomSupportedServices<
+    T extends ServiceFunctionTypes = "target",
+  > {
     homeassistant: {
       // undefined
       savePersistentStates: ServiceFunction<object, T, object>;
@@ -49,7 +51,7 @@ declare module '@hakit/core' {
         object,
         T,
         {
-          //  @example 8955375327824e14ba89e4b29cc3ec9a @constraints  config_entry:
+          //  @constraints  config_entry:
           entry_id?: unknown;
         }
       >;
@@ -93,7 +95,7 @@ declare module '@hakit/core' {
           //  @example Something went wrong
           message: string;
           //
-          level?: 'debug' | 'info' | 'warning' | 'error' | 'critical';
+          level?: "debug" | "info" | "warning" | "error" | "critical";
           //  @example mycomponent.myplatform
           logger?: string;
         }
@@ -106,7 +108,7 @@ declare module '@hakit/core' {
         T,
         {
           //
-          level?: 'debug' | 'info' | 'warning' | 'error' | 'fatal' | 'critical';
+          level?: "debug" | "info" | "warning" | "error" | "fatal" | "critical";
         }
       >;
       // undefined
@@ -172,51 +174,190 @@ declare module '@hakit/core' {
           //  @example sensor.energy_consumption,sensor.temperature @constraints  statistic: multiple: true
           statistic_ids: unknown;
           //  @example hour
-          period: '5minute' | 'hour' | 'day' | 'week' | 'month';
+          period: "5minute" | "hour" | "day" | "week" | "month" | "year";
           //  @example mean,sum
-          types: 'change' | 'last_reset' | 'max' | 'mean' | 'min' | 'state' | 'sum';
+          types:
+            | "change"
+            | "last_reset"
+            | "max"
+            | "mean"
+            | "min"
+            | "state"
+            | "sum";
           //  @example [object Object] @constraints  object: multiple: false
           units?: object;
         }
       >;
     };
+    mediaPlayer: {
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+      // undefined
+      volumeUp: ServiceFunction<object, T, object>;
+      // undefined
+      volumeDown: ServiceFunction<object, T, object>;
+      // undefined
+      mediaPlayPause: ServiceFunction<object, T, object>;
+      // undefined
+      mediaPlay: ServiceFunction<object, T, object>;
+      // undefined
+      mediaPause: ServiceFunction<object, T, object>;
+      // undefined
+      mediaStop: ServiceFunction<object, T, object>;
+      // undefined
+      mediaNextTrack: ServiceFunction<object, T, object>;
+      // undefined
+      mediaPreviousTrack: ServiceFunction<object, T, object>;
+      // undefined
+      clearPlaylist: ServiceFunction<object, T, object>;
+      // undefined
+      volumeSet: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 1, step: 0.01, mode: slider
+          volume_level: number;
+        }
+      >;
+      // undefined
+      volumeMute: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          is_volume_muted: boolean;
+        }
+      >;
+      // undefined
+      mediaSeek: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 9223372036854776000, step: 0.01, mode: box
+          seek_position: number;
+        }
+      >;
+      // undefined
+      join: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example - media_player.multiroom_player2 - media_player.multiroom_player3
+          group_members: string[];
+        }
+      >;
+      // undefined
+      selectSource: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example video1 @constraints  state: attribute: source, multiple: false
+          source: unknown;
+        }
+      >;
+      // undefined
+      selectSoundMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Music @constraints  state: attribute: sound_mode, multiple: false
+          sound_mode?: unknown;
+        }
+      >;
+      // undefined
+      playMedia: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example {'media_content_id': 'https://home-assistant.io/images/cast/splash.png', 'media_content_type': 'music'} @constraints  media: multiple: false
+          media: unknown;
+          //
+          enqueue?: "play" | "next" | "add" | "replace";
+          //  @example true @constraints  boolean:
+          announce?: boolean;
+        }
+      >;
+      // undefined
+      browseMedia: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example music
+          media_content_type?: string;
+          //  @example A:ALBUMARTIST/Beatles
+          media_content_id?: string | number;
+        }
+      >;
+      // undefined
+      searchMedia: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Beatles
+          search_query: string;
+          //  @example music
+          media_content_type?: string;
+          //  @example A:ALBUMARTIST/Beatles
+          media_content_id?: string | number;
+          //  @example album,artist
+          media_filter_classes?: string;
+        }
+      >;
+      // undefined
+      shuffleSet: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          shuffle: boolean;
+        }
+      >;
+      // undefined
+      unjoin: ServiceFunction<object, T, object>;
+      // undefined
+      repeatSet: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          repeat: "off" | "all" | "one";
+        }
+      >;
+    };
+    ffmpeg: {
+      // undefined
+      start: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          entity_id?: string;
+        }
+      >;
+      // undefined
+      stop: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          entity_id?: string;
+        }
+      >;
+      // undefined
+      restart: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          entity_id?: string;
+        }
+      >;
+    };
     hassio: {
-      // undefined
-      addonStart: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example core_ssh @constraints  addon:
-          addon: string;
-        }
-      >;
-      // undefined
-      addonStop: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example core_ssh @constraints  addon:
-          addon: string;
-        }
-      >;
-      // undefined
-      addonRestart: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example core_ssh @constraints  addon:
-          addon: string;
-        }
-      >;
-      // undefined
-      addonStdin: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example core_ssh @constraints  addon:
-          addon: string;
-        }
-      >;
       // undefined
       appStart: ServiceFunction<
         object,
@@ -227,7 +368,7 @@ declare module '@hakit/core' {
         }
       >;
       // undefined
-      appStop: ServiceFunction<
+      appRestart: ServiceFunction<
         object,
         T,
         {
@@ -236,7 +377,7 @@ declare module '@hakit/core' {
         }
       >;
       // undefined
-      appRestart: ServiceFunction<
+      appStop: ServiceFunction<
         object,
         T,
         {
@@ -256,9 +397,45 @@ declare module '@hakit/core' {
         }
       >;
       // undefined
-      hostShutdown: ServiceFunction<object, T, object>;
+      addonStart: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example core_ssh @constraints  addon:
+          addon: string;
+        }
+      >;
+      // undefined
+      addonRestart: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example core_ssh @constraints  addon:
+          addon: string;
+        }
+      >;
+      // undefined
+      addonStop: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example core_ssh @constraints  addon:
+          addon: string;
+        }
+      >;
+      // undefined
+      addonStdin: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example core_ssh @constraints  addon:
+          addon: string;
+        }
+      >;
       // undefined
       hostReboot: ServiceFunction<object, T, object>;
+      // undefined
+      hostShutdown: ServiceFunction<object, T, object>;
       // undefined
       backupFull: ServiceFunction<
         object,
@@ -331,43 +508,15 @@ declare module '@hakit/core' {
           password?: string;
         }
       >;
-    };
-    ffmpeg: {
       // undefined
-      start: ServiceFunction<
+      mountReload: ServiceFunction<
         object,
         T,
         {
           //
-          entity_id?: string;
+          device_id: string;
         }
       >;
-      // undefined
-      stop: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          entity_id?: string;
-        }
-      >;
-      // undefined
-      restart: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          entity_id?: string;
-        }
-      >;
-    };
-    switch: {
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
     };
     update: {
       // undefined
@@ -385,6 +534,34 @@ declare module '@hakit/core' {
       skip: ServiceFunction<object, T, object>;
       // undefined
       clearSkipped: ServiceFunction<object, T, object>;
+    };
+    conversation: {
+      // undefined
+      process: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Turn all lights on
+          text: string;
+          //  @example NL
+          language?: string;
+          //  @example homeassistant @constraints  conversation_agent:
+          agent_id?: string;
+          //  @example my_conversation_1
+          conversation_id?: string;
+        }
+      >;
+      // undefined
+      reload: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example NL
+          language?: string;
+          //  @example homeassistant @constraints  conversation_agent:
+          agent_id?: string;
+        }
+      >;
     };
     tts: {
       // undefined
@@ -424,39 +601,93 @@ declare module '@hakit/core' {
         }
       >;
     };
-    conversation: {
+    historyStats: {
       // undefined
-      process: ServiceFunction<
+      reload: ServiceFunction<object, T, object>;
+    };
+    counter: {
+      // undefined
+      increment: ServiceFunction<object, T, object>;
+      // undefined
+      decrement: ServiceFunction<object, T, object>;
+      // undefined
+      reset: ServiceFunction<object, T, object>;
+      // undefined
+      setValue: ServiceFunction<
         object,
         T,
         {
-          //  @example Turn all lights on
-          text: string;
-          //  @example NL
-          language?: string;
-          //  @example homeassistant @constraints  conversation_agent:
-          agent_id?: string;
-          //  @example my_conversation_1
-          conversation_id?: string;
+          //  @constraints  number: min: 0, max: 9223372036854776000, mode: box, step: 1
+          value: number;
         }
       >;
+    };
+    light: {
       // undefined
-      reload: ServiceFunction<
+      turnOn: ServiceFunction<
         object,
         T,
         {
-          //  @example NL
-          language?: string;
-          //  @example homeassistant @constraints  conversation_agent:
-          agent_id?: string;
+          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
+          transition?: number;
+          //  @example [255, 100, 100] @constraints  color_rgb:
+          rgb_color?: [number, number, number];
+          //  @constraints  color_temp: unit: kelvin, min: 2000, max: 6500
+          color_temp_kelvin?: number;
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          brightness_pct?: number;
+          //  @constraints  number: min: -100, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          brightness_step_pct?: number;
+          //  @constraints  state: attribute: effect, multiple: false
+          effect?: unknown;
+          //
+          additional_fields?: object;
         }
       >;
+      // undefined
+      turnOff: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
+          transition?: number;
+          //
+          additional_fields?: object;
+        }
+      >;
+      // undefined
+      toggle: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
+          transition?: number;
+          //  @example [255, 100, 100] @constraints  color_rgb:
+          rgb_color?: [number, number, number];
+          //  @constraints  color_temp: unit: kelvin, min: 2000, max: 6500
+          color_temp_kelvin?: number;
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          brightness_pct?: number;
+          //  @constraints  state: attribute: effect, multiple: false
+          effect?: unknown;
+          //
+          additional_fields?: object;
+        }
+      >;
+    };
+    switch: {
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
     };
     backup: {
       // undefined
       createAutomatic: ServiceFunction<object, T, object>;
     };
-    historyStats: {
+    derivative: {
       // undefined
       reload: ServiceFunction<object, T, object>;
     };
@@ -465,6 +696,269 @@ declare module '@hakit/core' {
       remoteConnect: ServiceFunction<object, T, object>;
       // undefined
       remoteDisconnect: ServiceFunction<object, T, object>;
+    };
+    image: {
+      // undefined
+      snapshot: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example /tmp/image_snapshot.jpg
+          filename: string;
+        }
+      >;
+    };
+    waterHeater: {
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      setAwayMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          away_mode: boolean;
+        }
+      >;
+      // undefined
+      setTemperature: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 250, step: 0.5, mode: box, unit_of_measurement: °
+          temperature: number;
+          //  @example eco @constraints  state: hide_states: unavailable,unknown, multiple: false
+          operation_mode?: unknown;
+        }
+      >;
+      // undefined
+      setOperationMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example eco @constraints  state: hide_states: unavailable,unknown, multiple: false
+          operation_mode: unknown;
+        }
+      >;
+    };
+    alarmControlPanel: {
+      // undefined
+      alarmDisarm: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmArmHome: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmArmAway: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmArmNight: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmArmVacation: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmArmCustomBypass: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      alarmTrigger: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+    };
+    fan: {
+      // undefined
+      turnOn: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          percentage?: number;
+          //  @example auto @constraints  state: attribute: preset_mode, multiple: false
+          preset_mode?: unknown;
+        }
+      >;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+      // undefined
+      increaseSpeed: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          additional_fields?: object;
+        }
+      >;
+      // undefined
+      decreaseSpeed: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          additional_fields?: object;
+        }
+      >;
+      // undefined
+      oscillate: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          oscillating: boolean;
+        }
+      >;
+      // undefined
+      setDirection: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          direction: "forward" | "reverse";
+        }
+      >;
+      // undefined
+      setPercentage: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          percentage: number;
+        }
+      >;
+      // undefined
+      setPresetMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example auto @constraints  state: attribute: preset_mode, multiple: false
+          preset_mode: unknown;
+        }
+      >;
+    };
+    valve: {
+      // undefined
+      openValve: ServiceFunction<object, T, object>;
+      // undefined
+      closeValve: ServiceFunction<object, T, object>;
+      // undefined
+      setValvePosition: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          position: number;
+        }
+      >;
+      // undefined
+      stopValve: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+    };
+    camera: {
+      // undefined
+      enableMotionDetection: ServiceFunction<object, T, object>;
+      // undefined
+      disableMotionDetection: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      snapshot: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example /tmp/snapshot_{{ entity_id.name }}.jpg
+          filename: string;
+        }
+      >;
+      // undefined
+      playStream: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          media_player: string;
+          //
+          format?: "hls";
+        }
+      >;
+      // undefined
+      record: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example /tmp/snapshot_{{ entity_id.name }}.mp4
+          filename: string;
+          //  @constraints  number: min: 1, max: 3600, unit_of_measurement: seconds, step: 1, mode: slider
+          duration?: number;
+          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
+          lookback?: number;
+        }
+      >;
+    };
+    lawnMower: {
+      // undefined
+      startMowing: ServiceFunction<object, T, object>;
+      // undefined
+      pause: ServiceFunction<object, T, object>;
+      // undefined
+      dock: ServiceFunction<object, T, object>;
+    };
+    weather: {
+      // undefined
+      getForecasts: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          type: "daily" | "hourly" | "twice_daily";
+        }
+      >;
     };
     scene: {
       // undefined
@@ -502,1555 +996,6 @@ declare module '@hakit/core' {
         {
           //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
           transition?: number;
-        }
-      >;
-    };
-    camera: {
-      // undefined
-      enableMotionDetection: ServiceFunction<object, T, object>;
-      // undefined
-      disableMotionDetection: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      snapshot: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example /tmp/snapshot_{{ entity_id.name }}.jpg
-          filename: string;
-        }
-      >;
-      // undefined
-      playStream: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          media_player: string;
-          //
-          format?: 'hls';
-        }
-      >;
-      // undefined
-      record: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example /tmp/snapshot_{{ entity_id.name }}.mp4
-          filename: string;
-          //  @constraints  number: min: 1, max: 3600, unit_of_measurement: seconds, step: 1, mode: slider
-          duration?: number;
-          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
-          lookback?: number;
-        }
-      >;
-    };
-    logbook: {
-      // undefined
-      log: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Kitchen
-          name: string;
-          //  @example is being used
-          message: string;
-          //
-          entity_id?: string;
-          //  @example light
-          domain?: string;
-        }
-      >;
-    };
-    script: {
-      //
-      1752556674714: ServiceFunction<object, T, object>;
-      //
-      washerReminderPopup: ServiceFunction<object, T, object>;
-      //
-      1753140070392: ServiceFunction<object, T, object>;
-      //
-      triggerFeeder: ServiceFunction<object, T, object>;
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-    };
-    inputButton: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      press: ServiceFunction<object, T, object>;
-    };
-    zone: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-    };
-    inputBoolean: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-    };
-    timer: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      start: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 00:01:00 or 60 @constraints  duration:
-          duration?: {
-            hours?: number;
-            days?: number;
-            minutes?: number;
-            seconds?: number;
-          };
-        }
-      >;
-      // undefined
-      pause: ServiceFunction<object, T, object>;
-      // undefined
-      cancel: ServiceFunction<object, T, object>;
-      // undefined
-      finish: ServiceFunction<object, T, object>;
-      // undefined
-      change: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 00:01:00, 60 or -60 @constraints  duration: allow_negative: true
-          duration: {
-            hours?: number;
-            days?: number;
-            minutes?: number;
-            seconds?: number;
-          };
-        }
-      >;
-    };
-    inputSelect: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      selectFirst: ServiceFunction<object, T, object>;
-      // undefined
-      selectLast: ServiceFunction<object, T, object>;
-      // undefined
-      selectNext: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          cycle?: boolean;
-        }
-      >;
-      // undefined
-      selectOption: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 'Item A' @constraints  state: hide_states: unavailable,unknown, multiple: false
-          option: unknown;
-        }
-      >;
-      // undefined
-      selectPrevious: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          cycle?: boolean;
-        }
-      >;
-      // undefined
-      setOptions: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example ['Item A', 'Item B', 'Item C']
-          options: string;
-        }
-      >;
-    };
-    inputNumber: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      setValue: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 9223372036854776000, step: 0.001, mode: box
-          value: number;
-        }
-      >;
-      // undefined
-      increment: ServiceFunction<object, T, object>;
-      // undefined
-      decrement: ServiceFunction<object, T, object>;
-    };
-    person: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-    };
-    deviceTracker: {
-      // undefined
-      see: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example FF:FF:FF:FF:FF:FF
-          mac?: string;
-          //  @example phonedave
-          dev_id?: string;
-          //  @example Dave
-          host_name?: string;
-          //  @example home
-          location_name?: string;
-          //  @example [51.509802, -0.086692] @constraints  object: multiple: false
-          gps?: object;
-          //  @constraints  number: min: 0, mode: box, unit_of_measurement: m, step: 1
-          gps_accuracy?: number;
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          battery?: number;
-        }
-      >;
-    };
-    androidtv: {
-      // undefined
-      adbCommand: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example HOME
-          command: string;
-        }
-      >;
-      // undefined
-      learnSendevent: ServiceFunction<object, T, object>;
-      // undefined
-      download: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example /storage/emulated/0/Download/example.txt
-          device_path: string;
-          //  @example /config/www/example.txt
-          local_path: string;
-        }
-      >;
-      // undefined
-      upload: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example /storage/emulated/0/Download/example.txt
-          device_path: string;
-          //  @example /config/www/example.txt
-          local_path: string;
-        }
-      >;
-    };
-    musicAssistant: {
-      // undefined
-      search: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  config_entry: integration: music_assistant
-          config_entry_id: unknown;
-          //  @example We Are The Champions
-          name: string;
-          //  @example playlist
-          media_type?: 'artist' | 'album' | 'audiobook' | 'playlist' | 'podcast' | 'track' | 'radio';
-          //  @example Queen
-          artist?: string;
-          //  @example News of the world
-          album?: string;
-          //  @example 25 @constraints  number: min: 1, max: 100, step: 1, mode: slider
-          limit?: number;
-          //  @example true @constraints  boolean:
-          library_only?: boolean;
-        }
-      >;
-      // undefined
-      getLibrary: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  config_entry: integration: music_assistant
-          config_entry_id: unknown;
-          //  @example playlist
-          media_type: 'artist' | 'album' | 'audiobook' | 'playlist' | 'podcast' | 'track' | 'radio';
-          //  @example true @constraints  boolean:
-          favorite?: boolean;
-          //  @example We Are The Champions
-          search?: string;
-          //  @example 25 @constraints  number: min: 1, max: 500, step: 1, mode: slider
-          limit?: number;
-          //  @example 25 @constraints  number: min: 1, max: 1000000, step: 1, mode: slider
-          offset?: number;
-          //  @example random
-          order_by?:
-            | 'name'
-            | 'name_desc'
-            | 'sort_name'
-            | 'sort_name_desc'
-            | 'timestamp_added'
-            | 'timestamp_added_desc'
-            | 'last_played'
-            | 'last_played_desc'
-            | 'play_count'
-            | 'play_count_desc'
-            | 'year'
-            | 'year_desc'
-            | 'position'
-            | 'position_desc'
-            | 'artist_name'
-            | 'artist_name_desc'
-            | 'random'
-            | 'random_play_count';
-          //  @example single
-          album_type?: 'album' | 'single' | 'compilation' | 'ep' | 'unknown';
-          //  @example true @constraints  boolean:
-          album_artists_only?: boolean;
-        }
-      >;
-      // undefined
-      playMedia: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example spotify://playlist/aabbccddeeff @constraints  object: multiple: false
-          media_id: object;
-          //  @example playlist
-          media_type?: 'artist' | 'album' | 'audiobook' | 'folder' | 'playlist' | 'podcast' | 'track' | 'radio';
-          //  @example Queen
-          artist?: string;
-          //  @example News of the world
-          album?: string;
-          //
-          enqueue?: 'play' | 'replace' | 'next' | 'replace_next' | 'add';
-          //  @constraints  boolean:
-          radio_mode?: boolean;
-        }
-      >;
-      // undefined
-      playAnnouncement: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example http://someremotesite.com/doorbell.mp3
-          url: string;
-          //  @example true @constraints  boolean:
-          use_pre_announce?: boolean;
-          //  @example http://someremotesite.com/chime.mp3
-          pre_announce_url?: string;
-          //  @example 75 @constraints  number: min: 1, max: 100, step: 1, mode: slider
-          announce_volume?: number;
-        }
-      >;
-      // undefined
-      transferQueue: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          source_player?: string;
-          //  @example true @constraints  boolean:
-          auto_play?: boolean;
-        }
-      >;
-      // undefined
-      getQueue: ServiceFunction<object, T, object>;
-    };
-    googleGenerativeAiConversation: {
-      // undefined
-      generateContent: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          prompt: string;
-          //
-          filenames?: string;
-        }
-      >;
-    };
-    shoppingList: {
-      // undefined
-      addItem: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Beer
-          name: string;
-        }
-      >;
-      // undefined
-      removeItem: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Beer
-          name: string;
-        }
-      >;
-      // undefined
-      completeItem: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Beer
-          name: string;
-        }
-      >;
-      // undefined
-      incompleteItem: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Beer
-          name: string;
-        }
-      >;
-      // undefined
-      completeAll: ServiceFunction<object, T, object>;
-      // undefined
-      incompleteAll: ServiceFunction<object, T, object>;
-      // undefined
-      clearCompletedItems: ServiceFunction<object, T, object>;
-      // undefined
-      sort: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          reverse?: boolean;
-        }
-      >;
-    };
-    dwainsDashboard: {
-      // Show a notification in the frontend.
-      notificationCreate: ServiceFunction<
-        object,
-        T,
-        {
-          // Message body of the notification. [Templates accepted] @example Dishwasher is done! :D
-          message?: object;
-          // Target ID of the notification, will replace a notification with the same Id. [Optional] @example 1234
-          notification_id?: object;
-        }
-      >;
-      // Remove a notification from the frontend.
-      notificationDismiss: ServiceFunction<
-        object,
-        T,
-        {
-          // Target ID of the notification, which should be removed. [Required] @example 1234
-          notification_id?: object;
-        }
-      >;
-      // Mark a notification read.
-      notificationMarkRead: ServiceFunction<
-        object,
-        T,
-        {
-          // Target ID of the notification, which should be mark read. [Required] @example 1234
-          notification_id?: object;
-        }
-      >;
-      // Reload dashboard configuration from Dwains dashboard
-      reload: ServiceFunction<object, T, object>;
-    };
-    light: {
-      // undefined
-      turnOn: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
-          transition?: number;
-          //  @example [255, 100, 100] @constraints  color_rgb:
-          rgb_color?: [number, number, number];
-          //  @constraints  color_temp: unit: kelvin, min: 2000, max: 6500
-          color_temp_kelvin?: number;
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          brightness_pct?: number;
-          //  @constraints  number: min: -100, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          brightness_step_pct?: number;
-          //
-          effect?: string;
-          //  @example [255, 100, 100, 50] @constraints  object: multiple: false
-          rgbw_color?: [number, number, number, number];
-          //  @example [255, 100, 100, 50, 70] @constraints  object: multiple: false
-          rgbww_color?: [number, number, number, number, number];
-          //
-          color_name?:
-            | 'homeassistant'
-            | 'aliceblue'
-            | 'antiquewhite'
-            | 'aqua'
-            | 'aquamarine'
-            | 'azure'
-            | 'beige'
-            | 'bisque'
-            | 'blanchedalmond'
-            | 'blue'
-            | 'blueviolet'
-            | 'brown'
-            | 'burlywood'
-            | 'cadetblue'
-            | 'chartreuse'
-            | 'chocolate'
-            | 'coral'
-            | 'cornflowerblue'
-            | 'cornsilk'
-            | 'crimson'
-            | 'cyan'
-            | 'darkblue'
-            | 'darkcyan'
-            | 'darkgoldenrod'
-            | 'darkgray'
-            | 'darkgreen'
-            | 'darkgrey'
-            | 'darkkhaki'
-            | 'darkmagenta'
-            | 'darkolivegreen'
-            | 'darkorange'
-            | 'darkorchid'
-            | 'darkred'
-            | 'darksalmon'
-            | 'darkseagreen'
-            | 'darkslateblue'
-            | 'darkslategray'
-            | 'darkslategrey'
-            | 'darkturquoise'
-            | 'darkviolet'
-            | 'deeppink'
-            | 'deepskyblue'
-            | 'dimgray'
-            | 'dimgrey'
-            | 'dodgerblue'
-            | 'firebrick'
-            | 'floralwhite'
-            | 'forestgreen'
-            | 'fuchsia'
-            | 'gainsboro'
-            | 'ghostwhite'
-            | 'gold'
-            | 'goldenrod'
-            | 'gray'
-            | 'green'
-            | 'greenyellow'
-            | 'grey'
-            | 'honeydew'
-            | 'hotpink'
-            | 'indianred'
-            | 'indigo'
-            | 'ivory'
-            | 'khaki'
-            | 'lavender'
-            | 'lavenderblush'
-            | 'lawngreen'
-            | 'lemonchiffon'
-            | 'lightblue'
-            | 'lightcoral'
-            | 'lightcyan'
-            | 'lightgoldenrodyellow'
-            | 'lightgray'
-            | 'lightgreen'
-            | 'lightgrey'
-            | 'lightpink'
-            | 'lightsalmon'
-            | 'lightseagreen'
-            | 'lightskyblue'
-            | 'lightslategray'
-            | 'lightslategrey'
-            | 'lightsteelblue'
-            | 'lightyellow'
-            | 'lime'
-            | 'limegreen'
-            | 'linen'
-            | 'magenta'
-            | 'maroon'
-            | 'mediumaquamarine'
-            | 'mediumblue'
-            | 'mediumorchid'
-            | 'mediumpurple'
-            | 'mediumseagreen'
-            | 'mediumslateblue'
-            | 'mediumspringgreen'
-            | 'mediumturquoise'
-            | 'mediumvioletred'
-            | 'midnightblue'
-            | 'mintcream'
-            | 'mistyrose'
-            | 'moccasin'
-            | 'navajowhite'
-            | 'navy'
-            | 'navyblue'
-            | 'oldlace'
-            | 'olive'
-            | 'olivedrab'
-            | 'orange'
-            | 'orangered'
-            | 'orchid'
-            | 'palegoldenrod'
-            | 'palegreen'
-            | 'paleturquoise'
-            | 'palevioletred'
-            | 'papayawhip'
-            | 'peachpuff'
-            | 'peru'
-            | 'pink'
-            | 'plum'
-            | 'powderblue'
-            | 'purple'
-            | 'red'
-            | 'rosybrown'
-            | 'royalblue'
-            | 'saddlebrown'
-            | 'salmon'
-            | 'sandybrown'
-            | 'seagreen'
-            | 'seashell'
-            | 'sienna'
-            | 'silver'
-            | 'skyblue'
-            | 'slateblue'
-            | 'slategray'
-            | 'slategrey'
-            | 'snow'
-            | 'springgreen'
-            | 'steelblue'
-            | 'tan'
-            | 'teal'
-            | 'thistle'
-            | 'tomato'
-            | 'turquoise'
-            | 'violet'
-            | 'wheat'
-            | 'white'
-            | 'whitesmoke'
-            | 'yellow'
-            | 'yellowgreen';
-          //  @example [300, 70] @constraints  object: multiple: false
-          hs_color?: [number, number];
-          //  @example [0.52, 0.43] @constraints  object: multiple: false
-          xy_color?: [number, number];
-          //  @constraints  color_temp: unit: mired, min: 153, max: 500
-          color_temp?: number;
-          //  @constraints  number: min: 0, max: 255, step: 1, mode: slider
-          brightness?: number;
-          //  @constraints  number: min: -225, max: 255, step: 1, mode: slider
-          brightness_step?: number;
-          //
-          white?: boolean;
-          //  @example relax
-          profile?: string;
-          //
-          flash?: 'long' | 'short';
-        }
-      >;
-      // undefined
-      turnOff: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
-          transition?: number;
-          //
-          flash?: 'long' | 'short';
-        }
-      >;
-      // undefined
-      toggle: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
-          transition?: number;
-          //  @example [255, 100, 100] @constraints  color_rgb:
-          rgb_color?: [number, number, number];
-          //  @constraints  color_temp: unit: kelvin, min: 2000, max: 6500
-          color_temp_kelvin?: number;
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          brightness_pct?: number;
-          //
-          effect?: string;
-          //  @example [255, 100, 100, 50] @constraints  object: multiple: false
-          rgbw_color?: [number, number, number, number];
-          //  @example [255, 100, 100, 50, 70] @constraints  object: multiple: false
-          rgbww_color?: [number, number, number, number, number];
-          //
-          color_name?:
-            | 'homeassistant'
-            | 'aliceblue'
-            | 'antiquewhite'
-            | 'aqua'
-            | 'aquamarine'
-            | 'azure'
-            | 'beige'
-            | 'bisque'
-            | 'blanchedalmond'
-            | 'blue'
-            | 'blueviolet'
-            | 'brown'
-            | 'burlywood'
-            | 'cadetblue'
-            | 'chartreuse'
-            | 'chocolate'
-            | 'coral'
-            | 'cornflowerblue'
-            | 'cornsilk'
-            | 'crimson'
-            | 'cyan'
-            | 'darkblue'
-            | 'darkcyan'
-            | 'darkgoldenrod'
-            | 'darkgray'
-            | 'darkgreen'
-            | 'darkgrey'
-            | 'darkkhaki'
-            | 'darkmagenta'
-            | 'darkolivegreen'
-            | 'darkorange'
-            | 'darkorchid'
-            | 'darkred'
-            | 'darksalmon'
-            | 'darkseagreen'
-            | 'darkslateblue'
-            | 'darkslategray'
-            | 'darkslategrey'
-            | 'darkturquoise'
-            | 'darkviolet'
-            | 'deeppink'
-            | 'deepskyblue'
-            | 'dimgray'
-            | 'dimgrey'
-            | 'dodgerblue'
-            | 'firebrick'
-            | 'floralwhite'
-            | 'forestgreen'
-            | 'fuchsia'
-            | 'gainsboro'
-            | 'ghostwhite'
-            | 'gold'
-            | 'goldenrod'
-            | 'gray'
-            | 'green'
-            | 'greenyellow'
-            | 'grey'
-            | 'honeydew'
-            | 'hotpink'
-            | 'indianred'
-            | 'indigo'
-            | 'ivory'
-            | 'khaki'
-            | 'lavender'
-            | 'lavenderblush'
-            | 'lawngreen'
-            | 'lemonchiffon'
-            | 'lightblue'
-            | 'lightcoral'
-            | 'lightcyan'
-            | 'lightgoldenrodyellow'
-            | 'lightgray'
-            | 'lightgreen'
-            | 'lightgrey'
-            | 'lightpink'
-            | 'lightsalmon'
-            | 'lightseagreen'
-            | 'lightskyblue'
-            | 'lightslategray'
-            | 'lightslategrey'
-            | 'lightsteelblue'
-            | 'lightyellow'
-            | 'lime'
-            | 'limegreen'
-            | 'linen'
-            | 'magenta'
-            | 'maroon'
-            | 'mediumaquamarine'
-            | 'mediumblue'
-            | 'mediumorchid'
-            | 'mediumpurple'
-            | 'mediumseagreen'
-            | 'mediumslateblue'
-            | 'mediumspringgreen'
-            | 'mediumturquoise'
-            | 'mediumvioletred'
-            | 'midnightblue'
-            | 'mintcream'
-            | 'mistyrose'
-            | 'moccasin'
-            | 'navajowhite'
-            | 'navy'
-            | 'navyblue'
-            | 'oldlace'
-            | 'olive'
-            | 'olivedrab'
-            | 'orange'
-            | 'orangered'
-            | 'orchid'
-            | 'palegoldenrod'
-            | 'palegreen'
-            | 'paleturquoise'
-            | 'palevioletred'
-            | 'papayawhip'
-            | 'peachpuff'
-            | 'peru'
-            | 'pink'
-            | 'plum'
-            | 'powderblue'
-            | 'purple'
-            | 'red'
-            | 'rosybrown'
-            | 'royalblue'
-            | 'saddlebrown'
-            | 'salmon'
-            | 'sandybrown'
-            | 'seagreen'
-            | 'seashell'
-            | 'sienna'
-            | 'silver'
-            | 'skyblue'
-            | 'slateblue'
-            | 'slategray'
-            | 'slategrey'
-            | 'snow'
-            | 'springgreen'
-            | 'steelblue'
-            | 'tan'
-            | 'teal'
-            | 'thistle'
-            | 'tomato'
-            | 'turquoise'
-            | 'violet'
-            | 'wheat'
-            | 'white'
-            | 'whitesmoke'
-            | 'yellow'
-            | 'yellowgreen';
-          //  @example [300, 70] @constraints  object: multiple: false
-          hs_color?: [number, number];
-          //  @example [0.52, 0.43] @constraints  object: multiple: false
-          xy_color?: [number, number];
-          //  @constraints  color_temp: unit: mired, min: 153, max: 500
-          color_temp?: number;
-          //  @constraints  number: min: 0, max: 255, step: 1, mode: slider
-          brightness?: number;
-          //
-          white?: boolean;
-          //  @example relax
-          profile?: string;
-          //
-          flash?: 'long' | 'short';
-        }
-      >;
-    };
-    mediaPlayer: {
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      volumeUp: ServiceFunction<object, T, object>;
-      // undefined
-      volumeDown: ServiceFunction<object, T, object>;
-      // undefined
-      mediaPlayPause: ServiceFunction<object, T, object>;
-      // undefined
-      mediaPlay: ServiceFunction<object, T, object>;
-      // undefined
-      mediaPause: ServiceFunction<object, T, object>;
-      // undefined
-      mediaStop: ServiceFunction<object, T, object>;
-      // undefined
-      mediaNextTrack: ServiceFunction<object, T, object>;
-      // undefined
-      mediaPreviousTrack: ServiceFunction<object, T, object>;
-      // undefined
-      clearPlaylist: ServiceFunction<object, T, object>;
-      // undefined
-      volumeSet: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 1, step: 0.01, mode: slider
-          volume_level: number;
-        }
-      >;
-      // undefined
-      volumeMute: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          is_volume_muted: boolean;
-        }
-      >;
-      // undefined
-      mediaSeek: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 9223372036854776000, step: 0.01, mode: box
-          seek_position: number;
-        }
-      >;
-      // undefined
-      join: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example - media_player.multiroom_player2 - media_player.multiroom_player3
-          group_members: string[];
-        }
-      >;
-      // undefined
-      selectSource: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example video1
-          source: string;
-        }
-      >;
-      // undefined
-      selectSoundMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Music
-          sound_mode?: string;
-        }
-      >;
-      // undefined
-      playMedia: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example {'media_content_id': 'https://home-assistant.io/images/cast/splash.png', 'media_content_type': 'music'} @constraints  media: multiple: false
-          media: unknown;
-          //
-          enqueue?: 'play' | 'next' | 'add' | 'replace';
-          //  @example true @constraints  boolean:
-          announce?: boolean;
-        }
-      >;
-      // undefined
-      browseMedia: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example music
-          media_content_type?: string;
-          //  @example A:ALBUMARTIST/Beatles
-          media_content_id?: string | number;
-        }
-      >;
-      // undefined
-      searchMedia: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Beatles
-          search_query: string;
-          //  @example music
-          media_content_type?: string;
-          //  @example A:ALBUMARTIST/Beatles
-          media_content_id?: string | number;
-          //  @example album,artist
-          media_filter_classes?: string;
-        }
-      >;
-      // undefined
-      shuffleSet: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          shuffle: boolean;
-        }
-      >;
-      // undefined
-      unjoin: ServiceFunction<object, T, object>;
-      // undefined
-      repeatSet: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          repeat: 'off' | 'all' | 'one';
-        }
-      >;
-    };
-    browserMod: {
-      // Run a sequence of services
-      sequence: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // List of services to run @constraints  object: multiple: false
-          sequence?: object;
-        }
-      >;
-      // Wait for a time
-      delay: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Time to wait (ms) @constraints  number: mode: box, step: 1
-          time?: number;
-        }
-      >;
-      // Display a popup
-      popup: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // ID of the popup-card to use as a template for the popup
-          popup_card_id?: string;
-          // Popup title
-          title?: string;
-          // Popup content (Text or lovelace card configuration) @constraints  object: multiple: false
-          content: object;
-          // Initial style to apply to the popup
-          initial_style?: 'normal' | 'classic' | 'wide' | 'fullscreen';
-          // Sequence of styles to cycle through when user taps the title or with browser_mod.set_popup_style service
-          style_sequence?: 'initial' | 'normal' | 'classic' | 'wide' | 'fullscreen';
-          // Popup styles to apply. Use 'all' to always apply the style. You can add to standard styles or create your own @constraints  object: label_field: style, description_field: include_styles, multiple: true, fields: [object Object]
-          popup_styles?: object;
-          // Text of the right button
-          right_button?: string;
-          // Variant of the right button
-          right_button_variant?: 'brand' | 'neutral' | 'danger' | 'warning' | 'success';
-          // Appearance of the right button
-          right_button_appearance?: 'accent' | 'filled' | 'outlined' | 'plain';
-          // Action to perform when the right button is pressed @constraints  object: multiple: false
-          right_button_action?: object;
-          // Text of the left button
-          left_button?: string;
-          // Variant of the left button
-          left_button_variant?: 'brand' | 'neutral' | 'danger' | 'warning' | 'success';
-          // Appearance of the left button
-          left_button_appearance?: 'accent' | 'filled' | 'outlined' | 'plain';
-          // Action to perform when left button is pressed @constraints  object: multiple: false
-          left_button_action?: object;
-          // Whether the popup can be closed by the user without action @constraints  boolean:
-          dismissable?: boolean;
-          // Action to perform when popup is dismissed @constraints  object: multiple: false
-          dismiss_action?: object;
-          // Close the popup automatically on mouse, pointer or keyboard activity @constraints  boolean:
-          autoclose?: boolean;
-          // Time before closing (ms) @constraints  number: mode: box, step: 1
-          timeout?: number;
-          // Action to perform when popup is closed by timeout @constraints  object: multiple: false
-          timeout_action?: object;
-          // Hide timeout progress bar @constraints  boolean:
-          timeout_hide_progress?: boolean;
-          // Tag for managing multiple popups
-          tag?: string;
-        }
-      >;
-      // Show more-info dialog
-      moreInfo: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          //
-          entity?: string;
-          // More-info view to show
-          view?: 'info' | 'history' | 'settings' | 'related';
-          //  @constraints  boolean:
-          large?: boolean;
-          //  @constraints  boolean:
-          ignore_popup_card?: boolean;
-          // Close the more-info dialog if open @constraints  boolean:
-          close?: boolean;
-        }
-      >;
-      // Close a popup
-      closePopup: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Close all Browser Mod popups on the browser @constraints  boolean:
-          all?: boolean;
-          // Tag for popup to close when using multiple popups
-          tag?: string;
-        }
-      >;
-      // Set the style of a popup
-      setPopupStyle: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Set style for all open Browser Mod popups on the browser @constraints  boolean:
-          all?: boolean;
-          // Tag for popup to set style for when using multiple popups
-          tag?: string;
-          // Style to apply to the popup
-          style?: 'normal' | 'classic' | 'wide' | 'fullscreen';
-          // Direction to cycle through style sequence
-          direction?: 'forward' | 'back';
-        }
-      >;
-      // Display a short notification
-      notification: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Message to display
-          message: string;
-          // Time before closing (ms) @constraints  number: mode: box, step: 1
-          duration?: number;
-          // Text of optional action button
-          action_text?: string;
-          // Action to perform when the action button is pressed @constraints  object: multiple: false
-          action?: object;
-        }
-      >;
-      // Navigate browser to a different page
-      navigate: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Target path
-          path?: string;
-        }
-      >;
-      // Refresh page
-      refresh: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-        }
-      >;
-      // Change browser ID
-      changeBrowserId: ServiceFunction<
-        object,
-        T,
-        {
-          // Current Browser ID of the browser to change
-          current_browser_id?: string;
-          // New Browser ID for the browser
-          new_browser_id?: string;
-          // Register the browser @constraints  boolean:
-          register?: boolean;
-          // Refresh the browser after changing the ID @constraints  boolean:
-          refresh?: boolean;
-        }
-      >;
-      // Change the current theme
-      setTheme: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Name of theme or 'auto'
-          theme?: string;
-          // Dark/light mode
-          dark?: 'auto' | 'light' | 'dark';
-          // Primary theme color @constraints  color_rgb:
-          primaryColor?: unknown;
-          // Accent theme color @constraints  color_rgb:
-          accentColor?: unknown;
-        }
-      >;
-      // Print text to browser console
-      console: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // Text to print
-          message?: string;
-        }
-      >;
-      // Run arbitrary JavaScript code
-      javascript: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          //
-          user_id?: string;
-          // JavaScript code to run @constraints  object: multiple: false
-          code?: object;
-        }
-      >;
-      // Deregister a browser. Include at leaset one paremeter. Calling wiith either exclude parameter will deregister all browsers except those excluded.
-      deregisterBrowser: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          browser_id?: string;
-          // Exclude browser from deregister
-          browser_id_exclude?: string;
-          // Exclude browsers in area from deregister @constraints  area: multiple: true, entity: [object Object]
-          area_id_exclude?: unknown;
-        }
-      >;
-    };
-    file: {
-      // undefined
-      readFile: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example www/my_file.json
-          file_name?: string;
-          //  @example JSON
-          file_encoding?: 'JSON' | 'YAML';
-        }
-      >;
-    };
-    mqtt: {
-      // undefined
-      publish: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example /homeassistant/hello
-          topic: string;
-          //  @example The temperature is {{ states('sensor.temperature') }} @constraints  template:
-          payload?: unknown;
-          //  @constraints  boolean:
-          evaluate_payload?: boolean;
-          //
-          qos?: '0' | '1' | '2';
-          //  @constraints  boolean:
-          retain?: boolean;
-        }
-      >;
-      // undefined
-      dump: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example OpenZWave/#
-          topic?: string;
-          //  @constraints  number: min: 1, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
-          duration?: number;
-        }
-      >;
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-    };
-    counter: {
-      // undefined
-      increment: ServiceFunction<object, T, object>;
-      // undefined
-      decrement: ServiceFunction<object, T, object>;
-      // undefined
-      reset: ServiceFunction<object, T, object>;
-      // undefined
-      setValue: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 9223372036854776000, mode: box, step: 1
-          value: number;
-        }
-      >;
-    };
-    schedule: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      getSchedule: ServiceFunction<object, T, object>;
-    };
-    matter: {
-      // undefined
-      waterHeaterBoost: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 60, max: 14400, step: 60, mode: box
-          duration: number;
-          //  @constraints  boolean:
-          emergency_boost?: boolean;
-          //  @constraints  number: min: 30, max: 65, step: 1, mode: slider
-          temporary_setpoint?: number;
-        }
-      >;
-    };
-    button: {
-      // undefined
-      press: ServiceFunction<object, T, object>;
-    };
-    climate: {
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      setHvacMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  state: hide_states: unavailable,unknown, multiple: false
-          hvac_mode?: unknown;
-        }
-      >;
-      // undefined
-      setPresetMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example away
-          preset_mode: string;
-        }
-      >;
-      // undefined
-      setTemperature: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 250, step: 0.1, mode: box
-          temperature?: number;
-          //  @constraints  number: min: 0, max: 250, step: 0.1, mode: box
-          target_temp_high?: number;
-          //  @constraints  number: min: 0, max: 250, step: 0.1, mode: box
-          target_temp_low?: number;
-          //
-          hvac_mode?: 'off' | 'auto' | 'cool' | 'dry' | 'fan_only' | 'heat_cool' | 'heat';
-        }
-      >;
-      // undefined
-      setHumidity: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 30, max: 99, unit_of_measurement: %, step: 1, mode: slider
-          humidity: number;
-        }
-      >;
-      // undefined
-      setFanMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example low
-          fan_mode: string;
-        }
-      >;
-      // undefined
-      setSwingMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example on
-          swing_mode: string;
-        }
-      >;
-      // undefined
-      setSwingHorizontalMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example on
-          swing_horizontal_mode: string;
-        }
-      >;
-    };
-    cover: {
-      // undefined
-      openCover: ServiceFunction<object, T, object>;
-      // undefined
-      closeCover: ServiceFunction<object, T, object>;
-      // undefined
-      setCoverPosition: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          position: number;
-        }
-      >;
-      // undefined
-      stopCover: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      openCoverTilt: ServiceFunction<object, T, object>;
-      // undefined
-      closeCoverTilt: ServiceFunction<object, T, object>;
-      // undefined
-      stopCoverTilt: ServiceFunction<object, T, object>;
-      // undefined
-      setCoverTiltPosition: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          tilt_position: number;
-        }
-      >;
-      // undefined
-      toggleCoverTilt: ServiceFunction<object, T, object>;
-    };
-    fan: {
-      // undefined
-      turnOn: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          percentage?: number;
-          //  @example auto
-          preset_mode?: string;
-        }
-      >;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      increaseSpeed: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          percentage_step?: number;
-        }
-      >;
-      // undefined
-      decreaseSpeed: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          percentage_step?: number;
-        }
-      >;
-      // undefined
-      oscillate: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  boolean:
-          oscillating: boolean;
-        }
-      >;
-      // undefined
-      setDirection: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          direction: 'forward' | 'reverse';
-        }
-      >;
-      // undefined
-      setPercentage: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          percentage: number;
-        }
-      >;
-      // undefined
-      setPresetMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example auto
-          preset_mode: string;
-        }
-      >;
-    };
-    lock: {
-      // undefined
-      unlock: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      lock: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      open: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
         }
       >;
     };
@@ -2098,6 +1043,10 @@ declare module '@hakit/core' {
         }
       >;
     };
+    button: {
+      // undefined
+      press: ServiceFunction<object, T, object>;
+    };
     vacuum: {
       // undefined
       start: ServiceFunction<object, T, object>;
@@ -2108,6 +1057,15 @@ declare module '@hakit/core' {
       // undefined
       cleanSpot: ServiceFunction<object, T, object>;
       // undefined
+      cleanArea: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  area: multiple: true, reorder: true
+          cleaning_area_id: unknown;
+        }
+      >;
+      // undefined
       locate: ServiceFunction<object, T, object>;
       // undefined
       stop: ServiceFunction<object, T, object>;
@@ -2116,8 +1074,8 @@ declare module '@hakit/core' {
         object,
         T,
         {
-          //  @example low
-          fan_speed: string;
+          //  @example low @constraints  state: attribute: fan_speed, multiple: false
+          fan_speed: unknown;
         }
       >;
       // undefined
@@ -2132,13 +1090,114 @@ declare module '@hakit/core' {
         }
       >;
     };
-    valve: {
+    climate: {
       // undefined
-      openValve: ServiceFunction<object, T, object>;
+      turnOn: ServiceFunction<object, T, object>;
       // undefined
-      closeValve: ServiceFunction<object, T, object>;
+      turnOff: ServiceFunction<object, T, object>;
       // undefined
-      setValvePosition: ServiceFunction<
+      toggle: ServiceFunction<object, T, object>;
+      // undefined
+      setHvacMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  state: hide_states: unavailable,unknown, multiple: false
+          hvac_mode?: unknown;
+        }
+      >;
+      // undefined
+      setPresetMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example away @constraints  state: attribute: preset_mode, multiple: false
+          preset_mode: unknown;
+        }
+      >;
+      // undefined
+      setTemperature: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 250, step: 0.1, mode: box
+          temperature?: number;
+          //
+          temperature_range?: object;
+          //  @constraints  state: hide_states: unavailable,unknown, multiple: false
+          hvac_mode?: unknown;
+        }
+      >;
+      // undefined
+      setHumidity: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 30, max: 99, unit_of_measurement: %, step: 1, mode: slider
+          humidity: number;
+        }
+      >;
+      // undefined
+      setFanMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example low @constraints  state: attribute: fan_mode, multiple: false
+          fan_mode: unknown;
+        }
+      >;
+      // undefined
+      setSwingMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example on @constraints  state: attribute: swing_mode, multiple: false
+          swing_mode: unknown;
+        }
+      >;
+      // undefined
+      setSwingHorizontalMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example on @constraints  state: attribute: swing_horizontal_mode, multiple: false
+          swing_horizontal_mode: unknown;
+        }
+      >;
+    };
+    humidifier: {
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+      // undefined
+      setMode: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example away @constraints  state: attribute: mode, multiple: false
+          mode: unknown;
+        }
+      >;
+      // undefined
+      setHumidity: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          humidity: number;
+        }
+      >;
+    };
+    cover: {
+      // undefined
+      openCover: ServiceFunction<object, T, object>;
+      // undefined
+      closeCover: ServiceFunction<object, T, object>;
+      // undefined
+      setCoverPosition: ServiceFunction<
         object,
         T,
         {
@@ -2147,143 +1206,26 @@ declare module '@hakit/core' {
         }
       >;
       // undefined
-      stopValve: ServiceFunction<object, T, object>;
+      stopCover: ServiceFunction<object, T, object>;
       // undefined
       toggle: ServiceFunction<object, T, object>;
-    };
-    waterHeater: {
       // undefined
-      turnOn: ServiceFunction<object, T, object>;
+      openCoverTilt: ServiceFunction<object, T, object>;
       // undefined
-      turnOff: ServiceFunction<object, T, object>;
+      closeCoverTilt: ServiceFunction<object, T, object>;
       // undefined
-      setAwayMode: ServiceFunction<
+      stopCoverTilt: ServiceFunction<object, T, object>;
+      // undefined
+      setCoverTiltPosition: ServiceFunction<
         object,
         T,
         {
-          //  @constraints  boolean:
-          away_mode: boolean;
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          tilt_position: number;
         }
       >;
       // undefined
-      setTemperature: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 250, step: 0.5, mode: box, unit_of_measurement: °
-          temperature: number;
-          //  @example eco
-          operation_mode?: string;
-        }
-      >;
-      // undefined
-      setOperationMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example eco
-          operation_mode: string;
-        }
-      >;
-    };
-    reolink: {
-      // undefined
-      playChime: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id: string;
-          //
-          ringtone:
-            | 'citybird'
-            | 'originaltune'
-            | 'pianokey'
-            | 'loop'
-            | 'attraction'
-            | 'hophop'
-            | 'goodday'
-            | 'operetta'
-            | 'moonlight'
-            | 'waybackhome';
-        }
-      >;
-      // undefined
-      ptzMove: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 1, max: 64, step: 1, mode: slider
-          speed: number;
-        }
-      >;
-    };
-    cast: {
-      // undefined
-      showLovelaceView: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          entity_id: string;
-          //  @example lovelace-cast
-          dashboard_path?: string;
-          //  @example downstairs
-          view_path: string;
-        }
-      >;
-    };
-    inputText: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      setValue: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example This is an example text
-          value: string;
-        }
-      >;
-    };
-    inputDatetime: {
-      // undefined
-      reload: ServiceFunction<object, T, object>;
-      // undefined
-      setDatetime: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example '2019-04-20'
-          date?: string;
-          //  @example '05:04:20' @constraints  time:
-          time?: string;
-          //  @example '2019-04-20 05:04:20'
-          datetime?: string;
-          //  @constraints  number: min: 0, max: 9223372036854776000, mode: box, step: 1
-          timestamp?: number;
-        }
-      >;
-    };
-    synologyDsm: {
-      // undefined
-      reboot: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1NDVC86409
-          serial?: string;
-        }
-      >;
-      // undefined
-      shutdown: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1NDVC86409
-          serial?: string;
-        }
-      >;
+      toggleCoverTilt: ServiceFunction<object, T, object>;
     };
     notify: {
       // undefined
@@ -2386,9 +1328,1282 @@ declare module '@hakit/core' {
         }
       >;
     };
-    template: {
+    lock: {
+      // undefined
+      unlock: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      lock: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      open: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1234
+          code?: string;
+        }
+      >;
+    };
+    remote: {
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      turnOn: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example BedroomTV
+          activity?: string;
+        }
+      >;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+      // undefined
+      sendCommand: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 32756745
+          device?: string;
+          //  @example Play @constraints  object: multiple: false
+          command: object;
+          //  @constraints  number: min: 0, max: 255, step: 1, mode: slider
+          num_repeats?: number;
+          //  @constraints  number: min: 0, max: 60, step: 0.1, unit_of_measurement: seconds, mode: slider
+          delay_secs?: number;
+          //  @constraints  number: min: 0, max: 60, step: 0.1, unit_of_measurement: seconds, mode: slider
+          hold_secs?: number;
+        }
+      >;
+      // undefined
+      learnCommand: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example television
+          device?: string;
+          //  @example Turn on @constraints  object: multiple: false
+          command?: object;
+          //
+          command_type?: "ir" | "rf";
+          //  @constraints  boolean:
+          alternative?: boolean;
+          //  @constraints  number: min: 0, max: 60, step: 5, unit_of_measurement: seconds, mode: slider
+          timeout?: number;
+        }
+      >;
+      // undefined
+      deleteCommand: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example television
+          device?: string;
+          //  @example Mute @constraints  object: multiple: false
+          command: object;
+        }
+      >;
+    };
+    imageProcessing: {
+      // undefined
+      scan: ServiceFunction<object, T, object>;
+    };
+    logbook: {
+      // undefined
+      log: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Kitchen
+          name: string;
+          //  @example is being used
+          message: string;
+          //
+          entity_id?: string;
+          //  @example light
+          domain?: string;
+        }
+      >;
+    };
+    inputButton: {
       // undefined
       reload: ServiceFunction<object, T, object>;
+      // undefined
+      press: ServiceFunction<object, T, object>;
+    };
+    group: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      set: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example test_group
+          object_id: string;
+          //  @example My test group
+          name?: string;
+          //  @example mdi:camera @constraints  icon:
+          icon?: string;
+          //  @example domain.entity_id1, domain.entity_id2
+          entities?: string;
+          //  @example domain.entity_id1, domain.entity_id2
+          add_entities?: string;
+          //  @example domain.entity_id1, domain.entity_id2
+          remove_entities?: string;
+          //  @constraints  boolean:
+          all?: boolean;
+        }
+      >;
+      // undefined
+      remove: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example test_group @constraints  object: multiple: false
+          object_id: object;
+        }
+      >;
+    };
+    zone: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+    };
+    timer: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      start: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 00:01:00 or 60 @constraints  duration: enable_second: true
+          duration?: {
+            hours?: number;
+            days?: number;
+            minutes?: number;
+            seconds?: number;
+          };
+        }
+      >;
+      // undefined
+      pause: ServiceFunction<object, T, object>;
+      // undefined
+      cancel: ServiceFunction<object, T, object>;
+      // undefined
+      finish: ServiceFunction<object, T, object>;
+      // undefined
+      change: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 00:01:00, 60 or -60 @constraints  duration: allow_negative: true, enable_second: true
+          duration: {
+            hours?: number;
+            days?: number;
+            minutes?: number;
+            seconds?: number;
+          };
+        }
+      >;
+    };
+    inputNumber: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 0, max: 9223372036854776000, step: 0.001, mode: box
+          value: number;
+        }
+      >;
+      // undefined
+      increment: ServiceFunction<object, T, object>;
+      // undefined
+      decrement: ServiceFunction<object, T, object>;
+    };
+    inputSelect: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      selectFirst: ServiceFunction<object, T, object>;
+      // undefined
+      selectLast: ServiceFunction<object, T, object>;
+      // undefined
+      selectNext: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          cycle?: boolean;
+        }
+      >;
+      // undefined
+      selectOption: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 'Item A' @constraints  state: hide_states: unavailable,unknown, multiple: false
+          option: unknown;
+        }
+      >;
+      // undefined
+      selectPrevious: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          cycle?: boolean;
+        }
+      >;
+      // undefined
+      setOptions: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example ['Item A', 'Item B', 'Item C']
+          options: string;
+        }
+      >;
+    };
+    inputBoolean: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+    };
+    person: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+    };
+    deviceTracker: {
+      // undefined
+      see: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example FF:FF:FF:FF:FF:FF
+          mac?: string;
+          //  @example phonedave
+          dev_id?: string;
+          //  @example Dave
+          host_name?: string;
+          //  @example home
+          location_name?: string;
+          //  @example [51.509802, -0.086692] @constraints  object: multiple: false
+          gps?: object;
+          //  @constraints  number: min: 0, mode: box, unit_of_measurement: m, step: 1
+          gps_accuracy?: number;
+          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
+          battery?: number;
+        }
+      >;
+    };
+    text: {
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Hello world!
+          value: string;
+        }
+      >;
+    };
+    time: {
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 22:15 @constraints  time:
+          time: string;
+        }
+      >;
+    };
+    aiTask: {
+      // undefined
+      generateData: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example home summary
+          task_name: string;
+          //  @example Generate a funny notification that the garage door was left open
+          instructions: string;
+          //
+          entity_id?: string;
+          //  @example { 'name': { 'selector': { 'text': }, 'description': 'Name of the user', 'required': 'True' } } }, 'age': { 'selector': { 'number': }, 'description': 'Age of the user' } } @constraints  object: multiple: false
+          structure?: object;
+          //  @constraints  media: accept: *, multiple: true
+          attachments?: unknown;
+        }
+      >;
+      // undefined
+      generateImage: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example picture of a dog
+          task_name: string;
+          //  @example Generate a high quality square image of a dog on transparent background
+          instructions: string;
+          //
+          entity_id: string;
+          //  @constraints  media: accept: *, multiple: true
+          attachments?: unknown;
+        }
+      >;
+    };
+    date: {
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 2022/11/01 @constraints  date:
+          date: string;
+        }
+      >;
+    };
+    assistSatellite: {
+      // undefined
+      announce: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Time to wake up!
+          message?: string;
+          //  @constraints  media: accept: audio/*, multiple: false
+          media_id?: unknown;
+          //  @constraints  boolean:
+          preannounce?: boolean;
+          //  @constraints  media: accept: audio/*, multiple: false
+          preannounce_media_id?: unknown;
+        }
+      >;
+      // undefined
+      startConversation: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example You left the lights on in the living room. Turn them off?
+          start_message?: string;
+          //  @constraints  media: accept: audio/*, multiple: false
+          start_media_id?: unknown;
+          //
+          extra_system_prompt?: string;
+          //  @constraints  boolean:
+          preannounce?: boolean;
+          //  @constraints  media: accept: audio/*, multiple: false
+          preannounce_media_id?: unknown;
+        }
+      >;
+      // undefined
+      askQuestion: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          entity_id: string;
+          //  @example What kind of music would you like to play?
+          question?: string;
+          //  @constraints  media: accept: audio/*, multiple: false
+          question_media_id?: unknown;
+          //  @constraints  boolean:
+          preannounce?: boolean;
+          //  @constraints  media: accept: audio/*, multiple: false
+          preannounce_media_id?: unknown;
+          //  @constraints  object: label_field: sentences, description_field: id, multiple: true, translation_key: answers, fields: [object Object]
+          answers?: object;
+        }
+      >;
+    };
+    datetime: {
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 2023-10-07T21:35:22 @constraints  datetime:
+          datetime: string;
+        }
+      >;
+    };
+    siren: {
+      // undefined
+      turnOn: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example fire
+          tone?: string;
+          //  @example 0.5 @constraints  number: min: 0, max: 1, step: 0.05, mode: slider
+          volume_level?: number;
+          //  @example 15
+          duration?: string;
+        }
+      >;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+    };
+    llmvision: {
+      // Analyze an image with AI
+      imageAnalyzer: ServiceFunction<
+        object,
+        T,
+        {
+          // Configuration to use @constraints  config_entry: integration: llmvision
+          provider: unknown;
+          // Model to use. Uncheck for default. @example gpt-4o-mini
+          model?: string;
+          // Model prompt @example Describe the image
+          message: string;
+          // Create a new event in the timeline for this detection. @example true @constraints  boolean:
+          store_in_timeline?: boolean;
+          // Use information stored in memory to provide additional context. Memory must be set up. @example true @constraints  boolean:
+          use_memory?: boolean;
+          // Local path to image @example /config/www/tmp/front_door.jpg
+          image_file?: string;
+          // Image or camera entity to analyze @example image.front_door_person
+          image_entity?: string;
+          // Include filename in the request @constraints  boolean:
+          include_filename: boolean;
+          // Width in pixels to downscale @example 1280 @constraints  number: min: 512, max: 1920, step: 1, mode: slider
+          target_width?: number;
+          // Maximum number of tokens to generate @example 3000 @constraints  number: step: 1, mode: box
+          max_tokens?: number;
+          // Generate a title. (Used for notifications and events) @constraints  boolean:
+          generate_title?: boolean;
+          // Save the key frame. This will save analyzed frames in /media/llmvision/snapshots so they can be used for notifications. The file path will be included in the response. @constraints  boolean:
+          expose_images?: boolean;
+          // Format of the response - text for natural language or json for structured data @example json
+          response_format?: "text" | "json";
+          // JSON schema defining the expected response structure (only used when response_format is json). To enable automatic title generation for timeline events, include a field in your schema for the title (e.g., 'title': {'type': 'string', 'description': 'Event title'}) and specify the field names below. @example {'type': 'object', 'properties': {'title': {'type': 'string', 'description': 'Event title'}, 'description': {'type': 'string', 'description': 'Event description'}, 'confidence': {'type': 'number', 'minimum': 0, 'maximum': 100}}, 'required': ['title', 'description', 'confidence'], 'additionalProperties': false}
+          structure?: string;
+          // Name of the field in your JSON schema that contains the event title (used for timeline). Leave empty to use fallback title 'Motion detected'. @example title
+          title_field?: string;
+          // Name of the field in your JSON schema that contains the event description (used for timeline). @example description
+          description_field?: string;
+        }
+      >;
+      // Analyze video with AI
+      videoAnalyzer: ServiceFunction<
+        object,
+        T,
+        {
+          // Configuration to use @constraints  config_entry: integration: llmvision
+          provider: unknown;
+          // Model to use. Uncheck for default. @example gpt-4o-mini
+          model?: string;
+          // Model prompt @example Describe what happens in the video
+          message: string;
+          // Create a new event in the timeline for this detection. @example true @constraints  boolean:
+          store_in_timeline?: boolean;
+          // Use information stored in memory to provide additional context. Memory must be set up. @example true @constraints  boolean:
+          use_memory?: boolean;
+          // One or multiple local paths or URLs to video. Use a new line to separate multiple entries. @example /config/www/recordings/front_door.mp4
+          video_file?: string;
+          // Frigate Event ID @example 1712108310.968815-r28cdt
+          event_id?: string;
+          // How many frames to analyze. Picks frames with the most movement. @example 3 @constraints  number: min: 1, max: 10, step: 1, mode: slider
+          max_frames?: number;
+          // Include filename in the request @constraints  boolean:
+          include_filename: boolean;
+          // Width in pixels to downscale @example 1280 @constraints  number: min: 512, max: 1920, step: 1, mode: slider
+          target_width?: number;
+          // Maximum number of tokens to generate @example 3000 @constraints  number: step: 1, mode: box
+          max_tokens?: number;
+          // Generate a title. (Used for notifications and events) @constraints  boolean:
+          generate_title?: boolean;
+          // Save the key frame. This will save analyzed frames in /media/llmvision/snapshots so they can be used for notifications. The file path will be included in the response. @constraints  boolean:
+          expose_images?: boolean;
+          // Format of the response - text for natural language or json for structured data @example json
+          response_format?: "text" | "json";
+          // JSON schema defining the expected response structure (only used when response_format is json). To enable automatic title generation for timeline events, include a field in your schema for the title (e.g., 'title': {'type': 'string', 'description': 'Event title'}) and specify the field names below. @example {'type': 'object', 'properties': {'title': {'type': 'string', 'description': 'Event title'}, 'description': {'type': 'string', 'description': 'Event description'}, 'confidence': {'type': 'number', 'minimum': 0, 'maximum': 100}}, 'required': ['title', 'description', 'confidence'], 'additionalProperties': false}
+          structure?: string;
+          // Name of the field in your JSON schema that contains the event title (used for timeline). Leave empty to use fallback title 'Motion detected'. @example title
+          title_field?: string;
+          // Name of the field in your JSON schema that contains the event description (used for timeline). @example description
+          description_field?: string;
+        }
+      >;
+      // Analyze a live camera stream with AI
+      streamAnalyzer: ServiceFunction<
+        object,
+        T,
+        {
+          // Configuration to use @constraints  config_entry: integration: llmvision
+          provider: unknown;
+          // Model to use. Uncheck for default. @example gpt-4o-mini
+          model?: string;
+          // Model prompt @example Describe what happens in the camera feed
+          message: string;
+          // Create a new event in the timeline for this detection. @example true @constraints  boolean:
+          store_in_timeline?: boolean;
+          // Use information stored in memory to provide additional context. Memory must be set up. @example true @constraints  boolean:
+          use_memory?: boolean;
+          // Camera entity to stream @example camera.front_door
+          image_entity: string;
+          // How long to record in seconds @example 5 @constraints  number: min: 1, max: 60, step: 1, mode: slider
+          duration: number;
+          // How many frames to analyze. Picks frames with the most movement. @example 3 @constraints  number: min: 1, max: 10, step: 1, mode: slider
+          max_frames?: number;
+          // Include camera name in request @constraints  boolean:
+          include_filename: boolean;
+          // Width in pixels to downscale @example 1280 @constraints  number: min: 512, max: 1920, step: 1, mode: slider
+          target_width?: number;
+          // Maximum number of tokens to generate @example 3000 @constraints  number: step: 1, mode: box
+          max_tokens?: number;
+          // Generate a title. (Used for notifications and events) @constraints  boolean:
+          generate_title?: boolean;
+          // Save the key frame. This will save analyzed frames in /media/llmvision/snapshots so they can be used for notifications. The file path will be included in the response. @constraints  boolean:
+          expose_images?: boolean;
+          // Format of the response - text for natural language or json for structured data @example json
+          response_format?: "text" | "json";
+          // JSON schema defining the expected response structure (only used when response_format is json). To enable automatic title generation for timeline events, include a field in your schema for the title (e.g., 'title': {'type': 'string', 'description': 'Event title'}) and specify the field names below. @example {'type': 'object', 'properties': {'title': {'type': 'string', 'description': 'Event title'}, 'description': {'type': 'string', 'description': 'Event description'}, 'confidence': {'type': 'number', 'minimum': 0, 'maximum': 100}}, 'required': ['title', 'description', 'confidence'], 'additionalProperties': false}
+          structure?: string;
+          // Name of the field in your JSON schema that contains the event title (used for timeline). Leave empty to use fallback title 'Motion detected'. @example title
+          title_field?: string;
+          // Name of the field in your JSON schema that contains the event description (used for timeline). @example description
+          description_field?: string;
+        }
+      >;
+      // Update sensors with data extracted from images (Beta)
+      dataAnalyzer: ServiceFunction<
+        object,
+        T,
+        {
+          // Configuration to use @constraints  config_entry: integration: llmvision
+          provider: unknown;
+          // Model to use. Uncheck for default. @example gpt-4o-mini
+          model?: string;
+          // Describe what should be extracted from the image. Data types and available options will be recognized automatically based the provided sensor. @example How many cars are parked?
+          message: string;
+          // Create a new event in the timeline for this detection. @example true @constraints  boolean:
+          store_in_timeline?: boolean;
+          // Use information stored in memory to provide additional context. Memory must be set up. @example true @constraints  boolean:
+          use_memory?: boolean;
+          // The sensor to update
+          sensor_entity: string;
+          // Local path to image @example /config/www/tmp/front_door.jpg
+          image_file?: string;
+          // Image or camera entity to analyze @example image.front_door_person
+          image_entity?: string;
+          // Include filename in the request @constraints  boolean:
+          include_filename: boolean;
+          // Width in pixels to downscale @example 1280 @constraints  number: min: 512, max: 1920, step: 1, mode: slider
+          target_width?: number;
+          // Maximum number of tokens to generate @example 3000 @constraints  number: step: 1, mode: box
+          max_tokens?: number;
+          // Generate a title. (Used for notifications and events) @constraints  boolean:
+          generate_title?: boolean;
+          // Save the key frame. This will save analyzed frames in /media/llmvision/snapshots so they can be used for notifications. The file path will be included in the response. @constraints  boolean:
+          expose_images?: boolean;
+        }
+      >;
+      // Creates a new event in the LLM Vision Timeline
+      createEvent: ServiceFunction<
+        object,
+        T,
+        {
+          // Event Title @example Car seen
+          title: string;
+          // Event Description @example A car was seen pulling into a driveway
+          description: string;
+          // Label to assign the event to @example Car
+          label?:
+            | "Alarm"
+            | "Bicycle"
+            | "Bird"
+            | "Bus"
+            | "Camera"
+            | "Car"
+            | "Cat"
+            | "Dog"
+            | "Door"
+            | "Key"
+            | "Light"
+            | "Lock"
+            | "Motorcycle"
+            | "Package"
+            | "Person"
+            | "Plant"
+            | "Sensor"
+            | "Tree"
+            | "Truck"
+            | "Van";
+          // Image of the event. Must be stored in '/media/llmvision/snapshots/' @example /media/llmvision/snapshots/example.jpg
+          image_path?: string;
+          // Camera that recorded the event. @example camera.front_door
+          camera_entity?: string;
+          // Time and date the event started. Set to now if left blank. Format: (YYYY-MM-DD HH:MM:SS) @example 2022-02-22 13:30:00 @constraints  datetime:
+          start_time?: string;
+          // Time and date the event ended. Set to one minute after start if left blank. Format: (YYYY-MM-DD HH:MM:SS) @example 2022-02-22 13:30:00 @constraints  datetime:
+          end_time?: string;
+        }
+      >;
+      // Get events from the LLM Vision Timeline
+      getEvents: ServiceFunction<
+        object,
+        T,
+        {
+          // Only return events that overlap with this start datetime. @example 2026-03-16 08:00:00 @constraints  datetime:
+          start?: string;
+          // Only return events that overlap with this end datetime. @example 2026-03-16 20:00:00 @constraints  datetime:
+          end?: string;
+          // Only return events captured by the selected entities. @example image.front_door_person
+          cameras?: string;
+          // Comma-separated list of categories to include. @example people,vehicles,animals
+          categories?:
+            | "Person"
+            | "Vehicle"
+            | "Animal"
+            | "Package"
+            | "Entity"
+            | "Nature";
+          // Only return events matching one of the selected labels @example person,car,dog
+          labels?:
+            | "Alarm"
+            | "Bicycle"
+            | "Bird"
+            | "Bus"
+            | "Camera"
+            | "Car"
+            | "Cat"
+            | "Dog"
+            | "Door"
+            | "Key"
+            | "Light"
+            | "Lock"
+            | "Motorcycle"
+            | "Package"
+            | "Person"
+            | "Plant"
+            | "Sensor"
+            | "Tree"
+            | "Truck"
+            | "Van";
+          // Maximum number of events to return. @example 100 @constraints  number: min: 1, step: 1, mode: box
+          limit?: number;
+          // Include events with 'no activity' in the title. @example true @constraints  boolean:
+          include_no_activity?: boolean;
+        }
+      >;
+    };
+    environmentCanada: {
+      // undefined
+      getAlerts: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: environment_canada
+          config_entry_id: unknown;
+        }
+      >;
+      // undefined
+      setRadarType: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Rain
+          radar_type: "Auto" | "Rain" | "Snow" | "Precipitation type";
+        }
+      >;
+      // undefined
+      getForecasts: ServiceFunction<object, T, object>;
+    };
+    inputText: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      setValue: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example This is an example text
+          value: string;
+        }
+      >;
+    };
+    musicAssistant: {
+      // undefined
+      search: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: music_assistant
+          config_entry_id: unknown;
+          //  @example We Are The Champions
+          name: string;
+          //  @example playlist
+          media_type?:
+            | "artist"
+            | "album"
+            | "audiobook"
+            | "playlist"
+            | "podcast"
+            | "track"
+            | "radio";
+          //  @example Queen
+          artist?: string;
+          //  @example News of the world
+          album?: string;
+          //
+          search_options?: object;
+        }
+      >;
+      // undefined
+      getLibrary: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: music_assistant
+          config_entry_id: unknown;
+          //  @example playlist
+          media_type:
+            | "artist"
+            | "album"
+            | "audiobook"
+            | "playlist"
+            | "podcast"
+            | "track"
+            | "radio";
+          //  @example true @constraints  boolean:
+          favorite?: boolean;
+          //  @example We Are The Champions
+          search?: string;
+          //
+          pagination?: object;
+          //  @example random
+          order_by?:
+            | "name"
+            | "name_desc"
+            | "sort_name"
+            | "sort_name_desc"
+            | "timestamp_added"
+            | "timestamp_added_desc"
+            | "last_played"
+            | "last_played_desc"
+            | "play_count"
+            | "play_count_desc"
+            | "year"
+            | "year_desc"
+            | "position"
+            | "position_desc"
+            | "artist_name"
+            | "artist_name_desc"
+            | "random"
+            | "random_play_count";
+          //  @example single
+          album_type?: "album" | "single" | "compilation" | "ep" | "unknown";
+          //  @example true @constraints  boolean:
+          album_artists_only?: boolean;
+        }
+      >;
+      // undefined
+      playMedia: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example spotify://playlist/aabbccddeeff @constraints  object: multiple: false
+          media_id: object;
+          //  @example playlist
+          media_type?:
+            | "artist"
+            | "album"
+            | "audiobook"
+            | "folder"
+            | "playlist"
+            | "podcast"
+            | "track"
+            | "radio";
+          //  @example Queen
+          artist?: string;
+          //  @example News of the world
+          album?: string;
+          //
+          enqueue?: "play" | "replace" | "next" | "replace_next" | "add";
+          //  @constraints  boolean:
+          radio_mode?: boolean;
+          //  @example john
+          username?: string;
+        }
+      >;
+      // undefined
+      playAnnouncement: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example http://someremotesite.com/doorbell.mp3
+          url: string;
+          //  @example true @constraints  boolean:
+          use_pre_announce?: boolean;
+          //  @example http://someremotesite.com/chime.mp3
+          pre_announce_url?: string;
+          //  @example 75 @constraints  number: min: 1, max: 100, step: 1, mode: slider
+          announce_volume?: number;
+        }
+      >;
+      // undefined
+      transferQueue: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          source_player?: string;
+          //  @example true @constraints  boolean:
+          auto_play?: boolean;
+        }
+      >;
+      // undefined
+      getQueue: ServiceFunction<object, T, object>;
+    };
+    schedule: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      getSchedule: ServiceFunction<object, T, object>;
+    };
+    mqtt: {
+      // undefined
+      publish: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example /homeassistant/hello
+          topic: string;
+          //  @example The temperature is {{ states('sensor.temperature') }} @constraints  template:
+          payload?: unknown;
+          //
+          publish_options?: object;
+        }
+      >;
+      // undefined
+      dump: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example OpenZWave/#
+          topic?: string;
+          //  @constraints  number: min: 1, max: 300, unit_of_measurement: seconds, step: 1, mode: slider
+          duration?: number;
+        }
+      >;
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+    };
+    utilityMeter: {
+      // undefined
+      reset: ServiceFunction<object, T, object>;
+      // undefined
+      calibrate: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 100
+          value: string;
+        }
+      >;
+    };
+    matter: {
+      // undefined
+      waterHeaterBoost: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 60, max: 14400, step: 60, mode: box
+          duration: number;
+          //  @constraints  boolean:
+          emergency_boost?: boolean;
+          //  @constraints  number: min: 30, max: 65, step: 1, mode: slider
+          temporary_setpoint?: number;
+        }
+      >;
+      // undefined
+      setLockUser: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 1, max: 255, step: 1, mode: box
+          user_index?: number;
+          //
+          user_name?: string;
+          //
+          user_type?:
+            | "unrestricted_user"
+            | "year_day_schedule_user"
+            | "week_day_schedule_user"
+            | "programming_user"
+            | "non_access_user"
+            | "forced_user"
+            | "disposable_user"
+            | "expiring_user"
+            | "schedule_restricted_user"
+            | "remote_only_user";
+          //
+          credential_rule?: "single" | "dual" | "tri";
+        }
+      >;
+      // undefined
+      clearLockUser: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 1, max: 65534, step: 1, mode: box
+          user_index: number;
+        }
+      >;
+      // undefined
+      getLockInfo: ServiceFunction<object, T, object>;
+      // undefined
+      getLockUsers: ServiceFunction<object, T, object>;
+      // undefined
+      setLockCredential: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          credential_type:
+            | "pin"
+            | "rfid"
+            | "fingerprint"
+            | "finger_vein"
+            | "face";
+          //
+          credential_data: string;
+          //  @constraints  number: min: 0, max: 65534, step: 1, mode: box
+          credential_index?: number;
+          //  @constraints  number: min: 1, max: 65534, step: 1, mode: box
+          user_index?: number;
+          //
+          user_status?: "occupied_enabled" | "occupied_disabled";
+          //
+          user_type?:
+            | "unrestricted_user"
+            | "year_day_schedule_user"
+            | "week_day_schedule_user"
+            | "programming_user"
+            | "non_access_user"
+            | "forced_user"
+            | "disposable_user"
+            | "expiring_user"
+            | "schedule_restricted_user"
+            | "remote_only_user";
+        }
+      >;
+      // undefined
+      clearLockCredential: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          credential_type:
+            | "pin"
+            | "rfid"
+            | "fingerprint"
+            | "finger_vein"
+            | "face";
+          //  @constraints  number: min: 0, max: 65534, step: 1, mode: box
+          credential_index: number;
+        }
+      >;
+      // undefined
+      getLockCredentialStatus: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          credential_type:
+            | "programming_pin"
+            | "pin"
+            | "rfid"
+            | "fingerprint"
+            | "finger_vein"
+            | "face"
+            | "aliro_credential_issuer_key"
+            | "aliro_evictable_endpoint_key"
+            | "aliro_non_evictable_endpoint_key";
+          //  @constraints  number: min: 0, max: 65534, step: 1, mode: box
+          credential_index: number;
+        }
+      >;
+    };
+    file: {
+      // undefined
+      readFile: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example www/my_file.json
+          file_name?: string;
+          //  @example JSON
+          file_encoding?: "JSON" | "YAML";
+        }
+      >;
+    };
+    cast: {
+      // undefined
+      showLovelaceView: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          entity_id: string;
+          //  @example lovelace-cast
+          dashboard_path?: string;
+          //  @example downstairs
+          view_path: string;
+        }
+      >;
+    };
+    reolink: {
+      // undefined
+      playChime: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id: string;
+          //
+          ringtone:
+            | "citybird"
+            | "originaltune"
+            | "pianokey"
+            | "loop"
+            | "attraction"
+            | "hophop"
+            | "goodday"
+            | "operetta"
+            | "moonlight"
+            | "waybackhome";
+        }
+      >;
+      // undefined
+      ptzMove: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 1, max: 64, step: 1, mode: slider
+          speed: number;
+        }
+      >;
+    };
+    tuya: {
+      // undefined
+      getFeederMealPlan: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id: string;
+        }
+      >;
+      // undefined
+      setFeederMealPlan: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id: string;
+          //  @constraints  object: translation_key: set_feeder_meal_plan, description_field: portion, multiple: true, fields: [object Object]
+          meal_plan: object;
+        }
+      >;
+    };
+    sonoff: {
+      // Sends a command to a device.
+      sendCommand: ServiceFunction<
+        object,
+        T,
+        {
+          // Device ID to send command to. @example 1000123456
+          device?: object;
+          // A single command to send. @example switch
+          cmd?: object;
+        }
+      >;
+    };
+    inputDatetime: {
+      // undefined
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      setDatetime: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example '2019-04-20'
+          date?: string;
+          //  @example '05:04:20' @constraints  time:
+          time?: string;
+          //  @example '2019-04-20 05:04:20'
+          datetime?: string;
+          //  @constraints  number: min: 0, max: 9223372036854776000, mode: box, step: 1
+          timestamp?: number;
+        }
+      >;
+    };
+    scentAssistant: {
+      // Set the spray schedule for a scent diffuser. Configure which days, time range, and spray/pause durations.
+      setSchedule: ServiceFunction<
+        object,
+        T,
+        {
+          // List of weekdays: mon, tue, wed, thu, fri, sat, sun, or all @example [mon, wed, fri]
+          days: "mon" | "tue" | "wed" | "thu" | "fri" | "sat" | "sun" | "all";
+          // Time to start spraying (HH:MM) @example 08:00 @constraints  time:
+          start_time?: string;
+          // Time to stop spraying (HH:MM) @example 20:00 @constraints  time:
+          end_time?: string;
+          // How long each spray lasts in seconds @example 15 @constraints  number: min: 5, max: 600, unit_of_measurement: seconds, step: 1, mode: slider
+          work_seconds?: number;
+          // Pause between sprays in seconds @example 60 @constraints  number: min: 5, max: 3600, unit_of_measurement: seconds, step: 1, mode: slider
+          pause_seconds?: number;
+          // Enable or disable this schedule slot @constraints  boolean:
+          enabled?: boolean;
+        }
+      >;
+    };
+    calendar: {
+      // undefined
+      createEvent: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Department Party
+          summary: string;
+          //  @example Meeting to provide technical review for 'Phoenix' design.
+          description?: string;
+          //  @example 2022-03-22 20:00:00 @constraints  datetime:
+          start_date_time?: string;
+          //  @example 2022-03-22 22:00:00 @constraints  datetime:
+          end_date_time?: string;
+          //  @example 2022-03-22 @constraints  date:
+          start_date?: string;
+          //  @example 2022-03-23 @constraints  date:
+          end_date?: string;
+          //  @example {'days': 2} or {'weeks': 2}
+          in?: object;
+          //  @example Conference Room - F123, Bldg. 002
+          location?: string;
+        }
+      >;
+      // undefined
+      getEvents: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 2022-03-22 20:00:00 @constraints  datetime:
+          start_date_time?: string;
+          //  @example 2022-03-22 22:00:00 @constraints  datetime:
+          end_date_time?: string;
+          //  @constraints  duration: enable_second: true
+          duration?: {
+            hours?: number;
+            days?: number;
+            minutes?: number;
+            seconds?: number;
+          };
+        }
+      >;
+    };
+    wasteCollectionSchedule: {
+      // Fetch data from all sources.
+      fetchData: ServiceFunction<object, T, object>;
+    };
+    synologyDsm: {
+      // undefined
+      reboot: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1NDVC86409
+          serial?: string;
+        }
+      >;
+      // undefined
+      shutdown: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 1NDVC86409
+          serial?: string;
+        }
+      >;
+    };
+    shoppingList: {
+      // undefined
+      addItem: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Beer
+          name: string;
+        }
+      >;
+      // undefined
+      removeItem: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Beer
+          name: string;
+        }
+      >;
+      // undefined
+      completeItem: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Beer
+          name: string;
+        }
+      >;
+      // undefined
+      incompleteItem: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Beer
+          name: string;
+        }
+      >;
+      // undefined
+      completeAll: ServiceFunction<object, T, object>;
+      // undefined
+      incompleteAll: ServiceFunction<object, T, object>;
+      // undefined
+      clearCompletedItems: ServiceFunction<object, T, object>;
+      // undefined
+      sort: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          reverse?: boolean;
+        }
+      >;
     };
     googleAssistantSdk: {
       // undefined
@@ -2400,6 +2615,36 @@ declare module '@hakit/core' {
           command?: string;
           //  @example media_player.living_room_speaker
           media_player?: string;
+        }
+      >;
+    };
+    googleSheets: {
+      // undefined
+      appendSheet: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: google_sheets
+          config_entry: unknown;
+          //  @example Sheet1
+          worksheet?: string;
+          //  @constraints  boolean:
+          add_created_column?: boolean;
+          //  @example {'hello': world, 'cool': True, 'count': 5} @constraints  object: multiple: false
+          data: object;
+        }
+      >;
+      // undefined
+      getSheet: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: google_sheets
+          config_entry: unknown;
+          //  @example Sheet1
+          worksheet?: string;
+          //  @example 2 @constraints  number: step: 1, mode: box
+          rows: number;
         }
       >;
     };
@@ -3024,10 +3269,12 @@ declare module '@hakit/core' {
           playlist_id?: string;
           // An ISO 3166-1 alpha-2 country code. If a country code is specified, only content that is available in that market will be returned.  The country associated with the user account will take priority over this parameter. @example ES
           market?: string;
-          // A comma-separated list of fields to return from the Spotify Web API. All fields are returned if omitted. Limiting fields results can improve performance. @example description,id,name,public,snapshot_id,type,uri,tracks(limit,next,offset,previous,total,items(track(id,name,track_number,type,uri,album(id,images,name,total_tracks,type,uri,artists(id,name,type,uri)))))
+          // A comma-separated list of fields to return from the Spotify Web API. All fields are returned if omitted. Limiting fields results can improve performance. @example description,id,name,public,snapshot_id,type,uri,items(limit,next,offset,previous,total,items(item(id,name,track_number,type,uri,album(id,images,name,total_tracks,type,uri,artists(id,name,type,uri)))))
           fields?: string;
           // A comma-separated list of item types that your client supports besides the default track type. Valid types are 'track' and 'episode'. @example episode
           additional_types?: string;
+          // True to return only the basic fields of the playlist - the items collection will NOT be included in the returned object. otherwise, False (or omitted, default) to include the items collection in the returned object.  If True, the `fields` argument will be overridden to specify the fields to return. @example False @constraints  boolean:
+          exclude_items?: boolean;
         }
       >;
       // Get the current image associated with a specific playlist.
@@ -3073,7 +3320,7 @@ declare module '@hakit/core' {
           offset?: number;
           // An ISO 3166-1 alpha-2 country code. If a country code is specified, only content that is available in that market will be returned.  The country associated with the user account will take priority over this parameter. @example ES
           market?: string;
-          // Filters for the query; a comma-separated list of the fields to return. If omitted, all fields are returned. For example, specify 'items(track(name,uri))' to get just the playlist's track names and URIs. @example items(track(name,uri,album(name,uri)))
+          // Filters for the query; a comma-separated list of the fields to return. If omitted, all fields are returned. For example, specify 'items(track(name,uri))' to get just the playlist's track names and URIs. @example items(item(name,uri,album(name,uri)))
           fields?: string;
           // A comma-separated list of item types that your client supports besides the default track type.  Valid types are 'track' and 'episode'. @example track
           additional_types?: string;
@@ -3528,7 +3775,7 @@ declare module '@hakit/core' {
           // Entity ID of the SpotifyPlus service account that will make the request to the Spotify Web API. @example media_player.spotifyplus_username
           entity_id: string;
           // The repeat mode state to set; `track` will repeat the current track; `context` will repeat the current context; `off` will turn repeat off.  Default is 'off'. @example off
-          state: 'off' | 'track' | 'context';
+          state: "off" | "track" | "context";
           // The id or name of the Spotify Connect Player device this command is targeting.  If not supplied, the user's currently active device is the target.  If no device is active (or an '*' is specified), then the SpotifyPlus default device is activated. @example 0d1841b0976bae2a3a310dd74c0f337465899bc8
           device_id?: string;
           // Time delay (in seconds) to wait AFTER issuing the command to the player.  This delay will give the spotify web api time to process the change before another command is issued.  Default is 0.50; value range is 0 - 10. @example 0.50 @constraints  number: min: 0, max: 10, mode: box, step: 1
@@ -4169,114 +4416,106 @@ declare module '@hakit/core' {
         {
           // Entity ID of the SpotifyPlus service account that will make the request to the Spotify Web API. @example media_player.spotifyplus_username
           entity_id: string;
+          // Reason code of why the token is being expired. 0 = simple expiration test where expire_at = current time minus 10 seconds. 1 = spotify invalid_grant test - will force an `invalid_grant` exception scenario when token is refreshed. @example 0 @constraints  number: min: 0, max: 10, mode: box, step: 1
+          reason?: number;
         }
       >;
     };
-    samsungtvSmart: {
-      // Send to samsung TV the command to change picture mode.
-      selectPictureMode: ServiceFunction<
+    bhyve: {
+      // Update a program's configuration. Provide at least one of start_times, frequency or budget
+      updateProgram: ServiceFunction<
         object,
         T,
         {
-          // Name of the target entity @example media_player.tv
-          entity_id: string;
-          // Name of the picture mode to switch to. Possible options can be found in the picture_mode_list state attribute. @example Standard
-          picture_mode: string;
+          // Program switch @example switch.front_yard_program
+          entity_id?: object;
+          // List of watering start times in HH:MM format @example ['06:00', '18:00']
+          start_times?: object;
+          // Frequency configuration. `type` is required (known values: days, interval) @example {'type': 'days', 'days': [1, 3, 5], 'interval': 1, 'interval_hours': 0}
+          frequency?: object;
+          // Watering budget as a percentage (0-200). Scales run times up or down @example 50
+          budget?: object;
         }
       >;
-      // Send to samsung TV the command to set art mode.
-      setArtMode: ServiceFunction<
+      // Enable rain delay for a zone
+      enableRainDelay: ServiceFunction<
         object,
         T,
         {
-          // Name of the target entity @example media_player.tv
-          entity_id: string;
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+          // Number of hours of rain delay @example 24
+          hours?: object;
+        }
+      >;
+      // Disable rain delay for a zone
+      disableRainDelay: ServiceFunction<
+        object,
+        T,
+        {
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+        }
+      >;
+      // Start watering a zone
+      startWatering: ServiceFunction<
+        object,
+        T,
+        {
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+          // Number of minutes to water the zone @example 15
+          minutes?: object;
+        }
+      >;
+      // Stop watering a zone
+      stopWatering: ServiceFunction<
+        object,
+        T,
+        {
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+        }
+      >;
+      // Set the manual preset runtime for a device entity
+      setManualPresetRuntime: ServiceFunction<
+        object,
+        T,
+        {
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+          // Number of minutes to set the preset runtime @example 15
+          minutes?: object;
+        }
+      >;
+      // Set the smart watering soil moisture level for a zone
+      setSmartWateringSoilMoisture: ServiceFunction<
+        object,
+        T,
+        {
+          // Zone @example valve.backyard_zone
+          entity_id?: object;
+          // Moisture level between 0 - 100 (percent) @example 50
+          percentage?: object;
+        }
+      >;
+      // Begin watering a program
+      startProgram: ServiceFunction<
+        object,
+        T,
+        {
+          // Program @example valve.backyard_zone
+          entity_id?: object;
         }
       >;
     };
-    remote: {
+    template: {
       // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      turnOn: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example BedroomTV
-          activity?: string;
-        }
-      >;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      sendCommand: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 32756745
-          device?: string;
-          //  @example Play @constraints  object: multiple: false
-          command: object;
-          //  @constraints  number: min: 0, max: 255, step: 1, mode: slider
-          num_repeats?: number;
-          //  @constraints  number: min: 0, max: 60, step: 0.1, unit_of_measurement: seconds, mode: slider
-          delay_secs?: number;
-          //  @constraints  number: min: 0, max: 60, step: 0.1, unit_of_measurement: seconds, mode: slider
-          hold_secs?: number;
-        }
-      >;
-      // undefined
-      learnCommand: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example television
-          device?: string;
-          //  @example Turn on @constraints  object: multiple: false
-          command?: object;
-          //
-          command_type?: 'ir' | 'rf';
-          //  @constraints  boolean:
-          alternative?: boolean;
-          //  @constraints  number: min: 0, max: 60, step: 5, unit_of_measurement: seconds, mode: slider
-          timeout?: number;
-        }
-      >;
-      // undefined
-      deleteCommand: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example television
-          device?: string;
-          //  @example Mute @constraints  object: multiple: false
-          command: object;
-        }
-      >;
+      reload: ServiceFunction<object, T, object>;
     };
-    environmentCanada: {
+    openweathermap: {
       // undefined
-      setRadarType: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Snow
-          radar_type: 'Auto' | 'Rain' | 'Snow';
-        }
-      >;
-      // undefined
-      getForecasts: ServiceFunction<object, T, object>;
-    };
-    weather: {
-      // undefined
-      getForecasts: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          type: 'daily' | 'hourly' | 'twice_daily';
-        }
-      >;
+      getMinuteForecast: ServiceFunction<object, T, object>;
     };
     todo: {
       // undefined
@@ -4304,7 +4543,7 @@ declare module '@hakit/core' {
           //  @example Something else
           rename?: string;
           //  @example needs_action
-          status?: 'needs_action' | 'completed';
+          status?: "needs_action" | "completed";
           //  @example 2023-11-17 @constraints  date:
           due_date?: string;
           //  @example 2023-11-17 13:30:00 @constraints  datetime:
@@ -4328,505 +4567,11 @@ declare module '@hakit/core' {
         T,
         {
           //  @example needs_action
-          status?: 'needs_action' | 'completed';
+          status?: "needs_action" | "completed";
         }
       >;
       // undefined
       removeCompletedItems: ServiceFunction<object, T, object>;
-    };
-    aiTask: {
-      // undefined
-      generateData: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example home summary
-          task_name: string;
-          //  @example Generate a funny notification that the garage door was left open
-          instructions: string;
-          //
-          entity_id?: string;
-          //  @example { 'name': { 'selector': { 'text': }, 'description': 'Name of the user', 'required': 'True' } } }, 'age': { 'selector': { 'number': }, 'description': 'Age of the user' } } @constraints  object: multiple: false
-          structure?: object;
-          //  @constraints  media: accept: *, multiple: true
-          attachments?: unknown;
-        }
-      >;
-      // undefined
-      generateImage: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example picture of a dog
-          task_name: string;
-          //  @example Generate a high quality square image of a dog on transparent background
-          instructions: string;
-          //
-          entity_id: string;
-          //  @constraints  media: accept: *, multiple: true
-          attachments?: unknown;
-        }
-      >;
-    };
-    bhyve: {
-      // Enable rain delay for a zone
-      enableRainDelay: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-          // Number of hours of rain delay @example 24
-          hours?: object;
-        }
-      >;
-      // Disable rain delay for a zone
-      disableRainDelay: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-        }
-      >;
-      // Start watering a zone
-      startWatering: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-          // Number of minutes to water the zone @example 15
-          minutes?: object;
-        }
-      >;
-      // Stop watering a zone
-      stopWatering: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-        }
-      >;
-      // Set the manual preset runtime for a device entity
-      setManualPresetRuntime: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-          // Number of minutes to set the preset runtime @example 15
-          minutes?: object;
-        }
-      >;
-      // Set the smart watering soil moisture level for a zone
-      setSmartWateringSoilMoisture: ServiceFunction<
-        object,
-        T,
-        {
-          // Zone @example switch.backyard_zone
-          entity_id?: object;
-          // Moisture level between 0 - 100 (percent) @example 50
-          percentage?: object;
-        }
-      >;
-      // Begin watering a program
-      startProgram: ServiceFunction<
-        object,
-        T,
-        {
-          // Program @example switch.front_yard_program
-          entity_id?: object;
-        }
-      >;
-    };
-    calendar: {
-      // undefined
-      createEvent: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example Department Party
-          summary: string;
-          //  @example Meeting to provide technical review for 'Phoenix' design.
-          description?: string;
-          //  @example 2022-03-22 20:00:00 @constraints  datetime:
-          start_date_time?: string;
-          //  @example 2022-03-22 22:00:00 @constraints  datetime:
-          end_date_time?: string;
-          //  @example 2022-03-22 @constraints  date:
-          start_date?: string;
-          //  @example 2022-03-23 @constraints  date:
-          end_date?: string;
-          //  @example {'days': 2} or {'weeks': 2}
-          in?: object;
-          //  @example Conference Room - F123, Bldg. 002
-          location?: string;
-        }
-      >;
-      // undefined
-      getEvents: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 2022-03-22 20:00:00 @constraints  datetime:
-          start_date_time?: string;
-          //  @example 2022-03-22 22:00:00 @constraints  datetime:
-          end_date_time?: string;
-          //  @constraints  duration:
-          duration?: {
-            hours?: number;
-            days?: number;
-            minutes?: number;
-            seconds?: number;
-          };
-        }
-      >;
-    };
-    wasteCollectionSchedule: {
-      // Fetch data from all sources.
-      fetchData: ServiceFunction<object, T, object>;
-    };
-    alarmControlPanel: {
-      // undefined
-      alarmDisarm: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmArmHome: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmArmAway: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmArmNight: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmArmVacation: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmArmCustomBypass: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-      // undefined
-      alarmTrigger: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example 1234
-          code?: string;
-        }
-      >;
-    };
-    humidifier: {
-      // undefined
-      turnOn: ServiceFunction<object, T, object>;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-      // undefined
-      setMode: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example away
-          mode: string;
-        }
-      >;
-      // undefined
-      setHumidity: ServiceFunction<
-        object,
-        T,
-        {
-          //  @constraints  number: min: 0, max: 100, unit_of_measurement: %, step: 1, mode: slider
-          humidity: number;
-        }
-      >;
-    };
-    siren: {
-      // undefined
-      turnOn: ServiceFunction<
-        object,
-        T,
-        {
-          //  @example fire
-          tone?: string;
-          //  @example 0.5 @constraints  number: min: 0, max: 1, step: 0.05, mode: slider
-          volume_level?: number;
-          //  @example 15
-          duration?: string;
-        }
-      >;
-      // undefined
-      turnOff: ServiceFunction<object, T, object>;
-      // undefined
-      toggle: ServiceFunction<object, T, object>;
-    };
-    openweathermap: {
-      // undefined
-      getMinuteForecast: ServiceFunction<object, T, object>;
-    };
-    kiaUvo: {
-      // undefined
-      update: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      forceUpdate: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      lock: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      unlock: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      stopClimate: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      startClimate: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-          //  @example 5 @constraints  number: min: 1, max: 30, step: 1, unit_of_measurement: minutes, mode: slider
-          duration?: number;
-          //  @constraints  boolean:
-          climate: boolean;
-          //  @example 21.5 @constraints  number: min: 16, max: 85, step: 0.5, mode: box, unit_of_measurement: Degrees
-          temperature: number;
-          //  @constraints  boolean:
-          defrost?: boolean;
-          //
-          heating: '0' | '4' | '2' | '3';
-          //  @example 1
-          steering_wheel?: '0' | '1' | '2';
-          //
-          flseat?: '0' | '1' | '3' | '4' | '5' | '6' | '7' | '8';
-          //
-          frseat?: '0' | '1' | '3' | '4' | '5' | '6' | '7' | '8';
-          //
-          rlseat?: '0' | '1' | '3' | '4' | '5' | '6' | '7' | '8';
-          //
-          rrseat?: '0' | '1' | '3' | '4' | '5' | '6' | '7' | '8';
-        }
-      >;
-      // undefined
-      startCharge: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      stopCharge: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      setChargeLimits: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-          //  @example 50 @constraints  number: min: 50, max: 100, step: 10, unit_of_measurement: %, mode: slider
-          dc_limit?: number;
-          //  @example 50 @constraints  number: min: 50, max: 100, step: 10, unit_of_measurement: %, mode: slider
-          ac_limit?: number;
-        }
-      >;
-      // undefined
-      setChargingCurrent: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-          //
-          level: '1' | '2' | '3';
-        }
-      >;
-      // Open Charge Port
-      openChargePort: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      closeChargePort: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      scheduleChargingAndClimate: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-          //  @constraints  boolean:
-          charging_enabled?: boolean;
-          //  @constraints  boolean:
-          first_departure_enabled?: boolean;
-          //  @example ['0', '1']
-          first_departure_days?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
-          //  @constraints  time:
-          first_departure_time?: string;
-          //  @constraints  boolean:
-          second_departure_enabled?: boolean;
-          //  @example ['0', '1']
-          second_departure_days?: '0' | '1' | '2' | '3' | '4' | '5' | '6';
-          //  @constraints  time:
-          second_departure_time?: string;
-          //  @constraints  time:
-          off_peak_start_time?: string;
-          //  @constraints  time:
-          off_peak_end_time?: string;
-          //  @constraints  boolean:
-          off_peak_charge_only_enabled?: boolean;
-          //  @constraints  boolean:
-          climate_enabled?: boolean;
-          //  @example 21.5 @constraints  number: min: 17, max: 85, step: 0.5, mode: box, unit_of_measurement: Degrees
-          temperature?: number;
-          //  @example 0
-          temperature_unit?: '0' | '1';
-          //  @constraints  boolean:
-          defrost?: boolean;
-        }
-      >;
-      // undefined
-      startHazardLights: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      startHazardLightsAndHorn: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      startValetMode: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      stopValetMode: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-        }
-      >;
-      // undefined
-      setWindows: ServiceFunction<
-        object,
-        T,
-        {
-          //
-          device_id?: string;
-          //
-          flwindow: '0' | '1' | '2';
-          //
-          frwindow: '0' | '1' | '2';
-          //
-          rrwindow: '0' | '1' | '2';
-          //
-          rlwindow: '0' | '1' | '2';
-        }
-      >;
     };
     esphome: {
       // Performs the action wipe_devices_from_gdo_memory of the node ratgdov25i-e5f7cc
@@ -4839,14 +4584,115 @@ declare module '@hakit/core' {
         }
       >;
     };
-    image: {
+    script: {
+      //
+      startupOffice: ServiceFunction<object, T, object>;
+      //
+      shutdownOffice: ServiceFunction<object, T, object>;
+      // Turn off all lights, Lock the doors, and arm the alarm
+      away: ServiceFunction<object, T, object>;
+      //
+      openDisarm: ServiceFunction<object, T, object>;
       // undefined
-      snapshot: ServiceFunction<
+      reload: ServiceFunction<object, T, object>;
+      // undefined
+      turnOn: ServiceFunction<object, T, object>;
+      // undefined
+      turnOff: ServiceFunction<object, T, object>;
+      // undefined
+      toggle: ServiceFunction<object, T, object>;
+    };
+    alarmo: {
+      // undefined
+      arm: ServiceFunction<
         object,
         T,
         {
-          //  @example /tmp/image_snapshot.jpg
-          filename: string;
+          //  @example alarm_control_panel.alarm
+          entity_id: string;
+          //  @example 1234
+          code?: string;
+          //  @example away
+          mode?: "away" | "night" | "home" | "vacation" | "custom";
+          //  @constraints  boolean:
+          skip_delay?: boolean;
+          //  @constraints  boolean:
+          force?: boolean;
+        }
+      >;
+      // undefined
+      disarm: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example alarm_control_panel.alarm
+          entity_id: string;
+          //  @example 1234
+          code?: string;
+        }
+      >;
+      // undefined
+      skipDelay: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example alarm_control_panel.alarm
+          entity_id: string;
+        }
+      >;
+      // undefined
+      enableUser: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Frank
+          name: string;
+        }
+      >;
+      // undefined
+      disableUser: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example Frank
+          name: string;
+        }
+      >;
+    };
+    fullyKiosk: {
+      // undefined
+      loadUrl: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id: string;
+          //  @example https://home-assistant.io
+          url: string;
+        }
+      >;
+      // undefined
+      startApplication: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example de.ozerov.fully
+          application: string;
+          //
+          device_id: string;
+        }
+      >;
+      // undefined
+      setConfig: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id: string;
+          //  @example motionSensitivity
+          key: string;
+          //  @example 90
+          value: string;
         }
       >;
     };
@@ -4908,7 +4754,7 @@ declare module '@hakit/core' {
           //
           device_id: string;
           // The axis to move. X/P/H printers, X and Y move the printhead, Z moves the bed. A1, X moves the printhead, Y the bed, Z moves the gantry. @example X
-          axis: 'X' | 'Y' | 'Z' | 'Home';
+          axis: "X" | "Y" | "Z" | "Home";
           // The distance (in mm) to move the axis A negative distance moves Z up, X left, Y forward. @example 10 @constraints  number: min: -100, max: 100, step: 1, mode: slider
           distance?: number;
         }
@@ -4933,6 +4779,10 @@ declare module '@hakit/core' {
           temperature?: number;
         }
       >;
+      // Retry loading external filament
+      retryLoadFilament: ServiceFunction<object, T, object>;
+      // Once loading external filament is done, use this action to signal that to the printer.
+      doneLoadFilament: ServiceFunction<object, T, object>;
       // Perform an extrusion or extraction of the loaded filament
       extrudeRetract: ServiceFunction<
         object,
@@ -4941,7 +4791,7 @@ declare module '@hakit/core' {
           //
           device_id: string;
           // The type of extrude action to perform @example Extrude
-          type: 'Extrude' | 'Retract';
+          type: "Extrude" | "Retract";
           // Perform extrusion or retraction if nozzle temperature is below 170ºC. @constraints  boolean:
           force?: boolean;
         }
@@ -5034,6 +4884,449 @@ declare module '@hakit/core' {
       // undefined
       reload: ServiceFunction<object, T, object>;
     };
+    switchbot: {
+      // undefined
+      addPassword: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example c2d01328efd261f586e56d914e3af07e
+          device_id: string;
+          //  @example 123456
+          password: string;
+        }
+      >;
+    };
+    dreameVacuum: {
+      // undefined
+      vacuumRequestMap: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSelectMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id: number;
+        }
+      >;
+      // undefined
+      vacuumDeleteMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+        }
+      >;
+      // undefined
+      vacuumSaveTemporaryMap: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumDiscardTemporaryMap: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumReplaceTemporaryMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+        }
+      >;
+      // undefined
+      vacuumCleanZone: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [819,-263,4424,2105] or [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          zone: object;
+          //  @example [1,2] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          repeats?: number;
+          //  @example [0,3] or 0 @constraints  number: min: 0, max: 3, step: 1, mode: slider
+          suction_level?: number;
+          //  @example [1,3] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          water_volume?: number;
+        }
+      >;
+      // undefined
+      vacuumCleanSegment: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [3,2] or 3 @constraints  object: multiple: false
+          segments: object;
+          //  @example [1,2] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          repeats?: number;
+          //  @example [0,3] or 0 @constraints  number: min: 0, max: 3, step: 1, mode: slider
+          suction_level?: number;
+          //  @example [1,3] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          water_volume?: number;
+        }
+      >;
+      // undefined
+      vacuumCleanSpot: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [819,-263] or [[819,-263],[819,-263]] @constraints  object: multiple: false
+          points: object;
+          //  @example [1,2] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          repeats?: number;
+          //  @example [0,3] or 0 @constraints  number: min: 0, max: 3, step: 1, mode: slider
+          suction_level?: number;
+          //  @example [1,3] or 1 @constraints  number: min: 1, max: 3, step: 1, mode: slider
+          water_volume?: number;
+        }
+      >;
+      // undefined
+      vacuumGoto: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 819 @constraints  number: mode: box, step: 1
+          x: number;
+          //  @example -263 @constraints  number: mode: box, step: 1
+          y: number;
+        }
+      >;
+      // undefined
+      vacuumFollowPath: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [819,-263] or [[819,-263],[900,-463]] @constraints  object: multiple: false
+          points?: object;
+        }
+      >;
+      // undefined
+      vacuumStartShortcut: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 32 @constraints  number: min: 32, max: 128, mode: box, step: 1
+          shortcut_id: number;
+        }
+      >;
+      // undefined
+      vacuumSetRestrictedZone: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          walls?: object;
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          zones?: object;
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          no_mops?: object;
+        }
+      >;
+      // undefined
+      vacuumSetCarpetArea: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          carpets?: object;
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          deleted_carpets?: object;
+        }
+      >;
+      // undefined
+      vacuumSetCarpetType: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetVirtualThreshold: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [[819,-263,4424,2105],[-2001,-3050,-542,515]] @constraints  object: multiple: false
+          virtual_thresholds?: object;
+        }
+      >;
+      // undefined
+      vacuumSetThreshold: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetPredefinedPoints: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [819,-263] or [[819,-263],[900,-463]] @constraints  object: multiple: false
+          points?: object;
+        }
+      >;
+      // undefined
+      vacuumRemoteControlMoveStep: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 64 @constraints  number: min: -360, max: 360, mode: box, step: 1
+          rotation: number;
+          //  @example 100 @constraints  number: min: -600, max: 600, mode: box, step: 1
+          velocity: number;
+        }
+      >;
+      // undefined
+      vacuumInstallVoicePack: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example DE
+          lang_id: string;
+          //  @example http://awsde0.fds.api.xiaomi.com/dreame-product/dreame.vacuum.p2009/voices/package/deyu.tar.gz
+          url: string;
+          //  @example d25986c1f608c0897475707e77d856f9
+          md5: string;
+          //  @example 4067845 @constraints  number: mode: box, step: 1
+          size: number;
+        }
+      >;
+      // undefined
+      vacuumRenameMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id: number;
+          //  @example Ground Floor
+          map_name: string;
+        }
+      >;
+      // undefined
+      vacuumRestoreMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: 1, max: 4, mode: box, step: 1
+          recovery_map_index: number;
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+        }
+      >;
+      // undefined
+      vacuumRestoreMapFromFile: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example http://192.168.1.10/local/2023-11-04-1724223415-423528451_284320462.1156.mb.tbz2
+          file_url: string;
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+        }
+      >;
+      // undefined
+      vacuumBackupMap: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+        }
+      >;
+      // undefined
+      vacuumMergeSegments: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+          //  @example [3,2] @constraints  object: multiple: false
+          segments: object;
+        }
+      >;
+      // undefined
+      vacuumSplitSegments: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 14 @constraints  number: mode: box, step: 1
+          map_id?: number;
+          //  @example 3 @constraints  number: min: 1, max: 60, mode: box, step: 1
+          segment: number;
+          //  @example [819,-263,4424,2105] @constraints  object: multiple: false
+          line: object;
+        }
+      >;
+      // undefined
+      vacuumRenameSegment: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 3 @constraints  number: min: 1, max: 60, mode: box, step: 1
+          segment_id: number;
+          //  @example Playroom
+          segment_name: string;
+        }
+      >;
+      // undefined
+      vacuumSetCleaningSequence: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [5,3,2,1,4] or [] @constraints  object: multiple: false
+          cleaning_sequence: object;
+        }
+      >;
+      // undefined
+      vacuumSetCustomCleaning: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [1,2,3,4,5] @constraints  object: multiple: false
+          segment_id: object;
+          //  @example [0,0,2,3,1] @constraints  object: multiple: false
+          suction_level: object;
+          //  @example [1,1,2,3,1] @constraints  object: multiple: false
+          water_volume?: object;
+          //  @example [16,10,32,8,1] @constraints  object: multiple: false
+          wetness_level?: object;
+          //  @example [2,2,0,1,0] @constraints  object: multiple: false
+          cleaning_mode?: object;
+          //  @example [2,2,1,3,1] @constraints  object: multiple: false
+          repeats: object;
+          //  @example [0,0,1,0,1] @constraints  object: multiple: false
+          mop_temperature: object;
+          //  @example [2,0,0,2,0] @constraints  object: multiple: false
+          mop_pressure: object;
+        }
+      >;
+      // undefined
+      vacuumSetCustomCarpetCleaning: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example [1,2] or 3 @constraints  object: multiple: false
+          id: object;
+          //  @example [0,1] or 1 @constraints  number: min: 0, max: 1, step: 1, mode: slider
+          type: number;
+          //  @example [0,3] or 5 @constraints  number: min: 0, max: 6, step: 1, mode: slider
+          carpet_cleaning?: number;
+          //  @example ['carpet_boost'] or 'clean_carpets_first' or '-1' or [] @constraints  object: multiple: false
+          carpet_preferences?: object;
+        }
+      >;
+      // undefined
+      vacuumSetSegmentType: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetHiddenSegments: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetFloorMaterial: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetLowLyingArea: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetFurniture: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetCurtain: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetMopType: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumResetConsumable: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          consumable:
+            | "main_brush"
+            | "side_brush"
+            | "filter"
+            | "tank_filter"
+            | "sensor"
+            | "mop_pad"
+            | "silver_ion"
+            | "detergent"
+            | "squeegee"
+            | "onboard_dirty_water_tank"
+            | "dirty_water_tank"
+            | "deodorizer"
+            | "wheel"
+            | "scale_inhibitor"
+            | "fluffing_roller"
+            | "roller_mop_filter"
+            | "water_outlet_filter";
+        }
+      >;
+      // undefined
+      vacuumRenameShortcut: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 32 @constraints  number: mode: box, step: 1
+          shortcut_id: number;
+          //  @example Mopping after sweeping
+          shortcut_name: string;
+        }
+      >;
+      // undefined
+      vacuumDeleteShortcut: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 34 @constraints  number: mode: box, step: 1
+          shortcut_id: number;
+        }
+      >;
+      // undefined
+      vacuumSetObstacleIgnore: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 819 @constraints  number: mode: box, step: 1
+          x: number;
+          //  @example -263 @constraints  number: mode: box, step: 1
+          y: number;
+          //  @example false @constraints  boolean:
+          obstacle_ignored: boolean;
+        }
+      >;
+      // undefined
+      vacuumSetRouterPosition: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 819 @constraints  number: mode: box, step: 1
+          x: number;
+          //  @example -263 @constraints  number: mode: box, step: 1
+          y: number;
+        }
+      >;
+      // undefined
+      vacuumSetWalls: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumSetProperty: ServiceFunction<object, T, object>;
+      // undefined
+      vacuumCallAction: ServiceFunction<object, T, object>;
+      // undefined
+      selectSelectNext: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          cycle?: boolean;
+        }
+      >;
+      // undefined
+      selectSelectPrevious: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  boolean:
+          cycle?: boolean;
+        }
+      >;
+      // undefined
+      selectSelectFirst: ServiceFunction<object, T, object>;
+      // undefined
+      selectSelectLast: ServiceFunction<object, T, object>;
+      // undefined
+      update: ServiceFunction<object, T, object>;
+    };
+    emporiaVue: {
+      // undefined
+      setChargerCurrent: ServiceFunction<
+        object,
+        T,
+        {
+          //  @example 6 @constraints  number: min: 6, max: 48, step: 1, mode: slider
+          current: number;
+        }
+      >;
+    };
     zha: {
       // undefined
       permit: ServiceFunction<
@@ -5073,7 +5366,7 @@ declare module '@hakit/core' {
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           cluster_id: number;
           //
-          cluster_type?: 'in' | 'out';
+          cluster_type?: "in" | "out";
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           attribute: number;
           //  @example 1
@@ -5094,11 +5387,11 @@ declare module '@hakit/core' {
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           cluster_id: number;
           //
-          cluster_type?: 'in' | 'out';
+          cluster_type?: "in" | "out";
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           command: number;
           //
-          command_type: 'client' | 'server';
+          command_type: "client" | "server";
           //  @example [arg1, arg2, argN] @constraints  object: multiple: false
           args?: object;
           //  @constraints  object: multiple: false
@@ -5117,7 +5410,7 @@ declare module '@hakit/core' {
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           cluster_id: number;
           //
-          cluster_type?: 'in' | 'out';
+          cluster_type?: "in" | "out";
           //  @constraints  number: min: 1, max: 65535, step: 1, mode: slider
           command: number;
           //  @example [arg1, arg2, argN] @constraints  object: multiple: false
@@ -5201,1387 +5494,2739 @@ declare module '@hakit/core' {
         }
       >;
     };
+    massQueue: {
+      // undefined
+      getQueueItems: ServiceFunction<
+        object,
+        T,
+        {
+          // Limit on the number of items in queue to return @example 500 @constraints  number: min: 1, max: 1000, step: 1, mode: slider
+          limit?: number;
+          // Location in queue to start where zero equals the first item in queue, not the current item. @example 50 @constraints  number: min: 1, max: 1000, step: 1, mode: slider
+          offset?: number;
+          // Number of items to pull before current active item in queue. @example 5 @constraints  number: min: 1, max: 1000, step: 1, mode: slider
+          limit_before?: number;
+          // Number of items to pull after current active item in queue. @example 50 @constraints  number: min: 1, max: 1000, step: 1, mode: slider
+          limit_after?: number;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      moveQueueItemDown: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          queue_item_id: string;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      moveQueueItemNext: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          queue_item_id: string;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      moveQueueItemUp: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          queue_item_id: string;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      playQueueItem: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          queue_item_id: string;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      removeQueueItem: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          queue_item_id: string;
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      sendCommand: ServiceFunction<
+        object,
+        T,
+        {
+          // Command to send to Music Assistant
+          command: string;
+          // Command data to send @constraints  object: multiple: false
+          data?: object;
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+        }
+      >;
+      // undefined
+      unfavoriteCurrentItem: ServiceFunction<
+        object,
+        T,
+        {
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      getRecommendations: ServiceFunction<
+        object,
+        T,
+        {
+          // Music Assistant Media Player Entity
+          entity: string;
+          // Limit recommendations to the specified providers.
+          providers?: string;
+        }
+      >;
+      // undefined
+      getGroupVolume: ServiceFunction<
+        object,
+        T,
+        {
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      setGroupVolume: ServiceFunction<
+        object,
+        T,
+        {
+          // Music Assistant Media Player Entity
+          entity: string;
+          // Volume level to set the player to. @constraints  number: min: 1, max: 100, step: 1, unit_of_measurement: %, mode: slider
+          volume_level: number;
+        }
+      >;
+      // undefined
+      clearQueueFromHere: ServiceFunction<
+        object,
+        T,
+        {
+          // Music Assistant Media Player Entity
+          entity: string;
+        }
+      >;
+      // undefined
+      getPlaylistTracks: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the playlist @example library://playlist/12
+          uri: string;
+          //  @constraints  number: min: 0, max: 1000, step: 1, mode: box
+          page?: number;
+        }
+      >;
+      // undefined
+      getAlbumTracks: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the album @example library://album/12
+          uri: string;
+          //  @constraints  number: min: 0, max: 1000, step: 1, mode: box
+          page?: number;
+        }
+      >;
+      // undefined
+      getArtistTracks: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the artist @example library://artist/12
+          uri: string;
+          //  @constraints  number: min: 0, max: 1000, step: 1, mode: box
+          page?: number;
+        }
+      >;
+      // undefined
+      getPodcastEpisodes: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the podcast @example library://podcast/12
+          uri: string;
+        }
+      >;
+      // undefined
+      getAlbum: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the Album @example library://album/12
+          uri: string;
+        }
+      >;
+      // undefined
+      getArtist: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the artist @example library://artist/12
+          uri: string;
+        }
+      >;
+      // undefined
+      getPlaylist: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the playlist @example library://playlist/12
+          uri: string;
+        }
+      >;
+      // undefined
+      getPodcast: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          // URI for the podcast @example library://podcast/12
+          uri: string;
+        }
+      >;
+      // undefined
+      removePlaylistTracks: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  config_entry: integration: mass_queue
+          config_entry_id: unknown;
+          //
+          playlist_id: string;
+          //
+          positions_to_remove: string;
+        }
+      >;
+    };
+    kiaUvo: {
+      // undefined
+      update: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      forceUpdate: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      lock: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      unlock: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      stopClimate: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      startClimate: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+          //  @example 5 @constraints  number: min: 1, max: 30, step: 1, unit_of_measurement: minutes, mode: slider
+          duration?: number;
+          //  @constraints  boolean:
+          climate: boolean;
+          //  @example 21.5 @constraints  number: min: 16, max: 85, step: 0.5, mode: box, unit_of_measurement: Degrees
+          temperature: number;
+          //  @constraints  boolean:
+          defrost?: boolean;
+          //
+          heating: "0" | "4" | "1" | "2" | "3";
+          //  @example 1
+          steering_wheel?: "0" | "1" | "2";
+          //
+          flseat?: "0" | "1" | "3" | "4" | "5" | "6" | "7" | "8";
+          //
+          frseat?: "0" | "1" | "3" | "4" | "5" | "6" | "7" | "8";
+          //
+          rlseat?: "0" | "1" | "3" | "4" | "5" | "6" | "7" | "8";
+          //
+          rrseat?: "0" | "1" | "3" | "4" | "5" | "6" | "7" | "8";
+        }
+      >;
+      // undefined
+      startCharge: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      stopCharge: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      setChargeLimits: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+          //  @example 50 @constraints  number: min: 50, max: 100, step: 10, unit_of_measurement: %, mode: slider
+          dc_limit?: number;
+          //  @example 50 @constraints  number: min: 50, max: 100, step: 10, unit_of_measurement: %, mode: slider
+          ac_limit?: number;
+        }
+      >;
+      // undefined
+      setChargingCurrent: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+          //
+          level: "1" | "2" | "3";
+        }
+      >;
+      // Open Charge Port
+      openChargePort: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      closeChargePort: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      scheduleChargingAndClimate: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+          //  @constraints  boolean:
+          charging_enabled?: boolean;
+          //  @constraints  boolean:
+          first_departure_enabled?: boolean;
+          //  @example ['0', '1']
+          first_departure_days?: "0" | "1" | "2" | "3" | "4" | "5" | "6";
+          //  @constraints  time:
+          first_departure_time?: string;
+          //  @constraints  boolean:
+          second_departure_enabled?: boolean;
+          //  @example ['0', '1']
+          second_departure_days?: "0" | "1" | "2" | "3" | "4" | "5" | "6";
+          //  @constraints  time:
+          second_departure_time?: string;
+          //  @constraints  time:
+          off_peak_start_time?: string;
+          //  @constraints  time:
+          off_peak_end_time?: string;
+          //  @constraints  boolean:
+          off_peak_charge_only_enabled?: boolean;
+          //  @constraints  boolean:
+          climate_enabled?: boolean;
+          //  @example 21.5 @constraints  number: min: 17, max: 85, step: 0.5, mode: box, unit_of_measurement: Degrees
+          temperature?: number;
+          //  @example 0
+          temperature_unit?: "0" | "1";
+          //  @constraints  boolean:
+          defrost?: boolean;
+        }
+      >;
+      // undefined
+      startHazardLights: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      startHazardLightsAndHorn: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      startValetMode: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      stopValetMode: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+        }
+      >;
+      // undefined
+      setWindows: ServiceFunction<
+        object,
+        T,
+        {
+          //
+          device_id?: string;
+          //
+          flwindow: "0" | "1" | "2";
+          //
+          frwindow: "0" | "1" | "2";
+          //
+          rrwindow: "0" | "1" | "2";
+          //
+          rlwindow: "0" | "1" | "2";
+        }
+      >;
+      // undefined
+      setNavigation: ServiceFunction<
+        object,
+        T,
+        {
+          //  @constraints  number: min: -90, max: 90, step: 0.001, mode: box
+          latitude: number;
+          //  @constraints  number: min: -180, max: 180, step: 0.001, mode: box
+          longitude: number;
+          //
+          name: string;
+          //
+          address?: string;
+          //
+          zip_code?: string;
+          //
+          place_id?: string;
+        }
+      >;
+    };
   }
   export interface CustomEntityNameContainer {
     names:
-      | 'update.home_assistant_supervisor_update'
-      | 'update.home_assistant_core_update'
-      | 'update.studio_code_server_update'
-      | 'update.advanced_ssh_web_terminal_update'
-      | 'update.mosquitto_broker_update'
-      | 'update.matter_server_update'
-      | 'update.twingate_connector_update'
-      | 'update.file_editor_update'
-      | 'update.music_assistant_update'
-      | 'update.glasshome_dashboard_update'
-      | 'update.samba_share_update'
-      | 'update.home_assistant_operating_system_update'
-      | 'conversation.home_assistant'
-      | 'event.backup_automatic_backup'
-      | 'sensor.backup_backup_manager_state'
-      | 'sensor.backup_next_scheduled_automatic_backup'
-      | 'sensor.backup_last_successful_automatic_backup'
-      | 'sensor.backup_last_attempted_automatic_backup'
-      | 'sensor.dryer_run_time_in_last_40_min'
-      | 'sensor.washer_run_time_in_last_40_min'
-      | 'sensor.dolores_visits_today'
-      | 'sensor.ozzy_visits_today'
-      | 'sensor.ozzy_visits_this_month'
-      | 'sensor.dolores_visits_this_month'
-      | 'sensor.litter_time_today'
-      | 'binary_sensor.remote_ui'
-      | 'stt.home_assistant_cloud'
-      | 'tts.home_assistant_cloud'
-      | 'scene.new_scene'
-      | 'scene.dark'
-      | 'script.1752556674714'
-      | 'script.washer_reminder_popup'
-      | 'script.1753140070392'
-      | 'script.trigger_feeder'
-      | 'zone.work'
-      | 'input_boolean.google_routine_trigger'
-      | 'input_select.portion'
-      | 'input_number.ozzy_litter_minutes'
-      | 'input_number.dolores_litter_minutes'
-      | 'zone.home'
-      | 'person.jerry_medeiros'
-      | 'counter.dolores_litter_visits'
-      | 'counter.ozzy_litter_visits'
-      | 'sun.sun'
-      | 'sensor.sun_next_dawn'
-      | 'sensor.sun_next_dusk'
-      | 'sensor.sun_next_midnight'
-      | 'sensor.sun_next_noon'
-      | 'sensor.sun_next_rising'
-      | 'sensor.sun_next_setting'
-      | 'button.aqara_hub_m1s_gen_2_identify_2'
-      | 'binary_sensor.aqara_door_and_window_sensor_door_3'
-      | 'button.aqara_door_and_window_sensor_identify_3'
-      | 'sensor.aqara_door_and_window_sensor_battery_3'
-      | 'sensor.aqara_door_and_window_sensor_battery_voltage'
-      | 'sensor.aqara_door_and_window_sensor_battery_type_3'
-      | 'binary_sensor.aqara_door_and_window_sensor_door_4'
-      | 'button.aqara_door_and_window_sensor_identify_4'
-      | 'sensor.aqara_door_and_window_sensor_battery_4'
-      | 'sensor.aqara_door_and_window_sensor_battery_voltage_2'
-      | 'sensor.aqara_door_and_window_sensor_battery_type_4'
-      | 'binary_sensor.aqara_door_and_window_sensor_door'
-      | 'button.aqara_door_and_window_sensor_identify'
-      | 'sensor.aqara_door_and_window_sensor_battery'
-      | 'sensor.aqara_door_and_window_sensor_battery_voltage_3'
-      | 'sensor.aqara_door_and_window_sensor_battery_type'
-      | 'binary_sensor.dryer_running'
-      | 'button.dryer_identify'
-      | 'sensor.dryer_battery'
-      | 'sensor.dryer_battery_voltage'
-      | 'sensor.dryer_battery_type'
-      | 'binary_sensor.washer_running'
-      | 'button.washing_machine_identify'
-      | 'sensor.washing_machine_battery'
-      | 'sensor.washing_machine_battery_voltage'
-      | 'sensor.washing_machine_battery_type'
-      | 'button.aqara_wireless_mini_switch_identify'
-      | 'event.aqara_wireless_mini_switch_button_2'
-      | 'sensor.aqara_wireless_mini_switch_battery'
-      | 'sensor.aqara_wireless_mini_switch_battery_voltage'
-      | 'sensor.aqara_wireless_mini_switch_battery_type'
-      | 'button.aqara_wireless_mini_switch_identify_2'
-      | 'event.aqara_wireless_mini_switch_button'
-      | 'sensor.aqara_wireless_mini_switch_battery_2'
-      | 'sensor.aqara_wireless_mini_switch_battery_voltage_2'
-      | 'sensor.aqara_wireless_mini_switch_battery_type_2'
-      | 'button.hallway_switch_identify_2'
-      | 'light.hallway_switch_2'
-      | 'button.back_door_identify'
-      | 'lock.back_door'
-      | 'select.back_door_operating_mode_2'
-      | 'sensor.back_door_battery'
-      | 'sensor.back_door_battery_voltage'
-      | 'sensor.back_door_battery_type'
-      | 'button.front_door_identify'
-      | 'lock.front_door'
-      | 'select.front_door_operating_mode_2'
-      | 'sensor.front_door_battery'
-      | 'sensor.front_door_battery_voltage'
-      | 'sensor.front_door_battery_type'
-      | 'button.aqara_night_light_identify_2'
-      | 'light.aqara_night_light_2'
-      | 'number.aqara_night_light_on_level_2'
-      | 'select.aqara_night_light_power_on_behavior_on_startup_2'
-      | 'button.aqara_wall_switch_us_identify'
-      | 'light.aqara_wall_switch_us'
-      | 'button.nest_thermostat_identify'
-      | 'climate.nest_thermostat'
-      | 'sensor.nest_thermostat_temperature'
-      | 'switch.nest_thermostat'
-      | 'update.smart_wi_fi_switch_firmware'
-      | 'light.smart_wi_fi_switch'
-      | 'select.smart_wi_fi_switch_power_on_behavior_on_startup'
-      | 'update.smart_wi_fi_switch_firmware_2'
-      | 'light.smart_wi_fi_switch_2'
-      | 'select.smart_wi_fi_switch_power_on_behavior_on_startup_2'
-      | 'input_text.last_litter_cat'
-      | 'input_datetime.litter_start_time'
-      | 'camera.cats'
-      | 'switch.google_routine_switch'
-      | 'binary_sensor.litter_box_occupied'
-      | 'sensor.bubble_card_modules'
-      | 'media_player.tv'
-      | 'binary_sensor.ipad_3_focus'
-      | 'device_tracker.ipad_3'
-      | 'sensor.ipad_3_activity'
-      | 'sensor.ipad_3_connection_type'
-      | 'sensor.ipad_3_geocoded_location'
-      | 'sensor.ipad_3_last_update_trigger'
-      | 'sensor.ipad_3_battery_level'
-      | 'sensor.ipad_3_battery_state'
-      | 'sensor.ipad_3_bssid'
-      | 'sensor.ipad_3_ssid'
-      | 'sensor.ipad_3_storage'
-      | 'sensor.ipad_3_app_version'
-      | 'sensor.ipad_3_location_permission'
-      | 'sensor.ipad_3_audio_output'
-      | 'binary_sensor.jerry_s_iphone_focus'
-      | 'device_tracker.jerry_s_iphone'
-      | 'sensor.jerry_s_iphone_distance'
-      | 'sensor.jerry_s_iphone_activity'
-      | 'sensor.jerry_s_iphone_floors_descended'
-      | 'sensor.jerry_s_iphone_steps'
-      | 'sensor.jerry_s_iphone_floors_ascended'
-      | 'sensor.jerry_s_iphone_average_active_pace'
-      | 'sensor.jerry_s_iphone_battery_level'
-      | 'sensor.jerry_s_iphone_connection_type'
-      | 'sensor.jerry_s_iphone_battery_state'
-      | 'sensor.jerry_s_iphone_bssid'
-      | 'sensor.jerry_s_iphone_storage'
-      | 'sensor.jerry_s_iphone_ssid'
-      | 'sensor.jerry_s_iphone_sim_1'
-      | 'sensor.jerry_s_iphone_sim_2'
-      | 'sensor.jerry_s_iphone_watch_battery_level'
-      | 'sensor.jerry_s_iphone_last_update_trigger'
-      | 'sensor.jerry_s_iphone_app_version'
-      | 'sensor.jerry_s_iphone_location_permission'
-      | 'sensor.jerry_s_iphone_audio_output'
-      | 'sensor.jerry_s_iphone_watch_battery_state'
-      | 'sensor.jerry_s_iphone_geocoded_location'
-      | 'device_tracker.control_panel'
-      | 'sensor.lenovo_cd_18781y_battery_level'
-      | 'sensor.lenovo_cd_18781y_battery_state'
-      | 'sensor.lenovo_cd_18781y_charger_type'
-      | 'sensor.calgary_current_condition'
-      | 'sensor.calgary_dew_point'
-      | 'sensor.calgary_high_temperature'
-      | 'sensor.calgary_humidex'
-      | 'sensor.calgary_humidity'
-      | 'sensor.calgary_icon_code'
-      | 'sensor.calgary_low_temperature'
-      | 'sensor.calgary_normal_high_temperature'
-      | 'sensor.calgary_normal_low_temperature'
-      | 'sensor.calgary_chance_of_precipitation'
-      | 'sensor.calgary_barometric_pressure'
-      | 'sensor.calgary_temperature'
-      | 'sensor.calgary_tendency'
-      | 'sensor.calgary_summary'
-      | 'sensor.calgary_observation_time'
-      | 'sensor.calgary_uv_index'
-      | 'sensor.calgary_visibility'
-      | 'sensor.calgary_wind_bearing'
-      | 'sensor.calgary_wind_chill'
-      | 'sensor.calgary_wind_direction'
-      | 'sensor.calgary_wind_gust'
-      | 'sensor.calgary_wind_speed'
-      | 'sensor.calgary_advisories'
-      | 'sensor.calgary_endings'
-      | 'sensor.calgary_statements'
-      | 'sensor.calgary_warnings'
-      | 'sensor.calgary_watches'
-      | 'sensor.calgary_aqhi'
-      | 'weather.calgary_forecast'
-      | 'sensor.jq01009g24410010174_cat_litter_level'
-      | 'sensor.jq01009g24410010174_last_usage'
-      | 'sensor.litter_box_device_status'
-      | 'sensor.jq01009g24410010174_cat_litter_state'
-      | 'sensor.jq01009g24410010174_bin_state'
-      | 'sensor.jq01009g24410010174_cat_dolores'
-      | 'sensor.jq01009g24410010174_cat_ozzy'
-      | 'binary_sensor.jq01009g24410010174_garbage_can_full'
-      | 'switch.jq01009g24410010174_auto_clean'
-      | 'switch.jq01009g24410010174_child_lock'
-      | 'switch.jq01009g24410010174_automatic_cover'
-      | 'switch.jq01009g24410010174_automatic_leveling'
-      | 'switch.jq01009g24410010174_silent_mode'
-      | 'switch.jq01009g24410010174_unstoppable_cycle'
-      | 'button.jq01009g24410010174_clean'
-      | 'button.jq01009g24410010174_level'
-      | 'todo.shopping_list'
-      | 'ai_task.google_ai_task_2'
-      | 'conversation.google_ai_conversation'
-      | 'stt.google_ai_stt'
-      | 'tts.google_ai_tts'
-      | 'tts.google_en_com'
-      | 'sensor.smart_hose_state'
-      | 'sensor.unnamed_zone_zone_history'
-      | 'sensor.unnamed_zone_zone_history_2'
-      | 'sensor.smart_hose_battery_level'
-      | 'switch.smart_hose_rain_delay'
-      | 'switch.unnamed_zone_zone'
-      | 'switch.unnamed_zone_zone_2'
-      | 'update.button_card_update'
-      | 'update.vehicle_status_card_update'
-      | 'update.waste_collection_schedule_update'
-      | 'update.samsungtv_smart_update'
-      | 'update.meross_integration_update'
-      | 'update.hacs_update'
-      | 'update.bubble_card_update'
-      | 'update.vertical_stack_in_card_update'
-      | 'update.astroweather_card_update'
-      | 'update.ui_lovelace_minimalist_update'
-      | 'update.card_mod_update'
-      | 'update.astroweather_update'
-      | 'update.advanced_camera_card_update'
-      | 'update.browser_mod_update'
-      | 'update.spotcast_update'
-      | 'update.tv_remote_card_with_touchpad_and_haptic_feedback_update'
-      | 'update.orbit_bhyve_update'
-      | 'update.mini_graph_card_update'
-      | 'update.spotifyplus_card_update'
-      | 'update.bambu_lab_update'
-      | 'update.mushroom_update'
-      | 'update.music_assistant_jukebox_update'
-      | 'update.spotifyplus_update'
-      | 'update.firemote_card_update'
-      | 'update.layout_card_update'
-      | 'update.custom_sidebar_update'
-      | 'update.spotify_lovelace_card_update'
-      | 'update.dwains_dashboard_update'
-      | 'update.kia_uvo_hyundai_bluelink_update'
-      | 'update.neakasa_update'
-      | 'update.slider_button_card_update'
-      | 'media_player.tv_2'
-      | 'sensor.dwains_dashboard_latest_version'
-      | 'calendar.black_cart_2'
-      | 'calendar.blue_cart_2'
-      | 'calendar.green_cart_2'
-      | 'calendar.calgary_ab_2'
-      | 'sensor.days_to_black_cart_2'
-      | 'sensor.days_to_green_cart_2'
-      | 'sensor.days_to_blue_cart_2'
-      | 'sensor.collection_types_2'
-      | 'sensor.upcoming_waste_collection_2'
-      | 'weather.forecast_home'
-      | 'binary_sensor.arris_tg4482a_wan_status'
-      | 'sensor.arris_tg4482a_external_ip'
-      | 'sensor.arris_tg4482a_download_speed'
-      | 'sensor.arris_tg4482a_upload_speed'
-      | 'binary_sensor.rpi_power_status'
-      | 'light.hs01_smart_strip_lights'
-      | 'light.backyard'
-      | 'light.backyard_2'
-      | 'number.smart_feeder_feed'
-      | 'number.smart_feeder_voice_times'
-      | 'select.merkury_six_smart_plug_power_on_behavior'
-      | 'select.smart_switch_power_on_behavior'
-      | 'select.smart_switch_indicator_light_mode'
-      | 'switch.office_left_monitor_plug'
-      | 'switch.office_right_monitor_plug'
-      | 'switch.office_computer_plug'
-      | 'switch.merkury_six_smart_plug_socket_4'
-      | 'switch.merkury_six_smart_plug_socket_5'
-      | 'switch.merkury_six_smart_plug_socket_6'
-      | 'switch.all_sky_plug'
-      | 'switch.humidifier_socket_1'
-      | 'switch.smart_feeder_slow_feed'
-      | 'switch.smart_switch_switch_1'
-      | 'scene.normal'
-      | 'scene.astronomy'
-      | 'media_player.living_room_tv'
-      | 'media_player.basement_tv'
-      | 'media_player.bedroom_speaker'
-      | 'media_player.living_room_speaker'
-      | 'media_player.everywhere'
-      | 'media_player.office_speaker'
-      | 'remote.tv'
-      | 'media_player.living_room_tv_2'
-      | 'remote.living_room_tv'
-      | 'media_player.basement_tv_2'
-      | 'remote.basement_tv'
-      | 'sensor.openweathermap_weather'
-      | 'sensor.openweathermap_dew_point_temperature'
-      | 'sensor.openweathermap_temperature'
-      | 'sensor.openweathermap_apparent_temperature'
-      | 'sensor.openweathermap_wind_speed'
-      | 'sensor.openweathermap_wind_gust_speed'
-      | 'sensor.openweathermap_wind_direction'
-      | 'sensor.openweathermap_humidity'
-      | 'sensor.openweathermap_pressure'
-      | 'sensor.openweathermap_cloud_coverage'
-      | 'sensor.openweathermap_rain_intensity'
-      | 'sensor.openweathermap_snow_intensity'
-      | 'sensor.openweathermap_precipitation_kind'
-      | 'sensor.openweathermap_uv_index'
-      | 'sensor.openweathermap_visibility'
-      | 'sensor.openweathermap_condition'
-      | 'sensor.openweathermap_weather_code'
-      | 'weather.openweathermap'
-      | 'binary_sensor.astroweather_backyard_deep_sky_view'
-      | 'binary_sensor.astroweather_backyard_moon_rises_during_darkness'
-      | 'binary_sensor.astroweather_backyard_moon_sets_during_darkness'
-      | 'binary_sensor.astroweather_backyard_moon_always_up_during_darkness'
-      | 'binary_sensor.astroweather_backyard_moon_always_down_during_darkness'
-      | 'sensor.astroweather_backyard_forecast_length'
-      | 'sensor.astroweather_backyard_location_name'
-      | 'sensor.astroweather_backyard_latitude'
-      | 'sensor.astroweather_backyard_longitude'
-      | 'sensor.astroweather_backyard_elevation'
-      | 'sensor.astroweather_backyard_time_shift'
-      | 'sensor.astroweather_backyard_timestamp'
-      | 'sensor.astroweather_backyard_cloud_cover'
-      | 'sensor.astroweather_backyard_cloudless'
-      | 'sensor.astroweather_backyard_clouds_area'
-      | 'sensor.astroweather_backyard_clouds_area_high'
-      | 'sensor.astroweather_backyard_clouds_area_medium'
-      | 'sensor.astroweather_backyard_clouds_area_low'
-      | 'sensor.astroweather_backyard_fog_area'
-      | 'sensor.astroweather_backyard_fog_2m_area'
-      | 'sensor.astroweather_backyard_seeing_percentage'
-      | 'sensor.astroweather_backyard_seeing'
-      | 'sensor.astroweather_backyard_transparency'
-      | 'sensor.astroweather_backyard_transparency_plain'
-      | 'sensor.astroweather_backyard_lifted_index'
-      | 'sensor.astroweather_backyard_lifted_index_plain'
-      | 'sensor.astroweather_backyard_2m_relative_humidity'
-      | 'sensor.astroweather_backyard_calm_percentage'
-      | 'sensor.astroweather_backyard_10m_wind_direction'
-      | 'sensor.astroweather_backyard_10m_wind_speed'
-      | 'sensor.astroweather_backyard_2m_temperature'
-      | 'sensor.astroweather_backyard_2m_dewpoint'
-      | 'sensor.astroweather_backyard_precipitation_amount'
-      | 'sensor.astroweather_backyard_condition'
-      | 'sensor.astroweather_backyard_sun_altitude'
-      | 'sensor.astroweather_backyard_sun_azimuth'
-      | 'sensor.astroweather_backyard_sun_next_setting'
-      | 'sensor.astroweather_backyard_sun_next_setting_nautical'
-      | 'sensor.astroweather_backyard_sun_next_setting_astronomical'
-      | 'sensor.astroweather_backyard_sun_next_rising'
-      | 'sensor.astroweather_backyard_sun_next_rising_nautical'
-      | 'sensor.astroweather_backyard_sun_next_rising_astronomical'
-      | 'sensor.astroweather_backyard_sun_constellation'
-      | 'sensor.astroweather_backyard_moon_next_rising'
-      | 'sensor.astroweather_backyard_moon_next_setting'
-      | 'sensor.astroweather_backyard_moon_phase'
-      | 'sensor.astroweather_backyard_moon_icon'
-      | 'sensor.astroweather_backyard_moon_next_new_moon'
-      | 'sensor.astroweather_backyard_moon_next_full_moon'
-      | 'sensor.astroweather_backyard_moon_altitude'
-      | 'sensor.astroweather_backyard_moon_azimuth'
-      | 'sensor.astroweather_backyard_moon_distance'
-      | 'sensor.astroweather_backyard_moon_relative_distance'
-      | 'sensor.astroweather_backyard_moon_angular_size'
-      | 'sensor.astroweather_backyard_moon_relative_size'
-      | 'sensor.astroweather_backyard_moon_constellation'
-      | 'sensor.astroweather_backyard_moon_next_dark_night'
-      | 'sensor.astroweather_backyard_astronomical_night_duration'
-      | 'sensor.astroweather_backyard_deep_sky_darkness'
-      | 'sensor.astroweather_backyard_deepsky_forecast_today'
-      | 'sensor.astroweather_backyard_deepsky_forecast_today_plain'
-      | 'sensor.astroweather_backyard_deepsky_forecast_today_description'
-      | 'sensor.astroweather_backyard_deepsky_forecast_tomorrow'
-      | 'sensor.astroweather_backyard_deepsky_forecast_tomorrow_plain'
-      | 'sensor.astroweather_backyard_deepsky_forecast_tomorrow_description'
-      | 'sensor.astroweather_backyard_uptonight'
-      | 'weather.astroweather_backyard'
-      | 'binary_sensor.sorento_engine_2'
-      | 'binary_sensor.sorento_defrost_2'
-      | 'binary_sensor.sorento_back_window_heater'
-      | 'binary_sensor.sorento_front_left_door_2'
-      | 'binary_sensor.sorento_front_right_door_2'
-      | 'binary_sensor.sorento_back_left_door_2'
-      | 'binary_sensor.sorento_back_right_door_2'
-      | 'binary_sensor.sorento_trunk_2'
-      | 'binary_sensor.sorento_hood_2'
-      | 'binary_sensor.sorento_fuel_low_level_2'
-      | 'binary_sensor.sorento_tire_pressure_all_2'
-      | 'binary_sensor.sorento_tire_pressure_rear_left_2'
-      | 'binary_sensor.sorento_tire_pressure_front_left_2'
-      | 'binary_sensor.sorento_tire_pressure_front_right_2'
-      | 'binary_sensor.sorento_tire_pressure_rear_right_2'
-      | 'binary_sensor.sorento_air_conditioner_2'
-      | 'binary_sensor.sorento_uma_ex_v6_premium_accessory'
-      | 'binary_sensor.sorento_uma_ex_v6_premium_remote_ignition'
-      | 'binary_sensor.sorento_uma_ex_v6_premium_transmission_condition'
-      | 'binary_sensor.sorento_uma_ex_v6_premium_locked'
-      | 'sensor.sorento_odometer_2'
-      | 'sensor.sorento_last_service_2'
-      | 'sensor.sorento_next_service_2'
-      | 'sensor.sorento_car_battery_level_2'
-      | 'sensor.sorento_last_updated_at_2'
-      | 'sensor.sorento_fuel_driving_range'
-      | 'sensor.sorento_set_temperature_2'
-      | 'sensor.sorento_dtc_count_2'
-      | 'sensor.sorento_vehicle_identification_number'
-      | 'sensor.sorento_data_2'
-      | 'device_tracker.sorento_location_2'
-      | 'lock.sorento_door_lock_2'
-      | 'binary_sensor.basement_bedroom_cloud_connection'
-      | 'light.basement_bedroom'
-      | 'sensor.basement_bedroom_signal_strength'
-      | 'switch.basement_bedroom_led'
-      | 'binary_sensor.staircase_light_cloud_connection'
-      | 'light.staircase_light'
-      | 'switch.staircase_light_led'
-      | 'binary_sensor.living_room_light_cloud_connection'
-      | 'light.living_room_light'
-      | 'switch.living_room_light_led'
-      | 'binary_sensor.basement_2_cloud_connection'
-      | 'light.basement_2'
-      | 'switch.basement_2_led'
-      | 'binary_sensor.basement_1_cloud_connection'
-      | 'light.basement_1'
-      | 'switch.basement_1_led'
-      | 'binary_sensor.kitchen_light_cloud_connection'
-      | 'light.kitchen_light'
-      | 'switch.kitchen_light_led'
-      | 'binary_sensor.island_light_cloud_connection'
-      | 'light.island_light'
-      | 'switch.island_light_led'
-      | 'binary_sensor.unnamed_s505_cloud_connection'
-      | 'binary_sensor.unnamed_s505_overheated'
-      | 'number.unnamed_s505_turn_off_in'
-      | 'sensor.unnamed_s505_signal_level'
-      | 'sensor.unnamed_s505_auto_off_at'
-      | 'switch.unnamed_s505'
-      | 'switch.unnamed_s505_auto_off_enabled'
-      | 'switch.unnamed_s505_auto_update_enabled'
-      | 'switch.unnamed_s505_led'
-      | 'binary_sensor.unnamed_s505_cloud_connection_2'
-      | 'binary_sensor.unnamed_s505_overheated_2'
-      | 'number.unnamed_s505_turn_off_in_2'
-      | 'sensor.unnamed_s505_signal_level_2'
-      | 'sensor.unnamed_s505_auto_off_at_2'
-      | 'switch.unnamed_s505_2'
-      | 'switch.unnamed_s505_auto_off_enabled_2'
-      | 'switch.unnamed_s505_auto_update_enabled_2'
-      | 'switch.unnamed_s505_led_2'
-      | 'binary_sensor.nas_security_status'
-      | 'binary_sensor.nas_drive_2_exceeded_max_bad_sectors'
-      | 'binary_sensor.nas_drive_2_below_min_remaining_life'
-      | 'binary_sensor.nas_drive_1_exceeded_max_bad_sectors'
-      | 'binary_sensor.nas_drive_1_below_min_remaining_life'
-      | 'binary_sensor.nas_drive_3_exceeded_max_bad_sectors'
-      | 'binary_sensor.nas_drive_3_below_min_remaining_life'
-      | 'binary_sensor.nas_drive_4_exceeded_max_bad_sectors'
-      | 'binary_sensor.nas_drive_4_below_min_remaining_life'
-      | 'button.nas_reboot'
-      | 'button.nas_shutdown'
-      | 'camera.front_door_2'
-      | 'camera.back_door_2'
-      | 'sensor.nas_cpu_utilization_user'
-      | 'sensor.nas_cpu_utilization_total'
-      | 'sensor.nas_cpu_load_average_5_min'
-      | 'sensor.nas_cpu_load_average_15_min'
-      | 'sensor.nas_memory_usage_real'
-      | 'sensor.nas_memory_available_swap'
-      | 'sensor.nas_memory_available_real'
-      | 'sensor.nas_memory_total_swap'
-      | 'sensor.nas_memory_total_real'
-      | 'sensor.nas_upload_throughput'
-      | 'sensor.nas_download_throughput'
-      | 'sensor.nas_volume_1_status'
-      | 'sensor.nas_volume_1_used_space'
-      | 'sensor.nas_volume_1_volume_used'
-      | 'sensor.nas_volume_1_average_disk_temp'
-      | 'sensor.nas_drive_2_status'
-      | 'sensor.nas_drive_2_temperature'
-      | 'sensor.nas_drive_1_status'
-      | 'sensor.nas_drive_1_temperature'
-      | 'sensor.nas_drive_3_status'
-      | 'sensor.nas_drive_3_temperature'
-      | 'sensor.nas_drive_4_status'
-      | 'sensor.nas_drive_4_temperature'
-      | 'sensor.nas_temperature'
-      | 'switch.nas_surveillance_station_home_mode'
-      | 'update.nas_dsm_update'
-      | 'binary_sensor.reolink_video_doorbell_wifi_motion'
-      | 'binary_sensor.reolink_video_doorbell_wifi_person'
-      | 'binary_sensor.reolink_video_doorbell_wifi_vehicle'
-      | 'binary_sensor.reolink_video_doorbell_wifi_pet'
-      | 'binary_sensor.reolink_video_doorbell_wifi_visitor'
-      | 'binary_sensor.front_yard_motion'
-      | 'binary_sensor.front_yard_person'
-      | 'binary_sensor.front_yard_vehicle'
-      | 'binary_sensor.front_yard_animal'
-      | 'binary_sensor.front_yard_sleep_status'
-      | 'binary_sensor.back_door_motion'
-      | 'binary_sensor.back_door_person'
-      | 'binary_sensor.back_door_vehicle'
-      | 'binary_sensor.back_door_pet'
-      | 'binary_sensor.back_door_visitor'
-      | 'binary_sensor.back_yard_motion'
-      | 'binary_sensor.back_yard_person'
-      | 'binary_sensor.back_yard_vehicle'
-      | 'binary_sensor.back_yard_animal'
-      | 'binary_sensor.back_yard_sleep_status'
-      | 'camera.reolink_video_doorbell_wifi_fluent'
-      | 'camera.front_yard_fluent'
-      | 'camera.back_door_fluent'
-      | 'camera.back_yard_fluent'
-      | 'light.front_yard_floodlight'
-      | 'light.back_yard_floodlight'
-      | 'light.front_yard_status_led'
-      | 'light.back_yard_status_led'
-      | 'light.cameras_status_led'
-      | 'number.front_yard_floodlight_turn_on_brightness'
-      | 'number.back_yard_floodlight_turn_on_brightness'
-      | 'number.reolink_video_doorbell_wifi_volume'
-      | 'number.front_yard_volume'
-      | 'number.back_door_volume'
-      | 'number.back_yard_volume'
-      | 'number.front_door_speak_volume'
-      | 'number.back_door_speak_volume'
-      | 'number.front_door_doorbell_volume'
-      | 'number.back_door_doorbell_volume'
-      | 'number.reolink_video_doorbell_wifi_motion_sensitivity'
-      | 'number.back_door_motion_sensitivity'
-      | 'number.front_yard_pir_sensitivity'
-      | 'number.back_yard_pir_sensitivity'
-      | 'number.reolink_video_doorbell_wifi_ai_person_sensitivity'
-      | 'number.front_yard_ai_person_sensitivity'
-      | 'number.back_door_ai_person_sensitivity'
-      | 'number.back_yard_ai_person_sensitivity'
-      | 'number.reolink_video_doorbell_wifi_ai_vehicle_sensitivity'
-      | 'number.front_yard_ai_vehicle_sensitivity'
-      | 'number.back_door_ai_vehicle_sensitivity'
-      | 'number.back_yard_ai_vehicle_sensitivity'
-      | 'number.reolink_video_doorbell_wifi_ai_pet_sensitivity'
-      | 'number.back_door_ai_pet_sensitivity'
-      | 'number.front_yard_ai_animal_sensitivity'
-      | 'number.back_yard_ai_animal_sensitivity'
-      | 'number.reolink_video_doorbell_wifi_auto_quick_reply_time'
-      | 'number.back_door_auto_quick_reply_time'
-      | 'number.cameras_alarm_volume'
-      | 'number.cameras_message_volume'
-      | 'number.reolink_chime_volume'
-      | 'number.reolink_chime_silent_time'
-      | 'select.front_yard_floodlight_mode'
-      | 'select.back_yard_floodlight_mode'
-      | 'select.reolink_video_doorbell_wifi_day_night_mode'
-      | 'select.front_yard_day_night_mode'
-      | 'select.back_door_day_night_mode'
-      | 'select.back_yard_day_night_mode'
-      | 'select.reolink_video_doorbell_wifi_play_quick_reply_message'
-      | 'select.back_door_play_quick_reply_message'
-      | 'select.reolink_video_doorbell_wifi_auto_quick_reply_message'
-      | 'select.back_door_auto_quick_reply_message'
-      | 'select.reolink_video_doorbell_wifi_hub_alarm_ringtone'
-      | 'select.front_yard_hub_alarm_ringtone'
-      | 'select.back_door_hub_alarm_ringtone'
-      | 'select.back_yard_hub_alarm_ringtone'
-      | 'select.reolink_video_doorbell_wifi_hub_visitor_ringtone'
-      | 'select.back_door_hub_visitor_ringtone'
-      | 'select.reolink_video_doorbell_wifi_doorbell_led'
-      | 'select.back_door_doorbell_led'
-      | 'select.cameras_scene_mode'
-      | 'select.reolink_chime_motion_ringtone'
-      | 'select.reolink_chime_person_ringtone'
-      | 'select.reolink_chime_vehicle_ringtone'
-      | 'select.reolink_chime_visitor_ringtone'
-      | 'select.chime_pet_ringtone'
-      | 'sensor.front_yard_battery'
-      | 'sensor.back_yard_battery'
-      | 'sensor.reolink_video_doorbell_wifi_day_night_state'
-      | 'sensor.back_door_day_night_state'
-      | 'siren.reolink_video_doorbell_wifi_siren'
-      | 'siren.front_yard_siren'
-      | 'siren.back_door_siren'
-      | 'siren.back_yard_siren'
-      | 'siren.cameras_siren'
-      | 'switch.reolink_video_doorbell_wifi_infrared_lights_in_night_mode'
-      | 'switch.front_yard_infrared_lights_in_night_mode'
-      | 'switch.back_door_infrared_lights_in_night_mode'
-      | 'switch.back_yard_infrared_lights_in_night_mode'
-      | 'switch.reolink_video_doorbell_wifi_record_audio'
-      | 'switch.front_yard_record_audio'
-      | 'switch.back_door_record_audio'
-      | 'switch.back_yard_record_audio'
-      | 'switch.reolink_video_doorbell_wifi_siren_on_event'
-      | 'switch.front_yard_siren_on_event'
-      | 'switch.back_door_siren_on_event'
-      | 'switch.back_yard_siren_on_event'
-      | 'switch.reolink_video_doorbell_wifi_email_on_event'
-      | 'switch.front_yard_email_on_event'
-      | 'switch.back_door_email_on_event'
-      | 'switch.back_yard_email_on_event'
-      | 'switch.reolink_video_doorbell_wifi_ftp_upload'
-      | 'switch.front_yard_ftp_upload'
-      | 'switch.back_door_ftp_upload'
-      | 'switch.back_yard_ftp_upload'
-      | 'switch.reolink_video_doorbell_wifi_push_notifications'
-      | 'switch.front_yard_push_notifications'
-      | 'switch.back_door_push_notifications'
-      | 'switch.back_yard_push_notifications'
-      | 'switch.reolink_video_doorbell_wifi_record'
-      | 'switch.front_yard_record'
-      | 'switch.back_door_record'
-      | 'switch.back_yard_record'
-      | 'switch.reolink_video_doorbell_wifi_manual_record'
-      | 'switch.front_yard_manual_record'
-      | 'switch.back_door_manual_record'
-      | 'switch.back_yard_manual_record'
-      | 'switch.reolink_video_doorbell_wifi_hub_ringtone_on_event'
-      | 'switch.front_yard_hub_ringtone_on_event'
-      | 'switch.back_door_hub_ringtone_on_event'
-      | 'switch.back_yard_hub_ringtone_on_event'
-      | 'switch.reolink_video_doorbell_wifi_doorbell_button_sound'
-      | 'switch.back_door_doorbell_button_sound'
-      | 'switch.reolink_video_doorbell_wifi_privacy_mode'
-      | 'switch.back_door_privacy_mode'
-      | 'switch.reolink_chime_led'
-      | 'update.reolink_video_doorbell_wifi_firmware'
-      | 'update.front_yard_firmware'
-      | 'update.back_door_firmware'
-      | 'update.back_yard_firmware'
-      | 'update.cameras_firmware'
-      | 'button.ratgdov25i_e5f7cc_restart'
-      | 'button.ratgdov25i_e5f7cc_safe_mode_boot'
-      | 'button.ratgdov25i_e5f7cc_query_status'
-      | 'button.ratgdov25i_e5f7cc_query_openings'
-      | 'button.ratgdov25i_e5f7cc_sync'
-      | 'button.ratgdov25i_e5f7cc_toggle_door'
-      | 'number.ratgdov25i_e5f7cc_rolling_code_counter'
-      | 'number.ratgdov25i_e5f7cc_opening_duration'
-      | 'number.ratgdov25i_e5f7cc_closing_duration'
-      | 'number.ratgdov25i_e5f7cc_client_id'
-      | 'switch.ratgdov25i_e5f7cc_learn'
-      | 'lock.ratgdov25i_e5f7cc_lock_remotes'
-      | 'sensor.ratgdov25i_e5f7cc_openings'
-      | 'sensor.ratgdov25i_e5f7cc_paired_devices'
-      | 'sensor.ratgdov25i_e5f7cc_firmware_version'
-      | 'binary_sensor.ratgdov25i_e5f7cc_motion'
-      | 'binary_sensor.ratgdov25i_e5f7cc_obstruction'
-      | 'binary_sensor.ratgdov25i_e5f7cc_button'
-      | 'binary_sensor.ratgdov25i_e5f7cc_motor'
-      | 'binary_sensor.ratgdov25i_e5f7cc_dry_contact_open'
-      | 'binary_sensor.ratgdov25i_e5f7cc_dry_contact_close'
-      | 'binary_sensor.ratgdov25i_e5f7cc_dry_contact_light'
-      | 'cover.garage_door'
-      | 'light.ratgdov25i_e5f7cc_light'
-      | 'switch.music_assistant_jukebox_jukebox_queue'
-      | 'switch.music_assistant_jukebox_jukebox_allow_access'
-      | 'switch.music_assistant_jukebox_jukebox_play_music_on_start'
-      | 'number.music_assistant_jukebox_jukebox_queue_length'
-      | 'number.music_assistant_jukebox_jukebox_queuing_delay'
-      | 'image.music_assistant_jukebox_internal_access_qr_code'
-      | 'image.music_assistant_jukebox_external_access_qr_code'
-      | 'switch.back_yard_mss620_main_channel'
-      | 'switch.back_yard_mss620_switch_1'
-      | 'switch.back_yard_mss620_switch_2'
-      | 'switch.back_yard_mss620_do_not_disturb'
-      | 'binary_sensor.astrolive_gti_at_home'
-      | 'binary_sensor.astrolive_gti_at_park'
-      | 'binary_sensor.astrolive_gti_slewing'
-      | 'binary_sensor.astrolive_focuser_is_moving'
-      | 'binary_sensor.indi_allsky_moon_mode'
-      | 'binary_sensor.indi_allsky_night'
-      | 'camera.astrolive_zwo_zwo'
-      | 'image.indi_allsky_indi_allsky_camera'
-      | 'media_player.spotify_jerry_medeiros'
-      | 'sensor.astrolive_zwo_image_type'
-      | 'sensor.astrolive_zwo_exposure_duration'
-      | 'sensor.astrolive_zwo_time_of_observation'
-      | 'sensor.astrolive_zwo_x_axis_binning'
-      | 'sensor.astrolive_zwo_y_axis_binning'
-      | 'sensor.astrolive_zwo_gain'
-      | 'sensor.astrolive_zwo_offset'
-      | 'sensor.astrolive_zwo_pixel_x_axis_size'
-      | 'sensor.astrolive_zwo_pixel_y_axis_size'
-      | 'sensor.astrolive_zwo_imaging_instrument'
-      | 'sensor.astrolive_zwo_ccd_temperature'
-      | 'sensor.astrolive_zwo_filter'
-      | 'sensor.smart_series_6000_aae8_time'
-      | 'sensor.smart_series_6000_aae8_sector'
-      | 'sensor.smart_series_6000_aae8_number_of_sectors'
-      | 'sensor.smart_series_6000_aae8_toothbrush_state'
-      | 'sensor.smart_series_6000_aae8_pressure'
-      | 'sensor.smart_series_6000_aae8_mode'
-      | 'sensor.smart_series_6000_aae8_battery'
-      | 'sensor.astrolive_zwo_sensor_readout_mode'
-      | 'sensor.io_series_6_7_44fc_duration'
-      | 'sensor.io_series_6_7_44fc_sector'
-      | 'sensor.io_series_6_7_44fc_number_of_sectors'
-      | 'sensor.io_series_6_7_44fc'
-      | 'sensor.io_series_6_7_44fc_pressure'
-      | 'sensor.io_series_6_7_44fc_brushing_mode'
-      | 'sensor.io_series_6_7_44fc_battery'
-      | 'sensor.astrolive_zwo_sensor_bayer_pattern'
-      | 'sensor.astrolive_zwo_telescope'
-      | 'sensor.astrolive_zwo_focal_length'
-      | 'sensor.astrolive_zwo_ra_of_telescope'
-      | 'sensor.astrolive_zwo_declination_of_telescope'
-      | 'sensor.astrolive_zwo_altitude_of_telescope'
-      | 'sensor.astrolive_zwo_azimuth_of_telescope'
-      | 'sensor.astrolive_zwo_object_of_interest'
-      | 'sensor.astrolive_zwo_ra_of_imaged_object'
-      | 'sensor.astrolive_zwo_declination_of_imaged_object'
-      | 'sensor.astrolive_zwo_rotation_of_imaged_object'
-      | 'sensor.astrolive_zwo_software'
-      | 'sensor.astrolive_gti_altitude'
-      | 'sensor.astrolive_gti_azimuth'
-      | 'sensor.astrolive_gti_declination'
-      | 'sensor.astrolive_gti_declination_rate'
-      | 'sensor.astrolive_gti_guiderate_declination'
-      | 'sensor.astrolive_gti_right_ascension'
-      | 'sensor.astrolive_gti_right_ascension_rate'
-      | 'sensor.astrolive_gti_guiderate_right_ascension'
-      | 'sensor.astrolive_gti_side_of_pier'
-      | 'sensor.astrolive_gti_site_elevation'
-      | 'sensor.astrolive_gti_site_latitude'
-      | 'sensor.astrolive_gti_site_longitude'
-      | 'sensor.astrolive_focuser_position'
-      | 'sensor.astrolive_efw_names'
-      | 'sensor.astrolive_efw_position'
-      | 'sensor.astrolive_efw_current'
-      | 'sensor.astrolive_astrobox_max_switch'
-      | 'sensor.astrolive_astrobox_switch_value_0'
-      | 'sensor.astrolive_astrobox_switch_value_1'
-      | 'sensor.astrolive_astrobox_switch_value_2'
-      | 'sensor.astrolive_astrobox_switch_value_3'
-      | 'automation.notify_garage_door_is_open'
-      | 'automation.waste_collection_popup_at_7pm'
-      | 'automation.notify_dismiss_waste_popup_next_day'
-      | 'automation.notify_when_washer_finishes_history_stats'
-      | 'automation.dryer_finished_running'
-      | 'automation.aqara_mini_switch_single_press'
-      | 'automation.turn_on_lights_in_the_office'
-      | 'automation.turn_off_office'
-      | 'automation.turn_off_office_light'
-      | 'automation.start_office'
-      | 'automation.turn_on_back_entrance_light'
-      | 'automation.turn_off_backyard_entrance'
-      | 'automation.turn_on_front_entrance'
-      | 'automation.turn_off_front_entrance'
-      | 'automation.litter_box_identity_duration_tracker'
-      | 'sensor.astrolive_astrobox_switch_value_4'
-      | 'sensor.astrolive_astrobox_switch_value_5'
-      | 'sensor.astrolive_astrobox_switch_value_6'
-      | 'sensor.astrolive_astrobox_switch_value_7'
-      | 'sensor.indi_allsky_exposure_date'
-      | 'sensor.indi_allsky_exposure'
-      | 'sensor.indi_allsky_camera_gain'
-      | 'sensor.indi_allsky_camera_binmode'
-      | 'sensor.indi_allsky_camera_temp'
-      | 'sensor.indi_allsky_sun_altitude'
-      | 'sensor.indi_allsky_moon_altitude'
-      | 'sensor.indi_allsky_moon_phase'
-      | 'sensor.indi_allsky_sqm'
-      | 'sensor.indi_allsky_stars'
-      | 'sensor.indi_allsky_detections'
-      | 'sensor.indi_allsky_latitude'
-      | 'sensor.indi_allsky_longitude'
-      | 'sensor.indi_allsky_elevation'
-      | 'sensor.indi_allsky_k_p_index'
-      | 'sensor.indi_allsky_aurora_prediction'
-      | 'sensor.indi_allsky_solar_wind_bt_nt'
-      | 'sensor.indi_allsky_solar_wind_bz'
-      | 'sensor.indi_allsky_solar_wind_plasma_density_1_cm3'
-      | 'sensor.indi_allsky_solar_wind_plasma_speed_km_s'
-      | 'sensor.indi_allsky_solar_wind_plasma_temperature_k'
-      | 'sensor.indi_allsky_hemispheric_power_northern_gw'
-      | 'sensor.indi_allsky_hemispheric_power_southern_gw'
-      | 'sensor.indi_allsky_smoke_rating'
-      | 'sensor.indi_allsky_sidereal_time'
-      | 'sensor.indi_allsky_cpu_total'
-      | 'sensor.indi_allsky_memory_total'
-      | 'sensor.indi_allsky_filesystem'
-      | 'sensor.indi_allsky_thermal_cpu_thermal_0'
-      | 'sensor.indi_allsky_camera_temp_2'
-      | 'sensor.indi_allsky_future_use_1'
-      | 'sensor.indi_allsky_future_use_2'
-      | 'sensor.indi_allsky_future_use_3'
-      | 'sensor.indi_allsky_future_use_4'
-      | 'sensor.indi_allsky_future_use_5'
-      | 'sensor.indi_allsky_future_use_6'
-      | 'sensor.indi_allsky_future_use_7'
-      | 'sensor.indi_allsky_future_use_8'
-      | 'sensor.indi_allsky_future_use_9'
-      | 'sensor.indi_allsky_system_temp_10'
-      | 'sensor.indi_allsky_system_temp_11'
-      | 'sensor.indi_allsky_system_temp_12'
-      | 'sensor.indi_allsky_system_temp_13'
-      | 'sensor.indi_allsky_system_temp_14'
-      | 'sensor.indi_allsky_system_temp_15'
-      | 'sensor.indi_allsky_system_temp_16'
-      | 'sensor.indi_allsky_system_temp_17'
-      | 'sensor.indi_allsky_system_temp_18'
-      | 'sensor.indi_allsky_system_temp_19'
-      | 'sensor.indi_allsky_system_temp_20'
-      | 'sensor.indi_allsky_system_temp_21'
-      | 'sensor.indi_allsky_system_temp_22'
-      | 'sensor.indi_allsky_system_temp_23'
-      | 'sensor.indi_allsky_system_temp_24'
-      | 'sensor.indi_allsky_system_temp_25'
-      | 'sensor.indi_allsky_system_temp_26'
-      | 'sensor.indi_allsky_system_temp_27'
-      | 'sensor.indi_allsky_system_temp_28'
-      | 'sensor.indi_allsky_system_temp_29'
-      | 'sensor.indi_allsky_camera_temp_3'
-      | 'sensor.indi_allsky_dew_heater_level'
-      | 'sensor.indi_allsky_dew_point'
-      | 'sensor.indi_allsky_frost_point'
-      | 'sensor.indi_allsky_fan_level'
-      | 'sensor.indi_allsky_heat_index'
-      | 'sensor.indi_allsky_wind_dir_degrees'
-      | 'sensor.indi_allsky_sqm_2'
-      | 'sensor.indi_allsky_future_use_8_2'
-      | 'sensor.indi_allsky_future_use_9_2'
-      | 'sensor.indi_allsky_user_slot_10'
-      | 'sensor.indi_allsky_user_slot_11'
-      | 'sensor.indi_allsky_user_slot_12'
-      | 'sensor.indi_allsky_user_slot_13'
-      | 'sensor.indi_allsky_user_slot_14'
-      | 'sensor.indi_allsky_user_slot_15'
-      | 'sensor.indi_allsky_user_slot_16'
-      | 'sensor.indi_allsky_user_slot_17'
-      | 'sensor.indi_allsky_user_slot_18'
-      | 'sensor.indi_allsky_user_slot_19'
-      | 'sensor.indi_allsky_user_slot_20'
-      | 'sensor.indi_allsky_user_slot_21'
-      | 'sensor.indi_allsky_user_slot_22'
-      | 'sensor.indi_allsky_user_slot_23'
-      | 'sensor.indi_allsky_user_slot_24'
-      | 'sensor.indi_allsky_user_slot_25'
-      | 'sensor.indi_allsky_user_slot_26'
-      | 'sensor.indi_allsky_user_slot_27'
-      | 'sensor.indi_allsky_user_slot_28'
-      | 'sensor.indi_allsky_user_slot_29'
-      | 'switch.astrolive_astrobox_switch_0'
-      | 'switch.astrolive_astrobox_switch_1'
-      | 'switch.astrolive_astrobox_switch_2'
-      | 'switch.astrolive_astrobox_switch_3'
-      | 'switch.astrolive_astrobox_switch_4'
-      | 'switch.astrolive_astrobox_switch_5'
-      | 'switch.astrolive_astrobox_switch_6'
-      | 'switch.astrolive_astrobox_switch_7'
-      | 'binary_sensor.p2s_22e8aj5c0901243_recording_timelapse'
-      | 'binary_sensor.p2s_22e8aj5c0901243_extruder_filament_state'
-      | 'binary_sensor.p2s_22e8aj5c0901243_hms_errors'
-      | 'binary_sensor.p2s_22e8aj5c0901243_print_error'
-      | 'binary_sensor.p2s_22e8aj5c0901243_online'
-      | 'binary_sensor.p2s_22e8aj5c0901243_firmware_update'
-      | 'binary_sensor.p2s_22e8aj5c0901243_enclosure_door'
-      | 'binary_sensor.p2s_22e8aj5c0901243_airduct_mode'
-      | 'binary_sensor.p2s_22e8aj5c0901243_developer_lan_mode'
-      | 'binary_sensor.p2s_22e8aj5c0901243_mqtt_encryption_firmware'
-      | 'binary_sensor.p2s_22e8aj5c0901243_hybrid_mqtt_blocks_control'
-      | 'binary_sensor.p2s_22e8aj5c0901243_ams_1_active'
-      | 'binary_sensor.p2s_22e8aj5c0901243_ams_1_drying'
-      | 'binary_sensor.p2s_22e8aj5c0901243_externalspool_active'
-      | 'camera.p2s_22e8aj5c0901243_camera'
-      | 'image.p2s_22e8aj5c0901243_cover_image'
-      | 'image.p2s_22e8aj5c0901243_pick_image'
-      | 'light.p2s_22e8aj5c0901243_chamber_light'
-      | 'sensor.p2s_22e8aj5c0901243_externalspool_external_spool'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_humidity_index'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_humidity'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_remaining_drying_time'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_tray_1'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_tray_2'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_tray_3'
-      | 'sensor.p2s_22e8aj5c0901243_ams_1_tray_4'
-      | 'sensor.p2s_22e8aj5c0901243_mqtt_connection_mode'
-      | 'sensor.p2s_22e8aj5c0901243_wi_fi_signal'
-      | 'sensor.p2s_22e8aj5c0901243_bed_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_bed_target_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_chamber_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_nozzle_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_nozzle_target_temperature'
-      | 'sensor.p2s_22e8aj5c0901243_aux_fan_speed'
-      | 'sensor.p2s_22e8aj5c0901243_chamber_fan_speed'
-      | 'sensor.p2s_22e8aj5c0901243_cooling_fan_speed'
-      | 'sensor.p2s_22e8aj5c0901243_heatbreak_fan_speed'
-      | 'sensor.p2s_22e8aj5c0901243_model_download'
-      | 'sensor.p2s_22e8aj5c0901243_speed_profile'
-      | 'sensor.p2s_22e8aj5c0901243_current_stage'
-      | 'sensor.p2s_22e8aj5c0901243_print_progress'
-      | 'sensor.p2s_22e8aj5c0901243_print_status'
-      | 'sensor.p2s_22e8aj5c0901243_printable_objects'
-      | 'sensor.p2s_22e8aj5c0901243_sd_card_status'
-      | 'sensor.p2s_22e8aj5c0901243_skipped_objects'
-      | 'sensor.p2s_22e8aj5c0901243_start_time'
-      | 'sensor.p2s_22e8aj5c0901243_remaining_time'
-      | 'sensor.p2s_22e8aj5c0901243_end_time'
-      | 'sensor.p2s_22e8aj5c0901243_total_usage'
-      | 'sensor.p2s_22e8aj5c0901243_current_layer'
-      | 'sensor.p2s_22e8aj5c0901243_total_layer_count'
-      | 'sensor.p2s_22e8aj5c0901243_gcode_filename'
-      | 'sensor.p2s_22e8aj5c0901243_gcode_file_downloaded'
-      | 'sensor.p2s_22e8aj5c0901243_task_name'
-      | 'sensor.p2s_22e8aj5c0901243_print_type'
-      | 'sensor.p2s_22e8aj5c0901243_printer_name'
-      | 'sensor.p2s_22e8aj5c0901243_print_length'
-      | 'sensor.p2s_22e8aj5c0901243_print_bed_type'
-      | 'sensor.p2s_22e8aj5c0901243_print_weight'
-      | 'sensor.p2s_22e8aj5c0901243_active_tray'
-      | 'sensor.p2s_22e8aj5c0901243_nozzle_size'
-      | 'sensor.p2s_22e8aj5c0901243_nozzle_type'
-      | 'sensor.p2s_22e8aj5c0901243_ip_address'
-      | 'sensor.p2s_22e8aj5c0901243_serial_number'
-      | 'switch.p2s_22e8aj5c0901243_enable_camera'
-      | 'media_player.spotifyplus_jerry_medeiros'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_id'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_path'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_visibility'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_useragent'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_user'
-      | 'binary_sensor.browser_mod_ebba023e_cd99c775_browser_fullykiosk'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_width'
-      | 'sensor.browser_mod_ebba023e_cd99c775_browser_height'
-      | 'binary_sensor.browser_mod_ebba023e_cd99c775_browser_dark_mode'
-      | 'binary_sensor.browser_mod_ebba023e_cd99c775'
-      | 'light.browser_mod_ebba023e_cd99c775_screen'
-      | 'media_player.browser_mod_ebba023e_cd99c775'
-      | 'sensor.browser_mod_ebba023e_cd99c775_panel'
-      | 'binary_sensor.office_motion_occupancy'
-      | 'binary_sensor.office_motion'
-      | 'binary_sensor.third_reality_inc_3rws18bz'
-      | 'binary_sensor.third_reality_inc_3rws18bz_opening'
-      | 'binary_sensor.backyard_entrance_sensor_occupancy'
-      | 'binary_sensor.backyard_entrance_sensor'
-      | 'binary_sensor.front_door_entrance_sensor_occupancy'
-      | 'binary_sensor.front_door_entrance_sensor'
-      | 'binary_sensor.third_reality_inc_3rws18bz_2'
-      | 'binary_sensor.third_reality_inc_3rws18bz_opening_2'
-      | 'button.bedroom_switch_identify'
-      | 'button.office_swich_identify'
-      | 'button.dinning_identify'
-      | 'button.office_motion_identify'
-      | 'button.bathroom_switch_identify'
-      | 'button.bathroom_exhaust_identify'
-      | 'button.backyard_entrance_sensor_identify'
-      | 'button.front_door_entrance_sensor_identify'
-      | 'light.dinning_light'
-      | 'number.dinning_on_level'
-      | 'number.dinning_none'
-      | 'number.dinning_none_2'
-      | 'number.office_motion_detection_interval'
-      | 'number.third_reality_inc_3rws18bz_siren_time'
-      | 'number.backyard_entrance_sensor_detection_interval'
-      | 'number.front_door_entrance_sensor_detection_interval'
-      | 'number.third_reality_inc_3rws18bz_siren_time_2'
-      | 'select.bedroom_switch_start_up_behavior'
-      | 'select.office_swich_start_up_behavior'
-      | 'select.dinning_none'
-      | 'select.dinning_none_2'
-      | 'select.office_motion_motion_sensitivity'
-      | 'select.bathroom_switch_start_up_behavior'
-      | 'select.bathroom_exhaust_start_up_behavior'
-      | 'select.backyard_entrance_sensor_motion_sensitivity'
-      | 'select.front_door_entrance_sensor_motion_sensitivity'
-      | 'sensor.bedroom_switch_battery'
-      | 'sensor.office_swich_battery'
-      | 'sensor.dinning_device_temperature'
-      | 'sensor.dinning_summation_delivered'
-      | 'sensor.office_motion_lqi'
-      | 'sensor.office_motion_battery'
-      | 'sensor.office_motion_illuminance'
-      | 'sensor.bathroom_switch_rssi'
-      | 'sensor.bathroom_switch_lqi'
-      | 'sensor.bathroom_switch_battery'
-      | 'sensor.bathroom_exhaust_lqi'
-      | 'sensor.bathroom_exhaust_battery'
-      | 'sensor.third_reality_inc_3rws18bz_battery'
-      | 'sensor.backyard_entrance_sensor_battery'
-      | 'sensor.backyard_entrance_sensor_illuminance'
-      | 'sensor.front_door_entrance_sensor_battery'
-      | 'sensor.front_door_entrance_sensor_illuminance'
-      | 'sensor.third_reality_inc_3rws18bz_battery_2'
-      | 'switch.bedroom_switch'
-      | 'switch.office_swich_switch'
-      | 'switch.office_motion_led_trigger_indicator'
-      | 'switch.bathroom_switch'
-      | 'switch.bathroom_exhaust'
-      | 'switch.third_reality_inc_3rws18bz_enable_siren'
-      | 'switch.backyard_entrance_sensor_led_trigger_indicator'
-      | 'switch.front_door_entrance_sensor_led_trigger_indicator'
-      | 'switch.third_reality_inc_3rws18bz_enable_siren_2'
-      | 'update.bedroom_switch_firmware'
-      | 'update.office_swich_firmware'
-      | 'update.dinning_firmware'
-      | 'update.office_motion_firmware'
-      | 'update.bathroom_switch_firmware'
-      | 'update.bathroom_exhaust_firmware'
-      | 'update.third_reality_inc_3rws18bz_firmware'
-      | 'update.backyard_entrance_sensor_firmware'
-      | 'update.front_door_entrance_sensor_firmware'
-      | 'update.third_reality_inc_3rws18bz_firmware_2'
-      | 'device_tracker.lw_ivu'
-      | 'automation.control_humidifier_based_on_humidity'
-      | 'sensor.b9407f30_f5f8_466e_aff9_25556b57fe6d_4096_5_estimated_distance'
-      | 'switch.front_yard_mss620_switch_1'
-      | 'switch.front_yard_mss620_switch_2'
-      | 'switch.front_yard_mss620_main_channel'
-      | 'device_tracker.nexc1_2bcf'
-      | 'sensor.nexc1_2bcf_estimated_distance'
-      | 'device_tracker.wsbc018415120s_a04f'
-      | 'sensor.wsbc018415120s_a04f_estimated_distance'
-      | 'device_tracker.kycs_78ef'
-      | 'sensor.kycs_78ef_estimated_distance'
-      | 'automation.turn_on_christmas_lights_when_its_dark'
-      | 'automation.turn_off_christmas_lights'
-      | 'device_tracker.nexc1_9ea3'
-      | 'sensor.nexc1_9ea3_estimated_distance'
-      | 'device_tracker.dsnymble_3770'
-      | 'sensor.dsnymble_3770_estimated_distance'
-      | 'device_tracker.nexc1_65a5'
-      | 'sensor.nexc1_65a5_estimated_distance'
-      | 'device_tracker.genx_000036033800_566d'
-      | 'sensor.genx_000036033800_566d_estimated_distance'
-      | 'device_tracker.nexc1_67e3'
-      | 'sensor.nexc1_67e3_estimated_distance'
-      | 'device_tracker.genx_000036033800_989b'
-      | 'sensor.genx_000036033800_989b_estimated_distance'
-      | 'device_tracker.nexc1_b733'
-      | 'sensor.nexc1_b733_estimated_distance'
-      | 'device_tracker.nexc1_263d'
-      | 'sensor.nexc1_263d_estimated_distance'
-      | 'device_tracker.nexc1_08ef'
-      | 'sensor.nexc1_08ef_estimated_distance'
-      | 'device_tracker.kycs_790f'
-      | 'sensor.kycs_790f_estimated_distance'
-      | 'device_tracker.rivian_phone_key_c89d'
-      | 'sensor.rivian_phone_key_c89d_estimated_distance'
-      | 'device_tracker.rivian_phone_key_82c7'
-      | 'sensor.rivian_phone_key_82c7_estimated_distance'
-      | 'device_tracker.rivian_phone_key_3222'
-      | 'sensor.rivian_phone_key_3222_estimated_distance'
-      | 'device_tracker.s2dfcfaa5f5dd1046c_f69b'
-      | 'sensor.s2dfcfaa5f5dd1046c_f69b_estimated_distance'
-      | 'device_tracker.s401fbf60f3b7d377c_76ba'
-      | 'sensor.s401fbf60f3b7d377c_76ba_estimated_distance'
-      | 'device_tracker.rivian_phone_key_bd31'
-      | 'sensor.rivian_phone_key_bd31_estimated_distance'
-      | 'device_tracker.rivian_phone_key_37ea'
-      | 'sensor.rivian_phone_key_37ea_estimated_distance'
-      | 'device_tracker.tm5030_24205553_fe9b'
-      | 'sensor.tm5030_24205553_fe9b_estimated_distance'
-      | 'device_tracker.rivian_phone_key_0cc9'
-      | 'sensor.rivian_phone_key_0cc9_estimated_distance'
-      | 'device_tracker.rivian_phone_key_888c'
-      | 'sensor.rivian_phone_key_888c_estimated_distance'
-      | 'device_tracker.nexc1_b91f'
-      | 'sensor.nexc1_b91f_estimated_distance'
-      | 'device_tracker.tirelinc_280a'
-      | 'sensor.tirelinc_280a_estimated_distance'
-      | 'device_tracker.rivian_phone_key_deb0'
-      | 'sensor.rivian_phone_key_deb0_estimated_distance'
-      | 'device_tracker.rivian_phone_key_b4f8'
-      | 'sensor.rivian_phone_key_b4f8_estimated_distance'
-      | 'media_player.chromecast4952'
-      | 'media_player.chromecast9104'
-      | 'device_tracker.rivian_phone_key_b77b'
-      | 'sensor.rivian_phone_key_b77b_estimated_distance'
-      | 'device_tracker.rivian_phone_key_3198'
-      | 'sensor.rivian_phone_key_3198_estimated_distance'
-      | 'device_tracker.rivian_phone_key_c346'
-      | 'sensor.rivian_phone_key_c346_estimated_distance'
-      | 'device_tracker.s9bb653ab9496402fc_13f9'
-      | 'sensor.s9bb653ab9496402fc_13f9_estimated_distance'
-      | 'device_tracker.nexc1_bde5'
-      | 'sensor.nexc1_bde5_estimated_distance'
-      | 'device_tracker.rivian_phone_key_01af'
-      | 'sensor.rivian_phone_key_01af_estimated_distance'
-      | 'device_tracker.rivian_phone_key_38aa'
-      | 'sensor.rivian_phone_key_38aa_estimated_distance'
-      | 'device_tracker.rivian_phone_key_b223'
-      | 'sensor.rivian_phone_key_b223_estimated_distance'
-      | 'device_tracker.wsbc018419375t_8756'
-      | 'sensor.wsbc018419375t_8756_estimated_distance'
-      | 'device_tracker.rivian_phone_key_6fc6'
-      | 'sensor.rivian_phone_key_6fc6_estimated_distance'
-      | 'device_tracker.rivian_phone_key_54cc'
-      | 'sensor.rivian_phone_key_54cc_estimated_distance'
-      | 'device_tracker.wsbc004014466t_a915'
-      | 'sensor.wsbc004014466t_a915_estimated_distance'
-      | 'device_tracker.rivian_phone_key_e02a'
-      | 'sensor.rivian_phone_key_e02a_estimated_distance'
-      | 'device_tracker.rivian_phone_key_1642'
-      | 'sensor.rivian_phone_key_1642_estimated_distance'
-      | 'device_tracker.rivian_phone_key_2f21'
-      | 'sensor.rivian_phone_key_2f21_estimated_distance'
-      | 'device_tracker.nexc1_d401'
-      | 'sensor.nexc1_d401_estimated_distance'
-      | 'device_tracker.rivian_phone_key_4b64'
-      | 'sensor.rivian_phone_key_4b64_estimated_distance'
-      | 'device_tracker.s4d48c93412f024b3c_47ee'
-      | 'sensor.s4d48c93412f024b3c_47ee_estimated_distance'
-      | 'device_tracker.genx_000036033932'
-      | 'sensor.genx_000036033932_estimated_distance'
-      | 'device_tracker.rivian_phone_key_157e'
-      | 'sensor.rivian_phone_key_157e_estimated_distance'
-      | 'remote.universal_remote'
-      | 'device_tracker.mc200_01_157590_11e5'
-      | 'sensor.mc200_01_157590_11e5_estimated_distance'
-      | 'device_tracker.mc200_01_155313_0cb8'
-      | 'sensor.mc200_01_155313_0cb8_estimated_distance'
-      | 'device_tracker.0102000000_4a8f'
-      | 'sensor.0102000000_4a8f_estimated_distance'
-      | 'device_tracker.telematic_437950_637a'
-      | 'sensor.telematic_437950_637a_estimated_distance'
-      | 'device_tracker.s9f9979eaf58ec7e2c_da76'
-      | 'sensor.s9f9979eaf58ec7e2c_da76_estimated_distance'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_path'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_visibility'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_useragent'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_user'
-      | 'binary_sensor.browser_mod_a10edcc9_178b0636_browser_fullykiosk'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_width'
-      | 'sensor.browser_mod_a10edcc9_178b0636_browser_height'
-      | 'binary_sensor.browser_mod_a10edcc9_178b0636_browser_dark_mode'
-      | 'binary_sensor.browser_mod_a10edcc9_178b0636'
-      | 'light.browser_mod_a10edcc9_178b0636_screen'
-      | 'media_player.browser_mod_a10edcc9_178b0636'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_path'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_visibility'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_useragent'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_user'
-      | 'binary_sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_fullykiosk'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_width'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_height'
-      | 'binary_sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_dark_mode'
-      | 'binary_sensor.browser_mod_0bd0dda7_e0f0aa5e'
-      | 'light.browser_mod_0bd0dda7_e0f0aa5e_screen'
-      | 'media_player.browser_mod_0bd0dda7_e0f0aa5e'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_battery'
-      | 'binary_sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_charging'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_path'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_visibility'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_useragent'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_user'
-      | 'binary_sensor.browser_mod_3c84d2e4_93d59195_browser_fullykiosk'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_width'
-      | 'sensor.browser_mod_3c84d2e4_93d59195_browser_height'
-      | 'binary_sensor.browser_mod_3c84d2e4_93d59195_browser_dark_mode'
-      | 'binary_sensor.browser_mod_3c84d2e4_93d59195'
-      | 'light.browser_mod_3c84d2e4_93d59195_screen'
-      | 'media_player.browser_mod_3c84d2e4_93d59195'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_path'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_visibility'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_useragent'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_user'
-      | 'binary_sensor.browser_mod_12dd4432_a5f35b6f_browser_fullykiosk'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_width'
-      | 'sensor.browser_mod_12dd4432_a5f35b6f_browser_height'
-      | 'binary_sensor.browser_mod_12dd4432_a5f35b6f_browser_dark_mode'
-      | 'binary_sensor.browser_mod_12dd4432_a5f35b6f'
-      | 'light.browser_mod_12dd4432_a5f35b6f_screen'
-      | 'media_player.browser_mod_12dd4432_a5f35b6f'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_path'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_visibility'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_useragent'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_user'
-      | 'binary_sensor.browser_mod_c574e838_0cffaae4_browser_fullykiosk'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_width'
-      | 'sensor.browser_mod_c574e838_0cffaae4_browser_height'
-      | 'binary_sensor.browser_mod_c574e838_0cffaae4_browser_dark_mode'
-      | 'binary_sensor.browser_mod_c574e838_0cffaae4'
-      | 'light.browser_mod_c574e838_0cffaae4_screen'
-      | 'media_player.browser_mod_c574e838_0cffaae4'
-      | 'automation.new_automation'
-      | 'device_tracker.wsbc018405191v_47a7'
-      | 'sensor.wsbc018405191v_47a7_estimated_distance'
-      | 'media_player.android_tv_10_0_0_159'
-      | 'remote.android_tv_10_0_0_159'
-      | 'device_tracker.wsbc002022915t_da63'
-      | 'sensor.wsbc002022915t_da63_estimated_distance'
-      | 'device_tracker.s0b1138318e9437e1c_4f03'
-      | 'sensor.s0b1138318e9437e1c_4f03_estimated_distance'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_path'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_visibility'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_useragent'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_user'
-      | 'binary_sensor.browser_mod_b90bc978_debb3a94_browser_fullykiosk'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_width'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_height'
-      | 'binary_sensor.browser_mod_b90bc978_debb3a94_browser_dark_mode'
-      | 'binary_sensor.browser_mod_b90bc978_debb3a94'
-      | 'light.browser_mod_b90bc978_debb3a94_screen'
-      | 'media_player.browser_mod_b90bc978_debb3a94'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_path'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_visibility'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_useragent'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_user'
-      | 'binary_sensor.browser_mod_5f12bd68_c831a460_browser_fullykiosk'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_width'
-      | 'sensor.browser_mod_5f12bd68_c831a460_browser_height'
-      | 'binary_sensor.browser_mod_5f12bd68_c831a460_browser_dark_mode'
-      | 'binary_sensor.browser_mod_5f12bd68_c831a460'
-      | 'light.browser_mod_5f12bd68_c831a460_screen'
-      | 'media_player.browser_mod_5f12bd68_c831a460'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_path'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_visibility'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_useragent'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_user'
-      | 'binary_sensor.browser_mod_060ca22c_d503b540_browser_fullykiosk'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_width'
-      | 'sensor.browser_mod_060ca22c_d503b540_browser_height'
-      | 'binary_sensor.browser_mod_060ca22c_d503b540_browser_dark_mode'
-      | 'binary_sensor.browser_mod_060ca22c_d503b540'
-      | 'light.browser_mod_060ca22c_d503b540_screen'
-      | 'media_player.browser_mod_060ca22c_d503b540'
-      | 'sensor.browser_mod_b90bc978_debb3a94_panel'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_path'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_visibility'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_useragent'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_user'
-      | 'binary_sensor.browser_mod_cc61d7ce_8a17e1c0_browser_fullykiosk'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_width'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_height'
-      | 'binary_sensor.browser_mod_cc61d7ce_8a17e1c0_browser_dark_mode'
-      | 'binary_sensor.browser_mod_cc61d7ce_8a17e1c0'
-      | 'light.browser_mod_cc61d7ce_8a17e1c0_screen'
-      | 'media_player.browser_mod_cc61d7ce_8a17e1c0'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_panel'
-      | 'device_tracker.telematic_431607_2152'
-      | 'sensor.telematic_431607_2152_estimated_distance'
-      | 'device_tracker.telematic_309415_e976'
-      | 'sensor.telematic_309415_e976_estimated_distance'
-      | 'device_tracker.telematic_437125_3d76'
-      | 'sensor.telematic_437125_3d76_estimated_distance'
-      | 'device_tracker.telematic_082038_d973'
-      | 'sensor.telematic_082038_d973_estimated_distance'
-      | 'device_tracker.telematic_155313_0cb8'
-      | 'sensor.telematic_155313_0cb8_estimated_distance'
-      | 'device_tracker.telematic_434965_4913'
-      | 'sensor.telematic_434965_4913_estimated_distance'
-      | 'device_tracker.telematic_089306_e3b4'
-      | 'sensor.telematic_089306_e3b4_estimated_distance'
-      | 'device_tracker.telematic_099388_6434'
-      | 'sensor.telematic_099388_6434_estimated_distance'
-      | 'device_tracker.telematic_324026_409c'
-      | 'sensor.telematic_324026_409c_estimated_distance'
-      | 'device_tracker.telematic_021614_f89c'
-      | 'sensor.telematic_021614_f89c_estimated_distance'
-      | 'device_tracker.telematic_308342_eae6'
-      | 'sensor.telematic_308342_eae6_estimated_distance'
-      | 'device_tracker.wsbc024007781v_4bf1'
-      | 'sensor.wsbc024007781v_4bf1_estimated_distance'
-      | 'device_tracker.s8b67a6499b56678fc_2904'
-      | 'sensor.s8b67a6499b56678fc_2904_estimated_distance'
-      | 'device_tracker.telematic_160578_d1be'
-      | 'sensor.telematic_160578_d1be_estimated_distance'
-      | 'device_tracker.telematic_166575_4bca'
-      | 'sensor.telematic_166575_4bca_estimated_distance'
-      | 'device_tracker.telematic_316618_18e7'
-      | 'sensor.telematic_316618_18e7_estimated_distance'
-      | 'device_tracker.telematic_275269_87ad'
-      | 'sensor.telematic_275269_87ad_estimated_distance'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_path'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_visibility'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_useragent'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_user'
-      | 'binary_sensor.browser_mod_c8af211c_0b0d1c4b_browser_fullykiosk'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_width'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_height'
-      | 'binary_sensor.browser_mod_c8af211c_0b0d1c4b_browser_dark_mode'
-      | 'binary_sensor.browser_mod_c8af211c_0b0d1c4b'
-      | 'light.browser_mod_c8af211c_0b0d1c4b_screen'
-      | 'media_player.browser_mod_c8af211c_0b0d1c4b'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_panel'
-      | 'device_tracker.telematic_091138_73d7'
-      | 'sensor.telematic_091138_73d7_estimated_distance'
-      | 'sensor.browser_mod_cc61d7ce_8a17e1c0_browser_id'
-      | 'sensor.browser_mod_c8af211c_0b0d1c4b_browser_id'
-      | 'device_tracker.telematic_286399_83c0'
-      | 'sensor.telematic_286399_83c0_estimated_distance'
-      | 'device_tracker.telematic_136297_4f2f'
-      | 'sensor.telematic_136297_4f2f_estimated_distance'
-      | 'sensor.browser_mod_b90bc978_debb3a94_browser_id'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_id'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_path'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_visibility'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_useragent'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_user'
-      | 'binary_sensor.browser_mod_61d8ea0c_df707080_browser_fullykiosk'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_width'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_height'
-      | 'binary_sensor.browser_mod_61d8ea0c_df707080_browser_dark_mode'
-      | 'binary_sensor.browser_mod_61d8ea0c_df707080'
-      | 'light.browser_mod_61d8ea0c_df707080_screen'
-      | 'media_player.browser_mod_61d8ea0c_df707080'
-      | 'sensor.browser_mod_61d8ea0c_df707080_panel'
-      | 'sensor.browser_mod_61d8ea0c_df707080_browser_battery'
-      | 'binary_sensor.browser_mod_61d8ea0c_df707080_browser_charging'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_id'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_path'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_visibility'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_useragent'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_user'
-      | 'binary_sensor.browser_mod_e6bcf218_d7031d95_browser_fullykiosk'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_width'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_browser_height'
-      | 'binary_sensor.browser_mod_e6bcf218_d7031d95_browser_dark_mode'
-      | 'binary_sensor.browser_mod_e6bcf218_d7031d95'
-      | 'light.browser_mod_e6bcf218_d7031d95_screen'
-      | 'media_player.browser_mod_e6bcf218_d7031d95'
-      | 'sensor.browser_mod_e6bcf218_d7031d95_panel'
-      | 'device_tracker.74278bda_b644_4520_8f0c_720eaf059935_0_28364_2711'
-      | 'sensor.74278bda_b644_4520_8f0c_720eaf059935_0_28364_2711_estimated_distance'
-      | 'device_tracker.telematic_108379_3f3c'
-      | 'sensor.telematic_108379_3f3c_estimated_distance'
-      | 'device_tracker.telematic_545349_2549'
-      | 'sensor.telematic_545349_2549_estimated_distance'
-      | 'device_tracker.telematic_145264_1a27'
-      | 'sensor.telematic_145264_1a27_estimated_distance'
-      | 'device_tracker.telematic_072369_123b'
-      | 'sensor.telematic_072369_123b_estimated_distance'
-      | 'device_tracker.telematic_151775_b6d8'
-      | 'sensor.telematic_151775_b6d8_estimated_distance'
-      | 'device_tracker.telematic_297859_44b6'
-      | 'sensor.telematic_297859_44b6_estimated_distance'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_id'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_path'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_visibility'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_useragent'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_user'
-      | 'binary_sensor.browser_mod_d1882de5_acac789c_browser_fullykiosk'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_width'
-      | 'sensor.browser_mod_d1882de5_acac789c_browser_height'
-      | 'binary_sensor.browser_mod_d1882de5_acac789c_browser_dark_mode'
-      | 'binary_sensor.browser_mod_d1882de5_acac789c'
-      | 'light.browser_mod_d1882de5_acac789c_screen'
-      | 'media_player.browser_mod_d1882de5_acac789c'
-      | 'sensor.browser_mod_d1882de5_acac789c_panel'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_id'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_path'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_visibility'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_useragent'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_user'
-      | 'binary_sensor.browser_mod_929748ec_89c0abea_browser_fullykiosk'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_width'
-      | 'sensor.browser_mod_929748ec_89c0abea_browser_height'
-      | 'binary_sensor.browser_mod_929748ec_89c0abea_browser_dark_mode'
-      | 'binary_sensor.browser_mod_929748ec_89c0abea'
-      | 'light.browser_mod_929748ec_89c0abea_screen'
-      | 'media_player.browser_mod_929748ec_89c0abea'
-      | 'sensor.browser_mod_929748ec_89c0abea_panel'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_browser_id'
-      | 'sensor.browser_mod_0bd0dda7_e0f0aa5e_panel'
-      | 'button.living_room_tv_favorite_current_song'
-      | 'media_player.living_room_tv_3'
-      | 'button.office_speaker_favorite_current_song'
-      | 'media_player.office_speaker_2'
-      | 'button.basement_tv_favorite_current_song'
-      | 'media_player.basement_tv_3'
-      | 'button.living_room_speaker_favorite_current_song'
-      | 'media_player.living_room_speaker_2'
-      | 'button.everywhere_favorite_current_song'
-      | 'media_player.everywhere_2'
-      | 'button.bedroom_speaker_favorite_current_song'
-      | 'media_player.bedroom_speaker_2'
-      | 'button.tv_airplay_favorite_current_song'
-      | 'media_player.tv_airplay'
-      | 'binary_sensor.presence_sensor_cff9_occupancy'
-      | 'sensor.presence_sensor_cff9_light_level'
-      | 'sensor.presence_sensor_cff9_battery';
+      | "update.home_assistant_supervisor_update"
+      | "update.home_assistant_core_update"
+      | "update.home_assistant_operating_system_update"
+      | "update.matter_server_update"
+      | "update.samba_share_update"
+      | "update.file_editor_update"
+      | "update.studio_code_server_update"
+      | "update.mosquitto_broker_update"
+      | "update.music_assistant_update"
+      | "update.go2rtc_update"
+      | "update.ads_b_multi_portal_feeder_update"
+      | "update.advanced_ssh_web_terminal_update"
+      | "update.esphome_device_builder_update"
+      | "update.rtlamr2mqtt_update"
+      | "update.twingate_connector_update"
+      | "conversation.home_assistant"
+      | "sensor.dishwasher_vibration_count"
+      | "sensor.ozzy_visits_today"
+      | "sensor.ozzy_visits_this_month"
+      | "sensor.dolores_visits_this_month"
+      | "sensor.dolores_visits_today"
+      | "counter.dolores_litter_visits"
+      | "counter.ozzy_litter_visits"
+      | "counter.litter_box_waste_cycles"
+      | "counter.dolores_food_visits"
+      | "counter.dolores_water_visits"
+      | "counter.ozzy_food_visits"
+      | "counter.ozzy_water_visits"
+      | "counter.feeding_loop_index"
+      | "counter.litter_box_2_waste_cycles"
+      | "light.office_light"
+      | "light.master_bedroom_light"
+      | "light.backyard_entrance_light_switch"
+      | "light.main_entrance_light_switch"
+      | "light.bathroom_light_switch"
+      | "sensor.litter_time_today"
+      | "sensor.house_gas_flow_rate"
+      | "sensor.house_water_flow_rate"
+      | "event.backup_automatic_backup"
+      | "sensor.backup_backup_manager_state"
+      | "sensor.backup_next_scheduled_automatic_backup"
+      | "sensor.backup_last_successful_automatic_backup"
+      | "sensor.backup_last_attempted_automatic_backup"
+      | "binary_sensor.remote_ui"
+      | "stt.home_assistant_cloud"
+      | "tts.home_assistant_cloud"
+      | "scene.new_scene"
+      | "scene.dark_2"
+      | "binary_sensor.all_leak_sensors"
+      | "binary_sensor.all_smoke_sensors"
+      | "binary_sensor.basement_smoke_sensors"
+      | "sensor.living_space_light"
+      | "input_boolean.google_routine_trigger"
+      | "input_number.ozzy_litter_minutes"
+      | "input_number.dolores_litter_minutes"
+      | "zone.home"
+      | "input_boolean.washer_finished"
+      | "input_boolean.dryer_finished"
+      | "input_boolean.hub_siren_master"
+      | "input_boolean.dishwasher_finished"
+      | "input_boolean.delivery"
+      | "input_boolean.thermostat_automation_lock"
+      | "person.jerry_medeiros"
+      | "input_text.last_litter_cat"
+      | "input_text.last_feeding_activity"
+      | "sensor.garage_mold_indicator"
+      | "sensor.mold_indicator_basement"
+      | "sun.sun"
+      | "sensor.sun_next_dawn"
+      | "sensor.sun_next_dusk"
+      | "sensor.sun_next_midnight"
+      | "sensor.sun_next_noon"
+      | "sensor.sun_next_rising"
+      | "sensor.sun_next_setting"
+      | "sensor.sun_solar_elevation"
+      | "button.nest_thermostat_identify"
+      | "climate.nest_thermostat"
+      | "sensor.nest_thermostat_temperature"
+      | "switch.nest_thermostat"
+      | "button.aqara_hub_light_identify"
+      | "button.aqara_hub_light_identify_2"
+      | "light.aqara_hub_light"
+      | "number.aqara_hub_light_on_level"
+      | "number.aqara_hub_light_power_on_level"
+      | "select.aqara_hub_light_power_on_behavior"
+      | "binary_sensor.backyard_entrace_door_lock_actuator_2"
+      | "button.backyard_entrace_door_lock_identify"
+      | "lock.back_door"
+      | "select.back_door_operating_mode"
+      | "sensor.backyard_entrace_door_lock_battery"
+      | "sensor.backyard_entrace_door_lock_battery_voltage"
+      | "sensor.backyard_entrace_door_lock_battery_type"
+      | "binary_sensor.main_entrace_door_lock_actuator_2"
+      | "button.main_entrace_door_lock_identify"
+      | "lock.front_door"
+      | "select.main_entrace_door_lock_operating_mode"
+      | "sensor.main_entrace_door_lock_battery"
+      | "sensor.main_entrace_door_lock_battery_voltage"
+      | "sensor.main_entrace_door_lock_battery_type"
+      | "button.hallway_light_switch_identify"
+      | "light.hallway_light_switch"
+      | "binary_sensor.main_entrance_door_sensor_contact_door"
+      | "button.main_entrance_door_sensor_contact_identify"
+      | "sensor.main_entrance_door_sensor_contact_battery"
+      | "sensor.main_entrance_door_sensor_contact_battery_voltage"
+      | "sensor.main_entrance_door_sensor_contact_battery_type"
+      | "binary_sensor.backyard_door_sensor_contact_door"
+      | "button.backyard_door_sensor_contact_identify"
+      | "sensor.backyard_door_sensor_contact_battery"
+      | "sensor.backyard_door_sensor_contact_battery_voltage"
+      | "sensor.backyard_door_sensor_contact_battery_type"
+      | "button.master_bedroom_actions_button_identify"
+      | "event.master_bedroom_actions_button_button"
+      | "sensor.master_bedroom_actions_button_battery"
+      | "sensor.master_bedroom_actions_button_battery_voltage"
+      | "sensor.master_bedroom_actions_button_battery_type"
+      | "button.office_actions_button_identify"
+      | "event.office_actions_button_button"
+      | "sensor.office_actions_button_battery"
+      | "sensor.office_actions_button_battery_voltage"
+      | "sensor.office_actions_button_battery_type"
+      | "binary_sensor.garage_man_door_sensor_contact_door"
+      | "button.garage_man_door_sensor_contact_identify"
+      | "sensor.garage_man_door_sensor_contact_battery"
+      | "sensor.garage_man_door_sensor_contact_battery_voltage"
+      | "sensor.garage_man_door_sensor_contact_battery_type"
+      | "button.guest_room_light_switch_identify"
+      | "light.guest_room_light_switch"
+      | "select.r2489_clean_mode"
+      | "sensor.r2489_operational_state"
+      | "sensor.r2489_operational_error"
+      | "vacuum.r2489"
+      | "update.h6097_firmware"
+      | "button.h6097_identify"
+      | "light.h6097"
+      | "number.h6097_on_level"
+      | "number.h6097_power_on_level"
+      | "number.h6097_on_transition_time"
+      | "number.h6097_off_transition_time"
+      | "number.h6097_on_off_transition_time"
+      | "select.h6097_mode"
+      | "select.h6097_power_on_behavior"
+      | "button.nest_learning_thermostat_4th_gen_identify_1"
+      | "climate.nest_learning_thermostat_4th_gen"
+      | "select.nest_learning_thermostat_4th_gen_temperature_display_mode"
+      | "sensor.nest_learning_thermostat_4th_gen_temperature"
+      | "switch.nest_learning_thermostat_4th_gen"
+      | "button.nest_learning_thermostat_4th_gen_identify_2"
+      | "sensor.nest_learning_thermostat_4th_gen_temperature_2"
+      | "button.nest_learning_thermostat_4th_gen_identify_3"
+      | "sensor.nest_learning_thermostat_4th_gen_humidity"
+      | "button.nest_learning_thermostat_4th_gen_identify_100"
+      | "binary_sensor.office_battery_101"
+      | "sensor.office_temperature_101"
+      | "sensor.office_battery_type_101"
+      | "binary_sensor.living_room_2_battery_102"
+      | "sensor.living_room_2_temperature_102"
+      | "sensor.living_room_2_battery_type_102"
+      | "binary_sensor.bedroom_3_battery_103"
+      | "sensor.bedroom_3_temperature_103"
+      | "sensor.bedroom_3_battery_type_103"
+      | "binary_sensor.basement_4_battery_104"
+      | "sensor.basement_4_temperature_104"
+      | "sensor.basement_4_battery_type_104"
+      | "input_datetime.litter_start_time"
+      | "input_datetime.feeding_start_time"
+      | "calendar.black_cart_2"
+      | "calendar.blue_cart_2"
+      | "calendar.green_cart_2"
+      | "sensor.days_to_black_cart_2"
+      | "sensor.days_to_green_cart_2"
+      | "sensor.days_to_blue_cart_2"
+      | "sensor.collection_types_2"
+      | "sensor.upcoming_waste_collection_2"
+      | "camera.litter_box_area_camera"
+      | "camera.feeding_area_camera"
+      | "binary_sensor.ipad_3_focus"
+      | "device_tracker.ipad_3"
+      | "notify.ipad_3"
+      | "sensor.ipad_3_activity"
+      | "sensor.ipad_3_connection_type"
+      | "sensor.ipad_3_geocoded_location"
+      | "sensor.ipad_3_last_update_trigger"
+      | "sensor.ipad_3_battery_level"
+      | "sensor.ipad_3_battery_state"
+      | "sensor.ipad_3_bssid"
+      | "sensor.ipad_3_ssid"
+      | "sensor.ipad_3_storage"
+      | "sensor.ipad_3_app_version"
+      | "sensor.ipad_3_location_permission"
+      | "sensor.ipad_3_audio_output"
+      | "sensor.ipad_3_pressure"
+      | "binary_sensor.jerry_s_iphone_focus"
+      | "binary_sensor.jerry_s_iphone_kiosk_mode"
+      | "device_tracker.jerry_s_iphone"
+      | "notify.jerry_s_iphone"
+      | "sensor.jerry_s_iphone_distance"
+      | "sensor.jerry_s_iphone_activity"
+      | "sensor.jerry_s_iphone_floors_descended"
+      | "sensor.jerry_s_iphone_steps"
+      | "sensor.jerry_s_iphone_floors_ascended"
+      | "sensor.jerry_s_iphone_average_active_pace"
+      | "sensor.jerry_s_iphone_battery_level"
+      | "sensor.jerry_s_iphone_connection_type"
+      | "sensor.jerry_s_iphone_battery_state"
+      | "sensor.jerry_s_iphone_bssid"
+      | "sensor.jerry_s_iphone_storage"
+      | "sensor.jerry_s_iphone_ssid"
+      | "sensor.jerry_s_iphone_sim_1"
+      | "sensor.jerry_s_iphone_sim_2"
+      | "sensor.jerry_s_iphone_watch_battery_level"
+      | "sensor.jerry_s_iphone_last_update_trigger"
+      | "sensor.jerry_s_iphone_app_version"
+      | "sensor.jerry_s_iphone_location_permission"
+      | "sensor.jerry_s_iphone_audio_output"
+      | "sensor.jerry_s_iphone_watch_battery_state"
+      | "sensor.jerry_s_iphone_geocoded_location"
+      | "sensor.jerry_s_iphone_kiosk_brightness"
+      | "sensor.jerry_s_iphone_kiosk_volume"
+      | "device_tracker.control_panel"
+      | "notify.lenovo_cd_18781y"
+      | "sensor.lenovo_cd_18781y_battery_level"
+      | "sensor.lenovo_cd_18781y_battery_state"
+      | "sensor.lenovo_cd_18781y_charger_type"
+      | "switch.dreame_vacuum_pre_release"
+      | "update.astroweather_update"
+      | "update.button_card_update"
+      | "update.aroma_link_update"
+      | "update.bambu_lab_update"
+      | "update.kia_uvo_hyundai_bluelink_update"
+      | "update.flightradar24_update"
+      | "update.spotcast_update"
+      | "update.music_assistant_queue_actions_update"
+      | "update.tv_remote_card_with_touchpad_and_haptic_feedback_update"
+      | "update.waste_collection_schedule_update"
+      | "update.dreame_vacuum_update"
+      | "update.scent_assistant_update"
+      | "update.meross_integration_update"
+      | "update.node_red_companion_update"
+      | "update.vehicle_status_card_update"
+      | "update.hacs_update"
+      | "update.orbit_bhyve_update"
+      | "update.emporia_vue_update"
+      | "update.spotify_lovelace_card_update"
+      | "update.mini_graph_card_update"
+      | "update.spotifyplus_card_update"
+      | "update.slider_button_card_update"
+      | "update.mushroom_update"
+      | "update.tuya_local_update"
+      | "update.vertical_stack_in_card_update"
+      | "update.samsungtv_smart_update"
+      | "update.sonoff_lan_update"
+      | "update.spotifyplus_update"
+      | "update.firemote_card_update"
+      | "update.advanced_camera_card_update"
+      | "update.webrtc_camera_update"
+      | "update.bubble_card_update"
+      | "update.iss_transit_finder_update"
+      | "update.llm_vision_update"
+      | "update.alarmo_update"
+      | "update.neakasa_update"
+      | "update.layout_card_update"
+      | "update.local_tuya_update"
+      | "update.card_mod_update"
+      | "update.astroweather_card_update"
+      | "media_player.tv_2"
+      | "media_player.living_room_tv_chrome_cast"
+      | "remote.living_room_tv"
+      | "sensor.ozzy_food_visits_today"
+      | "sensor.ozzy_water_visits_today"
+      | "sensor.dolores_food_visits_today"
+      | "sensor.dolores_water_visits_today"
+      | "sensor.house_electricity_daily"
+      | "sensor.house_gas_daily"
+      | "sensor.house_water_daily"
+      | "sensor.house_electricity_lifetime_total"
+      | "sensor.house_electricity_mothly_total"
+      | "sensor.house_water_monthly"
+      | "sensor.house_electricity_cost_today"
+      | "sensor.house_electricity_cost_month"
+      | "sensor.house_water_cost_today"
+      | "sensor.house_water_cost_monthly"
+      | "sensor.house_gas_cost_today"
+      | "sensor.house_gas_cost_month"
+      | "sensor.house_gas_monthly"
+      | "binary_sensor.astroweather_backyard_deep_sky_view"
+      | "binary_sensor.astroweather_backyard_moon_rises_during_darkness"
+      | "binary_sensor.astroweather_backyard_moon_sets_during_darkness"
+      | "binary_sensor.astroweather_backyard_moon_always_up_during_darkness"
+      | "binary_sensor.astroweather_backyard_moon_always_down_during_darkness"
+      | "binary_sensor.back_yard_astroweather_backyard_gfs_supplementary_data"
+      | "sensor.astroweather_backyard_forecast_length"
+      | "sensor.astroweather_backyard_location_name"
+      | "sensor.astroweather_backyard_latitude"
+      | "sensor.astroweather_backyard_longitude"
+      | "sensor.astroweather_backyard_elevation"
+      | "sensor.astroweather_backyard_time_shift"
+      | "sensor.astroweather_backyard_timestamp"
+      | "sensor.astroweather_backyard_cloud_cover"
+      | "sensor.astroweather_backyard_cloudless"
+      | "sensor.astroweather_backyard_clouds_area"
+      | "sensor.astroweather_backyard_clouds_area_high"
+      | "sensor.astroweather_backyard_clouds_area_medium"
+      | "sensor.astroweather_backyard_clouds_area_low"
+      | "sensor.astroweather_backyard_fog_area"
+      | "sensor.astroweather_backyard_fog_2m_area"
+      | "sensor.astroweather_backyard_seeing_percentage"
+      | "sensor.astroweather_backyard_seeing"
+      | "sensor.astroweather_backyard_transparency"
+      | "sensor.astroweather_backyard_transparency_plain"
+      | "sensor.astroweather_backyard_lifted_index"
+      | "sensor.astroweather_backyard_lifted_index_plain"
+      | "sensor.astroweather_backyard_2m_relative_humidity"
+      | "sensor.astroweather_backyard_calm_percentage"
+      | "sensor.astroweather_backyard_10m_wind_direction"
+      | "sensor.astroweather_backyard_10m_wind_speed"
+      | "sensor.astroweather_backyard_2m_temperature"
+      | "sensor.astroweather_backyard_2m_dewpoint"
+      | "sensor.astroweather_backyard_precipitation_amount"
+      | "sensor.astroweather_backyard_condition"
+      | "sensor.astroweather_backyard_sun_altitude"
+      | "sensor.astroweather_backyard_sun_azimuth"
+      | "sensor.astroweather_backyard_sun_next_setting"
+      | "sensor.astroweather_backyard_sun_next_setting_nautical"
+      | "sensor.astroweather_backyard_sun_next_setting_astronomical"
+      | "sensor.astroweather_backyard_sun_next_rising"
+      | "sensor.astroweather_backyard_sun_next_rising_nautical"
+      | "sensor.astroweather_backyard_sun_next_rising_astronomical"
+      | "sensor.astroweather_backyard_sun_constellation"
+      | "sensor.astroweather_backyard_moon_next_rising"
+      | "sensor.astroweather_backyard_moon_next_setting"
+      | "sensor.astroweather_backyard_moon_phase"
+      | "sensor.astroweather_backyard_moon_icon"
+      | "sensor.astroweather_backyard_moon_next_new_moon"
+      | "sensor.astroweather_backyard_moon_next_full_moon"
+      | "sensor.astroweather_backyard_moon_altitude"
+      | "sensor.astroweather_backyard_moon_azimuth"
+      | "sensor.astroweather_backyard_moon_distance"
+      | "sensor.astroweather_backyard_moon_relative_distance"
+      | "sensor.astroweather_backyard_moon_angular_size"
+      | "sensor.astroweather_backyard_moon_relative_size"
+      | "sensor.astroweather_backyard_moon_constellation"
+      | "sensor.astroweather_backyard_moon_next_dark_night"
+      | "sensor.astroweather_backyard_astronomical_night_duration"
+      | "sensor.astroweather_backyard_deep_sky_darkness"
+      | "sensor.astroweather_backyard_deepsky_forecast_today"
+      | "sensor.astroweather_backyard_deepsky_forecast_today_plain"
+      | "sensor.astroweather_backyard_deepsky_forecast_today_description"
+      | "sensor.astroweather_backyard_deepsky_forecast_tomorrow"
+      | "sensor.astroweather_backyard_deepsky_forecast_tomorrow_plain"
+      | "sensor.astroweather_backyard_deepsky_forecast_tomorrow_description"
+      | "sensor.astroweather_backyard_uptonight"
+      | "weather.astroweather_backyard"
+      | "binary_sensor.watering_connected"
+      | "binary_sensor.smart_hose_fault"
+      | "select.smart_hose_device_mode"
+      | "sensor.smart_hose_state"
+      | "sensor.smart_hose_next_watering"
+      | "sensor.unnamed_zone_zone_history"
+      | "sensor.unnamed_zone_zone_history_2"
+      | "sensor.smart_hose_battery_level"
+      | "switch.smart_hose_rain_delay"
+      | "switch.smart_hose_left_side_smart_watering"
+      | "switch.smart_hose_right_side_smart_watering"
+      | "valve.smart_hose_left_side_zone"
+      | "valve.smart_hose_right_side_zone"
+      | "media_player.living_room_tv"
+      | "media_player.bedroom_speaker"
+      | "media_player.living_room_speaker"
+      | "tts.google_en_com"
+      | "sensor.calgary_current_condition"
+      | "sensor.calgary_dew_point"
+      | "sensor.calgary_high_temperature"
+      | "sensor.calgary_humidex"
+      | "sensor.calgary_humidity"
+      | "sensor.calgary_icon_code"
+      | "sensor.calgary_low_temperature"
+      | "sensor.calgary_normal_high_temperature"
+      | "sensor.calgary_normal_low_temperature"
+      | "sensor.calgary_chance_of_precipitation"
+      | "sensor.calgary_barometric_pressure"
+      | "sensor.calgary_temperature"
+      | "sensor.calgary_tendency"
+      | "sensor.calgary_summary"
+      | "sensor.calgary_observation_time"
+      | "sensor.calgary_uv_index"
+      | "sensor.calgary_visibility"
+      | "sensor.calgary_wind_bearing"
+      | "sensor.calgary_wind_chill"
+      | "sensor.calgary_wind_direction"
+      | "sensor.calgary_wind_gust"
+      | "sensor.calgary_wind_speed"
+      | "sensor.calgary_advisories"
+      | "sensor.calgary_endings"
+      | "sensor.calgary_statements"
+      | "sensor.calgary_warnings"
+      | "sensor.calgary_watches"
+      | "sensor.calgary_aqhi"
+      | "weather.calgary_forecast"
+      | "ai_task.ollama_ai_task"
+      | "binary_sensor.arris_tg4482a_wan_status"
+      | "sensor.arris_tg4482a_external_ip"
+      | "sensor.arris_tg4482a_download_speed"
+      | "sensor.arris_tg4482a_upload_speed"
+      | "light.pet_feeder_indicator"
+      | "binary_sensor.pet_feeder_empty_food"
+      | "binary_sensor.pet_feeder_problem"
+      | "button.pet_feeder_quick_feed"
+      | "switch.pet_feeder_slow_feed"
+      | "number.pet_feeder_manual_feed"
+      | "sensor.house_water_house_water_2_cost"
+      | "sensor.house_gas_m3_cost_2"
+      | "sensor.house_electricity_total_cost"
+      | "button.smart_fountain_filter_reset"
+      | "button.smart_fountain_pump_clean_reset"
+      | "sensor.pet_feeder_last_amount"
+      | "sensor.pet_feeder_feed_state"
+      | "sensor.pet_feeder_battery_level"
+      | "sensor.smart_fountain_filter_life"
+      | "sensor.smart_fountain_pump_cleaning_due"
+      | "sensor.smart_fountain_water_level"
+      | "sensor.smart_fountain_water_consumption"
+      | "binary_sensor.smart_fountain_problem"
+      | "number.smart_fountain_filter_change_interval"
+      | "number.smart_fountain_pump_clean_interval"
+      | "select.smart_fountain_activation_mode"
+      | "switch.google_routine_switch"
+      | "binary_sensor.litter_box_occupied"
+      | "binary_sensor.dryer_running"
+      | "binary_sensor.washer_running"
+      | "binary_sensor.ac_running"
+      | "sensor.dolores_total_visits"
+      | "sensor.dolores_total_minutes"
+      | "sensor.ozzy_total_minutes"
+      | "sensor.ozzy_total_visits"
+      | "sensor.ozzy_total_food_visits"
+      | "sensor.ozzy_total_water_visits"
+      | "sensor.dolores_total_food_visits"
+      | "sensor.dolores_total_water_visits"
+      | "sensor.house_electricity_total"
+      | "sensor.house_gas_m3"
+      | "sensor.bubble_card_modules"
+      | "sensor.dishwasher_status"
+      | "sensor.current_flights_overhead"
+      | "sensor.openweathermap_weather"
+      | "sensor.openweathermap_dew_point_temperature"
+      | "sensor.openweathermap_temperature"
+      | "sensor.openweathermap_apparent_temperature"
+      | "sensor.openweathermap_wind_speed"
+      | "sensor.openweathermap_wind_gust_speed"
+      | "sensor.openweathermap_wind_direction"
+      | "sensor.openweathermap_humidity"
+      | "sensor.openweathermap_pressure"
+      | "sensor.openweathermap_cloud_coverage"
+      | "sensor.openweathermap_rain_intensity"
+      | "sensor.openweathermap_snow_intensity"
+      | "sensor.openweathermap_precipitation_kind"
+      | "sensor.openweathermap_uv_index"
+      | "sensor.openweathermap_visibility"
+      | "sensor.openweathermap_condition"
+      | "sensor.openweathermap_weather_code"
+      | "weather.openweathermap"
+      | "infrared.universal_remote_ir_emitter"
+      | "remote.universal_remote"
+      | "radio_frequency.universal_remote"
+      | "switch.smart_a5_wifi_power"
+      | "switch.smart_a5_wifi_fan"
+      | "sensor.smart_a5_wifi_status"
+      | "sensor.smart_a5_wifi_connection"
+      | "sensor.smart_a5_wifi_oil_remaining"
+      | "sensor.smart_a5_wifi_diffusion_time_remaining"
+      | "sensor.smart_a5_wifi_pause_time_remaining"
+      | "sensor.smart_a5_wifi_battery"
+      | "number.smart_a5_wifi_work_duration"
+      | "number.smart_a5_wifi_pause_duration"
+      | "number.smart_a5_wifi_momentary_duration"
+      | "time.smart_a5_wifi_start_time"
+      | "time.smart_a5_wifi_end_time"
+      | "button.smart_a5_wifi_sync_time"
+      | "button.smart_a5_wifi_diffuse_now"
+      | "sensor.indi_allsky_certificate_expiry"
+      | "sensor.sky_cloud_api_certificate_expiry"
+      | "sensor.nas_certificate_expiry"
+      | "sensor.home_assistant_certificate_expiry"
+      | "sensor.indi_allsky_response_time"
+      | "sensor.sky_cloud_api_response_time"
+      | "sensor.nas_response_time"
+      | "sensor.home_assistant_response_time"
+      | "sensor.twingate_response_time"
+      | "sensor.omada_response_time"
+      | "sensor.indi_allsky_status"
+      | "sensor.sky_cloud_api_status"
+      | "sensor.nas_status"
+      | "sensor.home_assistant_status"
+      | "sensor.twingate_status"
+      | "sensor.omada_status"
+      | "sensor.indi_allsky_monitor_type"
+      | "sensor.sky_cloud_api_monitor_type"
+      | "sensor.nas_monitor_type"
+      | "sensor.home_assistant_monitor_type"
+      | "sensor.twingate_monitor_type"
+      | "sensor.omada_monitor_type"
+      | "sensor.indi_allsky_monitored_url"
+      | "sensor.sky_cloud_api_monitored_url"
+      | "sensor.nas_monitored_url"
+      | "sensor.home_assistant_monitored_url"
+      | "sensor.indi_allsky_uptime_1_day"
+      | "sensor.sky_cloud_api_uptime_1_day"
+      | "sensor.nas_uptime_1_day"
+      | "sensor.home_assistant_uptime_1_day"
+      | "sensor.twingate_uptime_1_day"
+      | "sensor.omada_uptime_1_day"
+      | "sensor.indi_allsky_uptime_30_days"
+      | "sensor.sky_cloud_api_uptime_30_days"
+      | "sensor.nas_uptime_30_days"
+      | "sensor.home_assistant_uptime_30_days"
+      | "sensor.twingate_uptime_30_days"
+      | "sensor.omada_uptime_30_days"
+      | "sensor.indi_allsky_uptime_365_days"
+      | "sensor.sky_cloud_api_uptime_365_days"
+      | "sensor.nas_uptime_365_days"
+      | "sensor.home_assistant_uptime_365_days"
+      | "sensor.twingate_uptime_365_days"
+      | "sensor.omada_uptime_365_days"
+      | "sensor.indi_allsky_response_time_o_1_day"
+      | "sensor.sky_cloud_api_response_time_o_1_day"
+      | "sensor.nas_response_time_o_1_day"
+      | "sensor.home_assistant_response_time_o_1_day"
+      | "sensor.twingate_response_time_o_1_day"
+      | "sensor.omada_response_time_o_1_day"
+      | "sensor.indi_allsky_response_time_o_30_days"
+      | "sensor.sky_cloud_api_response_time_o_30_days"
+      | "sensor.nas_response_time_o_30_days"
+      | "sensor.home_assistant_response_time_o_30_days"
+      | "sensor.twingate_response_time_o_30_days"
+      | "sensor.omada_response_time_o_30_days"
+      | "sensor.indi_allsky_response_time_o_365_days"
+      | "sensor.sky_cloud_api_response_time_o_365_days"
+      | "sensor.nas_response_time_o_365_days"
+      | "sensor.home_assistant_response_time_o_365_days"
+      | "sensor.twingate_response_time_o_365_days"
+      | "sensor.omada_response_time_o_365_days"
+      | "update.homeserver_local_uptime_kuma_version"
+      | "sensor.iss_transit_finder_home_home_next_iss_sun_transit"
+      | "sensor.iss_transit_finder_home_home_next_iss_moon_transit"
+      | "binary_sensor.indi_allsky_moon_mode"
+      | "binary_sensor.indi_allsky_night"
+      | "sensor.moon_phase"
+      | "todo.shopping_list"
+      | "binary_sensor.kitchen_light_cloud_connection"
+      | "light.kitchen_light"
+      | "switch.kitchen_light_led"
+      | "binary_sensor.living_room_light_cloud_connection"
+      | "light.living_room_light"
+      | "switch.living_room_light_led"
+      | "binary_sensor.basement_2_cloud_connection"
+      | "light.basement_2"
+      | "switch.basement_2_led"
+      | "binary_sensor.basement_bedroom_cloud_connection"
+      | "light.basement_bedroom"
+      | "sensor.basement_bedroom_signal_strength"
+      | "switch.basement_bedroom_led"
+      | "binary_sensor.island_light_cloud_connection"
+      | "light.island_light"
+      | "switch.island_light_led"
+      | "binary_sensor.staircase_light_cloud_connection"
+      | "light.staircase_light"
+      | "switch.staircase_light_led"
+      | "binary_sensor.basement_1_cloud_connection"
+      | "light.basement_1"
+      | "switch.basement_1_led"
+      | "binary_sensor.unnamed_s505_cloud_connection_2"
+      | "binary_sensor.unnamed_s505_overheated_2"
+      | "number.unnamed_s505_turn_off_in_2"
+      | "sensor.unnamed_s505_signal_level_2"
+      | "sensor.unnamed_s505_auto_off_at_2"
+      | "switch.main_entrance_light_switch"
+      | "switch.unnamed_s505_auto_off_enabled_2"
+      | "switch.unnamed_s505_auto_update_enabled_2"
+      | "switch.unnamed_s505_led_2"
+      | "binary_sensor.unnamed_s505_cloud_connection"
+      | "binary_sensor.unnamed_s505_overheated"
+      | "number.unnamed_s505_turn_off_in"
+      | "sensor.unnamed_s505_signal_level"
+      | "sensor.unnamed_s505_auto_off_at"
+      | "switch.backyard_entrace_light_switch"
+      | "switch.unnamed_s505_auto_off_enabled"
+      | "switch.unnamed_s505_auto_update_enabled"
+      | "switch.unnamed_s505_led"
+      | "image.indi_allsky_indi_allsky_camera"
+      | "lock.ratgdov25i_e5f7cc_lock_remotes"
+      | "sensor.ratgdov25i_e5f7cc_openings"
+      | "sensor.ratgdov25i_e5f7cc_paired_devices"
+      | "sensor.ratgdov25i_e5f7cc_firmware_version"
+      | "switch.ratgdov25i_e5f7cc_learn"
+      | "number.ratgdov25i_e5f7cc_rolling_code_counter"
+      | "number.ratgdov25i_e5f7cc_opening_duration"
+      | "number.ratgdov25i_e5f7cc_closing_duration"
+      | "number.ratgdov25i_e5f7cc_client_id"
+      | "cover.garage_door"
+      | "binary_sensor.garage_interior_motion_sensor"
+      | "binary_sensor.ratgdov25i_e5f7cc_obstruction"
+      | "binary_sensor.ratgdov25i_e5f7cc_button"
+      | "binary_sensor.ratgdov25i_e5f7cc_motor"
+      | "binary_sensor.ratgdov25i_e5f7cc_dry_contact_open"
+      | "binary_sensor.ratgdov25i_e5f7cc_dry_contact_close"
+      | "binary_sensor.ratgdov25i_e5f7cc_dry_contact_light"
+      | "button.ratgdov25i_e5f7cc_restart"
+      | "button.ratgdov25i_e5f7cc_safe_mode_boot"
+      | "button.ratgdov25i_e5f7cc_query_status"
+      | "button.ratgdov25i_e5f7cc_query_openings"
+      | "button.ratgdov25i_e5f7cc_sync"
+      | "button.ratgdov25i_e5f7cc_toggle_door"
+      | "light.ratgdov25i_e5f7cc_light"
+      | "button.office_desk_restart_desk_esp"
+      | "button.office_desk_desk_go_to_seated"
+      | "button.office_desk_desk_go_to_standing"
+      | "sensor.office_desk_desk_height_cm"
+      | "number.office_desk_desk_speed_limit"
+      | "number.office_desk_desk_go_to_position"
+      | "cover.office_desk_desk_control"
+      | "device_tracker.flightradar24"
+      | "sensor.flightradar24_current_in_area"
+      | "sensor.flightradar24_entered_area"
+      | "sensor.flightradar24_exited_area"
+      | "sensor.flightradar24_airport_arrivals_on_time"
+      | "sensor.flightradar24_airport_arrivals_delayed"
+      | "sensor.flightradar24_airport_arrivals_delay_average"
+      | "sensor.flightradar24_airport_arrivals_delay_index"
+      | "sensor.flightradar24_airport_arrivals_canceled"
+      | "sensor.flightradar24_airport_arrivals"
+      | "sensor.flightradar24_airport_departures_on_time"
+      | "sensor.flightradar24_airport_departures_delayed"
+      | "sensor.flightradar24_airport_departures_delay_average"
+      | "sensor.flightradar24_airport_departures_delay_index"
+      | "sensor.flightradar24_airport_departures_canceled"
+      | "sensor.flightradar24_airport_departures"
+      | "sensor.flightradar24_additional_tracked_2"
+      | "switch.flightradar24_api_data_fetching"
+      | "switch.flightradar24_most_tracked"
+      | "text.flightradar24_add_to_track"
+      | "text.flightradar24_remove_from_track"
+      | "text.flightradar24_airport_track"
+      | "button.flightradar24_clear_additional_tracked"
+      | "script.startup_office"
+      | "script.shutdown_office"
+      | "script.away"
+      | "script.open_disarm"
+      | "sensor.indi_allsky_exposure_date"
+      | "sensor.indi_allsky_exposure"
+      | "sensor.indi_allsky_camera_gain"
+      | "sensor.indi_allsky_camera_binmode"
+      | "sensor.indi_allsky_camera_temp"
+      | "sensor.indi_allsky_sun_altitude"
+      | "sensor.indi_allsky_moon_altitude"
+      | "sensor.indi_allsky_moon_phase"
+      | "sensor.indi_allsky_sqm"
+      | "sensor.indi_allsky_stars"
+      | "alarm_control_panel.house"
+      | "sensor.indi_allsky_detections"
+      | "sensor.indi_allsky_latitude"
+      | "sensor.indi_allsky_longitude"
+      | "sensor.indi_allsky_elevation"
+      | "sensor.indi_allsky_k_p_index"
+      | "sensor.indi_allsky_aurora_prediction"
+      | "sensor.indi_allsky_solar_wind_bt_nt"
+      | "sensor.indi_allsky_solar_wind_bz"
+      | "sensor.indi_allsky_solar_wind_plasma_density_1_cm3"
+      | "sensor.indi_allsky_solar_wind_plasma_speed_km_s"
+      | "sensor.indi_allsky_solar_wind_plasma_temperature_k"
+      | "sensor.indi_allsky_hemispheric_power_northern_gw"
+      | "sensor.indi_allsky_hemispheric_power_southern_gw"
+      | "sensor.indi_allsky_smoke_rating"
+      | "sensor.indi_allsky_sidereal_time"
+      | "sensor.indi_allsky_cpu_total"
+      | "sensor.indi_allsky_memory_total"
+      | "sensor.indi_allsky_filesystem"
+      | "sensor.indi_allsky_thermal_cpu_thermal_0"
+      | "sensor.indi_allsky_camera_temp_2"
+      | "sensor.indi_allsky_future_use_1"
+      | "sensor.indi_allsky_future_use_2"
+      | "sensor.indi_allsky_future_use_3"
+      | "sensor.indi_allsky_future_use_4"
+      | "sensor.indi_allsky_future_use_5"
+      | "sensor.indi_allsky_future_use_6"
+      | "sensor.indi_allsky_future_use_7"
+      | "sensor.indi_allsky_future_use_8"
+      | "sensor.indi_allsky_future_use_9"
+      | "sensor.indi_allsky_system_temp_10"
+      | "sensor.indi_allsky_system_temp_11"
+      | "sensor.indi_allsky_system_temp_12"
+      | "sensor.indi_allsky_system_temp_13"
+      | "sensor.indi_allsky_system_temp_14"
+      | "sensor.indi_allsky_system_temp_15"
+      | "sensor.indi_allsky_system_temp_16"
+      | "sensor.indi_allsky_system_temp_17"
+      | "sensor.indi_allsky_system_temp_18"
+      | "sensor.indi_allsky_system_temp_19"
+      | "sensor.indi_allsky_system_temp_20"
+      | "sensor.indi_allsky_system_temp_21"
+      | "sensor.indi_allsky_system_temp_22"
+      | "sensor.indi_allsky_system_temp_23"
+      | "sensor.indi_allsky_system_temp_24"
+      | "sensor.indi_allsky_system_temp_25"
+      | "sensor.indi_allsky_system_temp_26"
+      | "sensor.indi_allsky_system_temp_27"
+      | "sensor.indi_allsky_system_temp_28"
+      | "sensor.indi_allsky_system_temp_29"
+      | "sensor.indi_allsky_camera_temp_3"
+      | "sensor.indi_allsky_dew_heater_level"
+      | "sensor.indi_allsky_dew_point"
+      | "sensor.indi_allsky_frost_point"
+      | "sensor.indi_allsky_fan_level"
+      | "media_player.everywhere"
+      | "sensor.indi_allsky_heat_index"
+      | "sensor.indi_allsky_wind_dir_degrees"
+      | "sensor.indi_allsky_sqm_2"
+      | "media_player.office_speaker"
+      | "sensor.indi_allsky_future_use_8_2"
+      | "sensor.indi_allsky_future_use_9_2"
+      | "sensor.indi_allsky_user_slot_10"
+      | "sensor.indi_allsky_user_slot_11"
+      | "sensor.indi_allsky_user_slot_12"
+      | "sensor.indi_allsky_user_slot_13"
+      | "sensor.indi_allsky_user_slot_14"
+      | "sensor.indi_allsky_user_slot_15"
+      | "sensor.indi_allsky_user_slot_16"
+      | "sensor.indi_allsky_user_slot_17"
+      | "sensor.indi_allsky_user_slot_18"
+      | "sensor.indi_allsky_user_slot_19"
+      | "sensor.indi_allsky_user_slot_20"
+      | "sensor.indi_allsky_user_slot_21"
+      | "sensor.indi_allsky_user_slot_22"
+      | "sensor.indi_allsky_user_slot_23"
+      | "sensor.indi_allsky_user_slot_24"
+      | "sensor.indi_allsky_user_slot_25"
+      | "sensor.indi_allsky_user_slot_26"
+      | "sensor.indi_allsky_user_slot_27"
+      | "sensor.indi_allsky_user_slot_28"
+      | "sensor.indi_allsky_user_slot_29"
+      | "sensor.allsky_cloud_detector_status"
+      | "sensor.allsky_cloud_detector_confidence"
+      | "sensor.allsky_cloud_detector_detection_time"
+      | "binary_sensor.rojeco_pet_feeder_feeding"
+      | "binary_sensor.rojeco_pet_feeder_charging"
+      | "light.hs01_smart_strip_lights"
+      | "light.rojeco_pet_feeder_light"
+      | "number.rojeco_pet_feeder_feed"
+      | "select.merkury_six_smart_plug_power_on_behavior"
+      | "select.smart_switch_power_on_behavior"
+      | "select.smart_switch_indicator_light_mode"
+      | "sensor.rojeco_pet_feeder_battery"
+      | "sensor.rojeco_pet_feeder_last_amount"
+      | "sensor.smart_pet_fountain_water_pump_duration"
+      | "sensor.smart_pet_fountain_filter_duration"
+      | "switch.office_left_monitor_plug"
+      | "switch.office_right_monitor_plug"
+      | "switch.office_computer_plug"
+      | "switch.merkury_six_smart_plug_socket_4"
+      | "switch.merkury_six_smart_plug_socket_5"
+      | "switch.merkury_six_smart_plug_socket_6"
+      | "switch.all_sky_plug"
+      | "switch.humidifier_socket_1"
+      | "switch.smart_switch_switch_1"
+      | "switch.rojeco_pet_feeder_slow_feed"
+      | "switch.smart_pet_fountain_filter_reset"
+      | "switch.smart_pet_fountain_water_pump_reset"
+      | "switch.smart_pet_fountain_power"
+      | "automation.notify_garage_door_is_open"
+      | "automation.waste_collection_popup_at_7pm"
+      | "automation.notify_washer_finished_running"
+      | "automation.notify_dryer_finished_running"
+      | "automation.aqara_mini_switch_single_press"
+      | "automation.start_office"
+      | "automation.auto_clear_all_tuya_smoke_detectors"
+      | "automation.litter_cleaning_counter"
+      | "automation.smart_front_entrance_lights"
+      | "automation.smart_back_entrance_lights"
+      | "automation.alarm_disarm_on_door_unlock_3"
+      | "automation.security_camera_warning_manual_trigger"
+      | "automation.security_manual_siren_trigger_listener"
+      | "automation.force_hub_siren_loop"
+      | "automation.security_dynamic_entry_warning"
+      | "automation.notify_dishwasher_cycle_finished"
+      | "automation.pet_food_water_tracker_video_test_mode"
+      | "automation.litter_box_identity_duration_tracker_switchbot_edition"
+      | "automation.alarm_keypad_arm_disarm_sequence"
+      | "automation.tv_media_light_sync"
+      | "automation.utility_package_delivery_detection_ai_filtered"
+      | "automation.thermostat_seasonal_mode_switch_with_lock"
+      | "automation.office_desk_remote_control"
+      | "automation.office_lighting_controller_3"
+      | "automation.flight_entry_notification"
+      | "sensor.sonoff_100294a1ea_action"
+      | "sensor.sonoff_10029476ea_action"
+      | "sensor.sonoff_100294607c_action"
+      | "switch.bathroom_light_switch"
+      | "switch.sonoff_10029476ea_1"
+      | "switch.sonoff_100294607c_1"
+      | "select.sonoff_100294a1ea_1"
+      | "select.sonoff_10029476ea_1"
+      | "select.sonoff_100294607c_1"
+      | "binary_sensor.litter_box_occupancy_sensor"
+      | "sensor.litter_box_luminance_sensor"
+      | "sensor.litter_box_presence_sensor_battery_range"
+      | "binary_sensor.feeding_area_presence_sensor_occupancy"
+      | "sensor.feeding_area_presence_sensor_light_level"
+      | "sensor.feeding_area_presence_sensor_battery_range"
+      | "binary_sensor.basement_presence_sensor_occupancy"
+      | "sensor.basement_presence_sensor_light_level"
+      | "sensor.basement_presence_sensor_battery_range"
+      | "sensor.indoor_outdoor_meter_4f23_battery"
+      | "sensor.indoor_outdoor_meter_4f23_temperature"
+      | "sensor.indoor_outdoor_meter_4f23_humidity"
+      | "sensor.indoor_outdoor_meter_6287_battery"
+      | "sensor.indoor_outdoor_meter_6287_temperature"
+      | "sensor.indoor_outdoor_meter_6287_humidity"
+      | "sensor.indoor_outdoor_meter_0d29_battery"
+      | "sensor.indoor_outdoor_meter_0d29_temperature"
+      | "sensor.indoor_outdoor_meter_0d29_humidity"
+      | "binary_sensor.lenovo_starview_kiosk_mode"
+      | "binary_sensor.lenovo_starview_plugged_in"
+      | "binary_sensor.lenovo_starview_device_admin"
+      | "button.lenovo_starview_restart_browser"
+      | "button.lenovo_starview_restart_device"
+      | "button.lenovo_starview_bring_to_foreground"
+      | "button.lenovo_starview_send_to_background"
+      | "button.lenovo_starview_load_start_url"
+      | "button.lenovo_starview_clear_browser_cache"
+      | "button.lenovo_starview_trigger_motion_activity"
+      | "camera.lenovo_starview"
+      | "image.lenovo_starview_screenshot"
+      | "media_player.lenovo_starview"
+      | "notify.lenovo_starview_overlay_message"
+      | "notify.lenovo_starview_text_to_speech"
+      | "number.lenovo_starview_screensaver_timer"
+      | "number.lenovo_starview_screensaver_brightness"
+      | "number.lenovo_starview_screen_off_timer"
+      | "number.lenovo_starview_screen_brightness"
+      | "sensor.lenovo_starview_battery"
+      | "sensor.lenovo_starview_battery_temperature"
+      | "sensor.lenovo_starview_current_page"
+      | "sensor.lenovo_starview_screen_orientation"
+      | "sensor.lenovo_starview_foreground_app"
+      | "sensor.lenovo_starview_internal_storage_free_space"
+      | "sensor.lenovo_starview_internal_storage_total_space"
+      | "sensor.lenovo_starview_free_memory"
+      | "sensor.lenovo_starview_total_memory"
+      | "switch.lenovo_starview_screensaver"
+      | "switch.lenovo_starview_maintenance_mode"
+      | "switch.lenovo_starview_kiosk_lock"
+      | "switch.lenovo_starview_motion_detection"
+      | "switch.lenovo_starview_screen"
+      | "binary_sensor.fire_tablet_kiosk_mode"
+      | "binary_sensor.fire_tablet_plugged_in"
+      | "binary_sensor.fire_tablet_device_admin"
+      | "button.fire_tablet_restart_browser"
+      | "button.fire_tablet_restart_device"
+      | "button.fire_tablet_bring_to_foreground"
+      | "button.fire_tablet_send_to_background"
+      | "button.fire_tablet_load_start_url"
+      | "button.fire_tablet_clear_browser_cache"
+      | "button.fire_tablet_trigger_motion_activity"
+      | "camera.fire_tablet"
+      | "image.fire_tablet_screenshot"
+      | "media_player.fire_tablet"
+      | "notify.fire_tablet_overlay_message"
+      | "notify.fire_tablet_text_to_speech"
+      | "number.fire_tablet_screensaver_timer"
+      | "number.fire_tablet_screensaver_brightness"
+      | "number.fire_tablet_screen_off_timer"
+      | "number.fire_tablet_screen_brightness"
+      | "sensor.fire_tablet_battery"
+      | "sensor.fire_tablet_battery_temperature"
+      | "sensor.fire_tablet_current_page"
+      | "sensor.fire_tablet_screen_orientation"
+      | "sensor.fire_tablet_foreground_app"
+      | "sensor.fire_tablet_internal_storage_free_space"
+      | "sensor.fire_tablet_internal_storage_total_space"
+      | "sensor.fire_tablet_free_memory"
+      | "sensor.fire_tablet_total_memory"
+      | "switch.fire_tablet_screensaver"
+      | "switch.fire_tablet_maintenance_mode"
+      | "switch.fire_tablet_kiosk_lock"
+      | "switch.fire_tablet_motion_detection"
+      | "switch.fire_tablet_screen"
+      | "media_player.spotify_jerry_medeiros"
+      | "sensor.io_series_6_7_44fc_duration"
+      | "sensor.io_series_6_7_44fc_sector"
+      | "sensor.io_series_6_7_44fc_number_of_sectors"
+      | "sensor.io_series_6_7_44fc"
+      | "sensor.io_series_6_7_44fc_pressure"
+      | "sensor.io_series_6_7_44fc_brushing_mode"
+      | "sensor.io_series_6_7_44fc_battery"
+      | "binary_sensor.p2s_22e8aj5c0901243_recording_timelapse"
+      | "binary_sensor.p2s_22e8aj5c0901243_extruder_filament_state"
+      | "binary_sensor.p2s_22e8aj5c0901243_hms_errors"
+      | "binary_sensor.p2s_22e8aj5c0901243_print_error"
+      | "binary_sensor.p2s_22e8aj5c0901243_online"
+      | "binary_sensor.p2s_22e8aj5c0901243_firmware_update"
+      | "binary_sensor.p2s_22e8aj5c0901243_enclosure_door"
+      | "binary_sensor.p2s_22e8aj5c0901243_developer_lan_mode"
+      | "binary_sensor.p2s_22e8aj5c0901243_mqtt_encryption_firmware"
+      | "binary_sensor.p2s_22e8aj5c0901243_hybrid_mqtt_blocks_control"
+      | "binary_sensor.p2s_22e8aj5c0901243_ams_1_active"
+      | "binary_sensor.p2s_22e8aj5c0901243_ams_1_drying"
+      | "binary_sensor.p2s_22e8aj5c0901243_externalspool_active"
+      | "image.p2s_22e8aj5c0901243_cover_image"
+      | "image.p2s_22e8aj5c0901243_pick_image"
+      | "light.p2s_22e8aj5c0901243_chamber_light"
+      | "sensor.p2s_22e8aj5c0901243_externalspool_external_spool"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_humidity_index"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_humidity"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_temperature"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_remaining_drying_time"
+      | "sensor.bambu_ams_drying_temperature"
+      | "sensor.bambu_ams_drying_duration"
+      | "sensor.bambu_ams_drying_filament"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_tray_1"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_tray_2"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_tray_3"
+      | "sensor.p2s_22e8aj5c0901243_ams_1_tray_4"
+      | "sensor.p2s_22e8aj5c0901243_mqtt_connection_mode"
+      | "sensor.p2s_22e8aj5c0901243_wi_fi_signal"
+      | "sensor.p2s_22e8aj5c0901243_bed_temperature"
+      | "sensor.p2s_22e8aj5c0901243_bed_target_temperature"
+      | "sensor.p2s_22e8aj5c0901243_chamber_temperature"
+      | "sensor.p2s_22e8aj5c0901243_nozzle_temperature"
+      | "sensor.p2s_22e8aj5c0901243_nozzle_target_temperature"
+      | "sensor.p2s_22e8aj5c0901243_aux_fan_speed"
+      | "sensor.p2s_22e8aj5c0901243_chamber_fan_speed"
+      | "sensor.p2s_22e8aj5c0901243_cooling_fan_speed"
+      | "sensor.p2s_22e8aj5c0901243_heatbreak_fan_speed"
+      | "sensor.p2s_22e8aj5c0901243_model_download"
+      | "sensor.p2s_22e8aj5c0901243_speed_profile"
+      | "sensor.bambu_p2s_airduct_mode"
+      | "sensor.p2s_22e8aj5c0901243_current_stage"
+      | "sensor.p2s_print_progress"
+      | "sensor.p2s_print_status"
+      | "sensor.p2s_22e8aj5c0901243_printable_objects"
+      | "sensor.p2s_22e8aj5c0901243_sd_card_status"
+      | "sensor.p2s_22e8aj5c0901243_skipped_objects"
+      | "sensor.p2s_22e8aj5c0901243_start_time"
+      | "sensor.p2s_22e8aj5c0901243_remaining_time"
+      | "sensor.p2s_22e8aj5c0901243_end_time"
+      | "sensor.p2s_22e8aj5c0901243_total_usage"
+      | "sensor.p2s_22e8aj5c0901243_current_layer"
+      | "sensor.p2s_22e8aj5c0901243_total_layer_count"
+      | "sensor.p2s_22e8aj5c0901243_gcode_filename"
+      | "sensor.p2s_22e8aj5c0901243_gcode_file_downloaded"
+      | "sensor.p2s_22e8aj5c0901243_task_name"
+      | "sensor.p2s_22e8aj5c0901243_print_type"
+      | "sensor.p2s_22e8aj5c0901243_printer_name"
+      | "sensor.p2s_22e8aj5c0901243_print_length"
+      | "sensor.p2s_22e8aj5c0901243_print_bed_type"
+      | "sensor.p2s_22e8aj5c0901243_print_weight"
+      | "sensor.p2s_22e8aj5c0901243_active_tray"
+      | "sensor.p2s_22e8aj5c0901243_nozzle_size"
+      | "sensor.p2s_22e8aj5c0901243_nozzle_type"
+      | "sensor.p2s_22e8aj5c0901243_ip_address"
+      | "sensor.p2s_22e8aj5c0901243_serial_number"
+      | "switch.p2s_22e8aj5c0901243_enable_camera"
+      | "camera.p2s_bambu_camera"
+      | "media_player.living_room_tv_samsung"
+      | "sensor.tv_tv_channel"
+      | "sensor.tv_tv_channel_name"
+      | "binary_sensor.nas_security_status"
+      | "binary_sensor.nas_drive_2_exceeded_max_bad_sectors"
+      | "binary_sensor.nas_drive_2_below_min_remaining_life"
+      | "binary_sensor.nas_drive_1_exceeded_max_bad_sectors"
+      | "binary_sensor.nas_drive_1_below_min_remaining_life"
+      | "binary_sensor.nas_drive_3_exceeded_max_bad_sectors"
+      | "binary_sensor.nas_drive_3_below_min_remaining_life"
+      | "binary_sensor.nas_drive_4_exceeded_max_bad_sectors"
+      | "binary_sensor.nas_drive_4_below_min_remaining_life"
+      | "button.nas_reboot"
+      | "button.nas_shutdown"
+      | "select.nas_fan_speed_mode"
+      | "sensor.nas_cpu_utilization_user"
+      | "sensor.nas_cpu_utilization_total"
+      | "sensor.nas_cpu_load_average_5_min"
+      | "sensor.nas_cpu_load_average_15_min"
+      | "sensor.nas_memory_usage_real"
+      | "sensor.nas_memory_available_swap"
+      | "sensor.nas_memory_available_real"
+      | "sensor.nas_memory_total_swap"
+      | "sensor.nas_memory_total_real"
+      | "sensor.nas_upload_throughput"
+      | "sensor.nas_download_throughput"
+      | "sensor.nas_volume_1_status"
+      | "sensor.nas_volume_1_used_space"
+      | "sensor.nas_volume_1_volume_used"
+      | "sensor.nas_volume_1_average_disk_temp"
+      | "sensor.nas_drive_2_status"
+      | "sensor.nas_drive_2_temperature"
+      | "sensor.nas_drive_1_status"
+      | "sensor.nas_drive_1_temperature"
+      | "sensor.nas_drive_3_status"
+      | "sensor.nas_drive_3_temperature"
+      | "sensor.nas_drive_4_status"
+      | "sensor.nas_drive_4_temperature"
+      | "sensor.nas_temperature"
+      | "switch.nas_surveillance_station_home_mode"
+      | "update.nas_dsm_update"
+      | "camera.front_door_2"
+      | "camera.back_door_2"
+      | "media_player.spotifyplus_jerry_medeiros"
+      | "vacuum.x50_ultra"
+      | "sensor.x50_ultra_cleaning_time"
+      | "sensor.x50_ultra_mapping_time"
+      | "sensor.x50_ultra_cleaned_area"
+      | "sensor.x50_ultra_state"
+      | "sensor.x50_ultra_status"
+      | "sensor.x50_ultra_relocation_status"
+      | "sensor.x50_ultra_task_status"
+      | "sensor.x50_ultra_mop_pad"
+      | "sensor.x50_ultra_dust_collection"
+      | "sensor.x50_ultra_auto_empty_status"
+      | "sensor.x50_ultra_self_wash_base_status"
+      | "sensor.x50_ultra_low_water_warning"
+      | "sensor.x50_ultra_drainage_status"
+      | "sensor.x50_ultra_task_type"
+      | "sensor.x50_ultra_stream_status"
+      | "sensor.x50_ultra_error"
+      | "sensor.x50_ultra_charging_status"
+      | "sensor.x50_ultra_battery_level"
+      | "sensor.x50_ultra_main_brush_left"
+      | "sensor.x50_ultra_main_brush_time_left"
+      | "sensor.x50_ultra_side_brush_left"
+      | "sensor.x50_ultra_side_brush_time_left"
+      | "sensor.x50_ultra_filter_left"
+      | "sensor.x50_ultra_filter_time_left"
+      | "sensor.x50_ultra_sensor_dirty_left"
+      | "sensor.x50_ultra_sensor_dirty_time_left"
+      | "sensor.x50_ultra_wheel_dirty_left"
+      | "sensor.x50_ultra_wheel_dirty_time_left"
+      | "sensor.x50_ultra_scale_inhibitor_left"
+      | "sensor.x50_ultra_scale_inhibitor_time_left"
+      | "sensor.x50_ultra_first_cleaning_date"
+      | "sensor.x50_ultra_total_cleaning_time"
+      | "sensor.x50_ultra_cleaning_count"
+      | "sensor.x50_ultra_total_cleaned_area"
+      | "sensor.x50_ultra_clean_water_tank_status"
+      | "sensor.x50_ultra_dirty_water_tank_status"
+      | "sensor.x50_ultra_dust_bag_status"
+      | "sensor.x50_ultra_detergent_status"
+      | "sensor.x50_ultra_station_drainage_status"
+      | "sensor.x50_ultra_hot_water_status"
+      | "sensor.x50_ultra_current_room"
+      | "sensor.x50_ultra_cleaning_history"
+      | "sensor.x50_ultra_cruising_history"
+      | "sensor.x50_ultra_cleaning_progress"
+      | "sensor.x50_ultra_drying_progress"
+      | "sensor.x50_ultra_drying_left"
+      | "sensor.x50_ultra_firmware_version"
+      | "binary_sensor.x50_ultra_charging_state"
+      | "binary_sensor.x50_ultra_lds_status"
+      | "switch.x50_ultra_resume_cleaning"
+      | "switch.x50_ultra_carpet_boost"
+      | "switch.x50_ultra_obstacle_avoidance"
+      | "switch.x50_ultra_customized_cleaning"
+      | "switch.x50_ultra_child_lock"
+      | "switch.x50_ultra_dnd"
+      | "switch.x50_ultra_dnd_disable_resume_cleaning"
+      | "switch.x50_ultra_dnd_disable_auto_empty"
+      | "switch.x50_ultra_dnd_reduce_volume"
+      | "switch.x50_ultra_multi_floor_map"
+      | "switch.x50_ultra_self_clean"
+      | "switch.x50_ultra_auto_water_refilling"
+      | "switch.x50_ultra_intelligent_recognition"
+      | "switch.x50_ultra_auto_drying"
+      | "switch.x50_ultra_auto_add_detergent"
+      | "switch.x50_ultra_auto_mount_mop"
+      | "switch.x50_ultra_voice_assistant"
+      | "switch.x50_ultra_ai_obstacle_detection"
+      | "switch.x50_ultra_ai_obstacle_image_upload"
+      | "switch.x50_ultra_ai_obstacle_picture"
+      | "switch.x50_ultra_ai_pet_detection"
+      | "switch.x50_ultra_ai_furniture_detection"
+      | "switch.x50_ultra_ai_fluid_detection"
+      | "switch.x50_ultra_fuzzy_obstacle_detection"
+      | "switch.x50_ultra_pet_picture"
+      | "switch.x50_ultra_pet_focused_detection"
+      | "switch.x50_ultra_large_particles_boost"
+      | "switch.x50_ultra_fill_light"
+      | "switch.x50_ultra_collision_avoidance"
+      | "switch.x50_ultra_stain_avoidance"
+      | "switch.x50_ultra_floor_direction_cleaning"
+      | "switch.x50_ultra_intensive_carpet_cleaning"
+      | "switch.x50_ultra_side_reach"
+      | "switch.x50_ultra_mop_extend"
+      | "switch.x50_ultra_gap_cleaning_extension"
+      | "switch.x50_ultra_mopping_under_furnitures"
+      | "switch.x50_ultra_off_peak_charging"
+      | "switch.x50_ultra_human_follow"
+      | "switch.x50_ultra_max_suction_power"
+      | "switch.x50_ultra_uv_sterilization"
+      | "switch.x50_ultra_streaming_voice_prompt"
+      | "switch.x50_ultra_clean_carpets_first"
+      | "switch.x50_ultra_smart_mop_washing"
+      | "switch.x50_ultra_silent_drying"
+      | "switch.x50_ultra_hair_compression"
+      | "switch.x50_ultra_side_brush_carpet_rotate"
+      | "switch.x50_ultra_obstacle_crossing"
+      | "switch.x50_ultra_dynamic_obstacle_cleaning"
+      | "switch.x50_ultra_lds_state"
+      | "switch.x50_ultra_camera_light_brightness_auto"
+      | "button.x50_ultra_reset_main_brush"
+      | "button.x50_ultra_reset_side_brush"
+      | "button.x50_ultra_reset_filter"
+      | "button.x50_ultra_reset_sensor"
+      | "button.x50_ultra_reset_scale_inhibitor"
+      | "button.x50_ultra_reset_wheel"
+      | "button.x50_ultra_start_auto_empty"
+      | "button.x50_ultra_clear_warning"
+      | "button.x50_ultra_start_fast_mapping"
+      | "button.x50_ultra_self_clean"
+      | "button.x50_ultra_manual_drying"
+      | "button.x50_ultra_water_tank_draining"
+      | "button.x50_ultra_empty_water_tank"
+      | "button.x50_ultra_base_station_self_repair"
+      | "button.x50_ultra_base_station_cleaning"
+      | "button.x50_ultra_start_recleaning"
+      | "button.x50_ultra_reload_shortcuts"
+      | "button.x50_ultra_backup_saved_map"
+      | "number.x50_ultra_volume"
+      | "number.x50_ultra_self_clean_area"
+      | "number.x50_ultra_self_clean_time"
+      | "number.x50_ultra_camera_light_brightness"
+      | "number.x50_ultra_wetness_level"
+      | "number.x50_ultra_room_1_wetness_level"
+      | "number.x50_ultra_room_3_wetness_level"
+      | "number.x50_ultra_room_4_wetness_level"
+      | "number.x50_ultra_room_5_wetness_level"
+      | "number.x50_ultra_room_6_wetness_level"
+      | "number.x50_ultra_room_7_wetness_level"
+      | "number.x50_ultra_room_8_wetness_level"
+      | "number.x50_ultra_room_9_wetness_level"
+      | "number.x50_ultra_room_10_wetness_level"
+      | "select.x50_ultra_suction_level"
+      | "select.x50_ultra_cleaning_mode"
+      | "select.x50_ultra_carpet_cleaning"
+      | "select.x50_ultra_drying_time"
+      | "select.x50_ultra_voice_assistant_language"
+      | "select.x50_ultra_mop_pad_humidity"
+      | "select.x50_ultra_mop_extend_frequency"
+      | "select.x50_ultra_self_clean_frequency"
+      | "select.x50_ultra_auto_recleaning"
+      | "select.x50_ultra_auto_rewashing"
+      | "select.x50_ultra_cleaning_route"
+      | "select.x50_ultra_cleangenius"
+      | "select.x50_ultra_cleangenius_mode"
+      | "select.x50_ultra_water_temperature"
+      | "select.x50_ultra_auto_lds_coverage"
+      | "select.x50_ultra_auto_empty_mode"
+      | "select.x50_ultra_washing_mode"
+      | "select.x50_ultra_map_rotation"
+      | "select.x50_ultra_selected_map"
+      | "select.x50_ultra_room_1_suction_level"
+      | "select.x50_ultra_room_1_mop_pad_humidity"
+      | "select.x50_ultra_room_1_cleaning_mode"
+      | "select.x50_ultra_room_1_cleaning_times"
+      | "select.x50_ultra_room_1_cleaning_route"
+      | "select.x50_ultra_room_1_order"
+      | "select.x50_ultra_room_1_floor_material"
+      | "select.x50_ultra_room_1_floor_material_direction"
+      | "select.x50_ultra_room_1_visibility"
+      | "select.x50_ultra_room_1_name"
+      | "select.x50_ultra_room_3_suction_level"
+      | "select.x50_ultra_room_3_mop_pad_humidity"
+      | "select.x50_ultra_room_3_cleaning_mode"
+      | "select.x50_ultra_room_3_cleaning_times"
+      | "select.x50_ultra_room_3_cleaning_route"
+      | "select.x50_ultra_room_3_order"
+      | "select.x50_ultra_room_3_floor_material"
+      | "select.x50_ultra_room_3_floor_material_direction"
+      | "select.x50_ultra_room_3_visibility"
+      | "select.x50_ultra_room_3_name"
+      | "select.x50_ultra_room_4_suction_level"
+      | "select.x50_ultra_room_4_mop_pad_humidity"
+      | "select.x50_ultra_room_4_cleaning_mode"
+      | "select.x50_ultra_room_4_cleaning_times"
+      | "select.x50_ultra_room_4_cleaning_route"
+      | "select.x50_ultra_room_4_order"
+      | "select.x50_ultra_room_4_floor_material"
+      | "select.x50_ultra_room_4_floor_material_direction"
+      | "select.x50_ultra_room_4_visibility"
+      | "select.x50_ultra_room_4_name"
+      | "select.x50_ultra_room_5_suction_level"
+      | "select.x50_ultra_room_5_mop_pad_humidity"
+      | "select.x50_ultra_room_5_cleaning_mode"
+      | "select.x50_ultra_room_5_cleaning_times"
+      | "select.x50_ultra_room_5_cleaning_route"
+      | "select.x50_ultra_room_5_order"
+      | "select.x50_ultra_room_5_floor_material"
+      | "select.x50_ultra_room_5_floor_material_direction"
+      | "select.x50_ultra_room_5_visibility"
+      | "select.x50_ultra_room_5_name"
+      | "select.x50_ultra_room_6_suction_level"
+      | "select.x50_ultra_room_6_mop_pad_humidity"
+      | "select.x50_ultra_room_6_cleaning_mode"
+      | "select.x50_ultra_room_6_cleaning_times"
+      | "select.x50_ultra_room_6_cleaning_route"
+      | "select.x50_ultra_room_6_order"
+      | "select.x50_ultra_room_6_floor_material"
+      | "select.x50_ultra_room_6_floor_material_direction"
+      | "select.x50_ultra_room_6_visibility"
+      | "select.x50_ultra_room_6_name"
+      | "select.x50_ultra_room_7_suction_level"
+      | "select.x50_ultra_room_7_mop_pad_humidity"
+      | "select.x50_ultra_room_7_cleaning_mode"
+      | "select.x50_ultra_room_7_cleaning_times"
+      | "select.x50_ultra_room_7_cleaning_route"
+      | "select.x50_ultra_room_7_order"
+      | "select.x50_ultra_room_7_floor_material"
+      | "select.x50_ultra_room_7_floor_material_direction"
+      | "select.x50_ultra_room_7_visibility"
+      | "select.x50_ultra_room_7_name"
+      | "select.x50_ultra_room_8_suction_level"
+      | "select.x50_ultra_room_8_mop_pad_humidity"
+      | "select.x50_ultra_room_8_cleaning_mode"
+      | "select.x50_ultra_room_8_cleaning_times"
+      | "select.x50_ultra_room_8_cleaning_route"
+      | "select.x50_ultra_room_8_order"
+      | "select.x50_ultra_room_8_floor_material"
+      | "select.x50_ultra_room_8_floor_material_direction"
+      | "select.x50_ultra_room_8_visibility"
+      | "select.x50_ultra_room_8_name"
+      | "select.x50_ultra_room_9_suction_level"
+      | "select.x50_ultra_room_9_mop_pad_humidity"
+      | "select.x50_ultra_room_9_cleaning_mode"
+      | "select.x50_ultra_room_9_cleaning_times"
+      | "select.x50_ultra_room_9_cleaning_route"
+      | "select.x50_ultra_room_9_order"
+      | "select.x50_ultra_room_9_floor_material"
+      | "select.x50_ultra_room_9_floor_material_direction"
+      | "select.x50_ultra_room_9_visibility"
+      | "select.x50_ultra_room_9_name"
+      | "select.x50_ultra_room_10_suction_level"
+      | "select.x50_ultra_room_10_mop_pad_humidity"
+      | "select.x50_ultra_room_10_cleaning_mode"
+      | "select.x50_ultra_room_10_cleaning_times"
+      | "select.x50_ultra_room_10_cleaning_route"
+      | "select.x50_ultra_room_10_order"
+      | "select.x50_ultra_room_10_floor_material"
+      | "select.x50_ultra_room_10_floor_material_direction"
+      | "select.x50_ultra_room_10_visibility"
+      | "select.x50_ultra_room_10_name"
+      | "camera.x50_ultra_map"
+      | "camera.x50_ultra_map_1"
+      | "time.x50_ultra_dnd_start"
+      | "time.x50_ultra_dnd_end"
+      | "time.x50_ultra_off_peak_charging_start"
+      | "time.x50_ultra_off_peak_charging_end"
+      | "sensor.litter_box_litter_level"
+      | "sensor.jq01009g24410010174_last_stay_time"
+      | "sensor.litter_last_usage"
+      | "sensor.litter_box_device_status"
+      | "sensor.cat_litter_state"
+      | "sensor.litter_box_bin_state"
+      | "sensor.jq01009g24410010174_cat_dolores"
+      | "sensor.jq01009g24410010174_cat_ozzy"
+      | "binary_sensor.litter_box_garbage_can_full"
+      | "switch.jq01009g24410010174_auto_clean"
+      | "switch.jq01009g24410010174_child_lock"
+      | "switch.jq01009g24410010174_automatic_cover"
+      | "switch.jq01009g24410010174_automatic_leveling"
+      | "switch.jq01009g24410010174_silent_mode"
+      | "switch.jq01009g24410010174_unstoppable_cycle"
+      | "button.litter_clean"
+      | "button.litter_level"
+      | "sensor.jq01009g24410010959_cat_litter_level"
+      | "sensor.jq01009g24410010959_last_usage"
+      | "sensor.jq01009g24410010959_device_status"
+      | "sensor.jq01009g24410010959_cat_litter_state"
+      | "sensor.jq01009g24410010959_bin_state"
+      | "sensor.jq01009g24410010959_cat_dolores"
+      | "sensor.jq01009g24410010959_cat_ozzy"
+      | "binary_sensor.jq01009g24410010959_garbage_can_full"
+      | "switch.jq01009g24410010959_auto_clean"
+      | "switch.jq01009g24410010959_child_lock"
+      | "switch.jq01009g24410010959_automatic_cover"
+      | "switch.jq01009g24410010959_automatic_leveling"
+      | "switch.jq01009g24410010959_silent_mode"
+      | "switch.jq01009g24410010959_unstoppable_cycle"
+      | "button.jq01009g24410010959_clean"
+      | "button.jq01009g24410010959_level"
+      | "sensor.energy_monitor_power_minute_average"
+      | "sensor.emporia_dryer_power"
+      | "sensor.emporia_ac_power"
+      | "sensor.emporia_washer_power"
+      | "sensor.balance_power_minute_average"
+      | "sensor.energy_monitor_energy_this_month"
+      | "sensor.energy_monitor_energy_this_month_2"
+      | "sensor.energy_monitor_energy_this_month_3"
+      | "sensor.energy_monitor_energy_this_month_4"
+      | "sensor.balance_energy_this_month"
+      | "sensor.energy_monitor_energy_today"
+      | "sensor.energy_monitor_energy_today_2"
+      | "sensor.energy_monitor_energy_today_3"
+      | "sensor.energy_monitor_energy_today_4"
+      | "sensor.balance_energy_today"
+      | "binary_sensor.reolink_video_doorbell_wifi_motion"
+      | "binary_sensor.reolink_video_doorbell_wifi_person"
+      | "binary_sensor.reolink_video_doorbell_wifi_vehicle"
+      | "binary_sensor.reolink_video_doorbell_wifi_pet"
+      | "binary_sensor.reolink_video_doorbell_wifi_visitor"
+      | "binary_sensor.back_door_motion"
+      | "binary_sensor.back_door_person"
+      | "binary_sensor.back_door_vehicle"
+      | "binary_sensor.back_door_pet"
+      | "binary_sensor.back_door_visitor"
+      | "binary_sensor.back_yard_motion"
+      | "binary_sensor.back_yard_person"
+      | "binary_sensor.back_yard_vehicle"
+      | "binary_sensor.back_yard_animal"
+      | "binary_sensor.back_yard_sleep_status"
+      | "button.back_yard_driveway_security_camera_pre_siren"
+      | "light.back_yard_floodlight"
+      | "light.back_yard_status_led"
+      | "light.cameras_status_led"
+      | "number.back_yard_floodlight_turn_on_brightness"
+      | "number.reolink_video_doorbell_wifi_volume"
+      | "number.back_door_volume"
+      | "number.back_yard_volume"
+      | "number.front_door_speak_volume"
+      | "number.back_door_speak_volume"
+      | "number.front_door_doorbell_volume"
+      | "number.back_door_doorbell_volume"
+      | "number.reolink_video_doorbell_wifi_motion_sensitivity"
+      | "number.back_door_motion_sensitivity"
+      | "number.back_yard_pir_sensitivity"
+      | "number.reolink_video_doorbell_wifi_ai_person_sensitivity"
+      | "number.back_door_ai_person_sensitivity"
+      | "number.back_yard_ai_person_sensitivity"
+      | "number.reolink_video_doorbell_wifi_ai_vehicle_sensitivity"
+      | "number.back_door_ai_vehicle_sensitivity"
+      | "number.back_yard_ai_vehicle_sensitivity"
+      | "number.reolink_video_doorbell_wifi_ai_pet_sensitivity"
+      | "number.back_door_ai_pet_sensitivity"
+      | "number.back_yard_ai_animal_sensitivity"
+      | "number.reolink_video_doorbell_wifi_auto_quick_reply_time"
+      | "number.back_door_auto_quick_reply_time"
+      | "number.cameras_alarm_volume"
+      | "number.cameras_message_volume"
+      | "number.reolink_chime_volume"
+      | "number.reolink_chime_silent_time"
+      | "select.back_yard_floodlight_mode"
+      | "select.reolink_video_doorbell_wifi_day_night_mode"
+      | "select.back_door_day_night_mode"
+      | "select.back_yard_day_night_mode"
+      | "select.reolink_video_doorbell_wifi_play_quick_reply_message"
+      | "select.back_door_play_quick_reply_message"
+      | "select.reolink_video_doorbell_wifi_auto_quick_reply_message"
+      | "select.back_door_auto_quick_reply_message"
+      | "select.reolink_video_doorbell_wifi_hub_alarm_ringtone"
+      | "select.back_door_hub_alarm_ringtone"
+      | "select.back_yard_hub_alarm_ringtone"
+      | "select.reolink_video_doorbell_wifi_hub_visitor_ringtone"
+      | "select.back_door_hub_visitor_ringtone"
+      | "select.reolink_video_doorbell_wifi_doorbell_led"
+      | "select.back_door_doorbell_led"
+      | "select.cameras_scene_mode"
+      | "select.reolink_chime_motion_ringtone"
+      | "select.reolink_chime_person_ringtone"
+      | "select.reolink_chime_vehicle_ringtone"
+      | "select.reolink_chime_visitor_ringtone"
+      | "select.chime_pet_ringtone"
+      | "sensor.back_yard_battery"
+      | "sensor.reolink_video_doorbell_wifi_day_night_state"
+      | "sensor.back_door_day_night_state"
+      | "sensor.front_door_wi_fi_signal"
+      | "siren.reolink_video_doorbell_wifi_siren"
+      | "siren.back_door_siren"
+      | "siren.back_yard_siren"
+      | "siren.cameras_siren"
+      | "switch.reolink_video_doorbell_wifi_infrared_lights_in_night_mode"
+      | "switch.back_door_infrared_lights_in_night_mode"
+      | "switch.back_yard_infrared_lights_in_night_mode"
+      | "switch.reolink_video_doorbell_wifi_record_audio"
+      | "switch.back_door_record_audio"
+      | "switch.back_yard_record_audio"
+      | "switch.reolink_video_doorbell_wifi_siren_on_event"
+      | "switch.back_door_siren_on_event"
+      | "switch.back_yard_siren_on_event"
+      | "switch.back_yard_driveway_security_camera_pre_siren_on_event"
+      | "switch.reolink_video_doorbell_wifi_email_on_event"
+      | "switch.back_door_email_on_event"
+      | "switch.back_yard_email_on_event"
+      | "switch.reolink_video_doorbell_wifi_ftp_upload"
+      | "switch.back_door_ftp_upload"
+      | "switch.back_yard_ftp_upload"
+      | "switch.reolink_video_doorbell_wifi_push_notifications"
+      | "switch.back_door_push_notifications"
+      | "switch.back_yard_push_notifications"
+      | "switch.reolink_video_doorbell_wifi_record"
+      | "switch.back_door_record"
+      | "switch.back_yard_record"
+      | "switch.reolink_video_doorbell_wifi_manual_record"
+      | "switch.back_door_manual_record"
+      | "switch.back_yard_manual_record"
+      | "switch.reolink_video_doorbell_wifi_hub_ringtone_on_event"
+      | "switch.back_door_hub_ringtone_on_event"
+      | "switch.back_yard_hub_ringtone_on_event"
+      | "switch.reolink_video_doorbell_wifi_doorbell_button_sound"
+      | "switch.back_door_doorbell_button_sound"
+      | "switch.reolink_video_doorbell_wifi_privacy_mode"
+      | "switch.back_door_privacy_mode"
+      | "switch.reolink_chime_led"
+      | "update.reolink_video_doorbell_wifi_firmware"
+      | "update.back_door_firmware"
+      | "update.back_yard_firmware"
+      | "update.cameras_firmware"
+      | "camera.reolink_video_doorbell_camera_fluent"
+      | "camera.back_door_fluent"
+      | "camera.back_yard_fluent"
+      | "binary_sensor.office_motion_occupancy"
+      | "binary_sensor.office_motion"
+      | "binary_sensor.basement_laundry_leak_sensor"
+      | "binary_sensor.third_reality_inc_3rws18bz_opening"
+      | "binary_sensor.backyard_entrance_sensor_occupancy"
+      | "binary_sensor.backyard_entrance_sensor"
+      | "binary_sensor.front_door_entrance_sensor_occupancy"
+      | "binary_sensor.front_door_entrance_sensor"
+      | "binary_sensor.kitchen_sink_leak_sensor"
+      | "binary_sensor.third_reality_inc_3rws18bz_opening_2"
+      | "binary_sensor.hall_way_smoke_sensor"
+      | "binary_sensor.basement_smoke_detector"
+      | "binary_sensor.dishwasher_vibration"
+      | "binary_sensor.spare_1"
+      | "binary_sensor.main_shuttoff_valve_sensor"
+      | "binary_sensor.third_reality_inc_3rws18bz_opening_3"
+      | "binary_sensor.water_tank_leak_sensor"
+      | "binary_sensor.unk_manufacturer_unk_model_opening"
+      | "binary_sensor.basement_smoke_detector_2"
+      | "binary_sensor.garage_smoke_detector"
+      | "binary_sensor.laundry_area_smoke_detector"
+      | "binary_sensor.piano"
+      | "button.bedroom_switch_identify"
+      | "button.office_swich_identify"
+      | "button.dinning_identify"
+      | "button.office_motion_identify"
+      | "button.bathroom_exhaust_identify"
+      | "button.backyard_entrance_sensor_identify"
+      | "button.front_door_entrance_sensor_identify"
+      | "button.spare_1_identify"
+      | "button.sonoff_dongle_e_r_identify"
+      | "button.spare_2_identify"
+      | "light.dinning_light"
+      | "light.sonoff_dongle_e_r"
+      | "number.dinning_on_level"
+      | "number.dinning_none"
+      | "number.dinning_none_2"
+      | "number.office_motion_detection_interval"
+      | "number.third_reality_inc_3rws18bz_siren_time"
+      | "number.backyard_entrance_sensor_detection_interval"
+      | "number.front_door_entrance_sensor_detection_interval"
+      | "number.third_reality_inc_3rws18bz_siren_time_2"
+      | "number.third_reality_inc_3rws18bz_siren_time_3"
+      | "number.third_reality_inc_3rws18bz_siren_time_4"
+      | "select.bedroom_switch_start_up_behavior"
+      | "select.office_swich_start_up_behavior"
+      | "select.dinning_none"
+      | "select.dinning_none_2"
+      | "select.office_motion_motion_sensitivity"
+      | "select.bathroom_exhaust_start_up_behavior"
+      | "select.backyard_entrance_sensor_motion_sensitivity"
+      | "select.front_door_entrance_sensor_motion_sensitivity"
+      | "select.sonoff_dongle_e_r_power_on_behavior"
+      | "sensor.bedroom_switch_battery"
+      | "sensor.office_swich_battery"
+      | "sensor.dinning_device_temperature"
+      | "sensor.dinning_summation_delivered"
+      | "sensor.office_motion_lqi"
+      | "sensor.office_motion_battery"
+      | "sensor.office_motion_illuminance"
+      | "sensor.bathroom_exhaust_lqi"
+      | "sensor.bathroom_exhaust_battery"
+      | "sensor.third_reality_inc_3rws18bz_battery"
+      | "sensor.backyard_entrance_sensor_battery"
+      | "sensor.backyard_entrance_sensor_illuminance"
+      | "sensor.front_door_entrance_sensor_battery"
+      | "sensor.front_door_entrance_sensor_illuminance"
+      | "sensor.third_reality_inc_3rws18bz_battery_2"
+      | "sensor.air_quality_meter_temperature"
+      | "sensor.air_quality_meter_humidity"
+      | "sensor.air_quality_meter_pm2_5"
+      | "sensor.air_quality_meter_formaldehyde_concentration"
+      | "sensor.air_quality_meter_carbon_dioxide"
+      | "sensor.air_quality_meter_volatile_organic_compounds"
+      | "sensor.office_air_quality_meter_temperature"
+      | "sensor.office_air_quality_meter_humidity"
+      | "sensor.office_air_quality_meter_pm2_5"
+      | "sensor.office_air_quality_meter_formaldehyde_concentration"
+      | "sensor.office_air_quality_meter_carbon_dioxide"
+      | "sensor.office_air_quality_meter_volatile_organic_compounds"
+      | "sensor.hall_way_smoke_sensor_battery"
+      | "sensor.basement_smoke_detectro_battery"
+      | "sensor.third_reality_inc_3rvs01031z_lqi"
+      | "sensor.third_reality_inc_3rvs01031z_battery"
+      | "sensor.spare_1_battery"
+      | "sensor.spare_1_device_temperature"
+      | "sensor.third_reality_inc_3rws18bz_battery_3"
+      | "sensor.unk_manufacturer_unk_model_battery"
+      | "sensor.tze284_rccxox8p_ts0601_battery"
+      | "sensor.garage_smoke_sensor_rssi"
+      | "sensor.garage_smoke_sensor_lqi"
+      | "sensor.garage_smoke_sensor_battery"
+      | "sensor.laundry_area_smoke_detector_battery"
+      | "sensor.tz3000_famkxci2_ts0043_battery"
+      | "sensor.tz3000_famkxci2_ts0043_battery_2"
+      | "sensor.tz3000_famkxci2_ts0043_battery_3"
+      | "sensor.tz3000_famkxci2_ts0043_battery_4"
+      | "sensor.tz3000_famkxci2_ts0043_battery_5"
+      | "sensor.tz3000_famkxci2_ts0043_battery_6"
+      | "sensor.tz3000_famkxci2_ts0043_battery_7"
+      | "sensor.tz3000_famkxci2_ts0043_battery_8"
+      | "sensor.tz3000_famkxci2_ts0043_battery_9"
+      | "sensor.spare_2_battery"
+      | "sensor.spare_2_device_temperature"
+      | "switch.bedroom_switch"
+      | "switch.office_swich_switch"
+      | "switch.office_motion_led_trigger_indicator"
+      | "switch.bathroom_exhaust"
+      | "switch.third_reality_inc_3rws18bz_enable_siren"
+      | "switch.backyard_entrance_sensor_led_trigger_indicator"
+      | "switch.front_door_entrance_sensor_led_trigger_indicator"
+      | "switch.third_reality_inc_3rws18bz_enable_siren_2"
+      | "switch.third_reality_inc_3rws18bz_enable_siren_3"
+      | "switch.third_reality_inc_3rws18bz_enable_siren_4"
+      | "update.bedroom_switch_firmware"
+      | "update.office_swich_firmware"
+      | "update.dinning_firmware"
+      | "update.office_motion_firmware"
+      | "update.bathroom_exhaust_firmware"
+      | "update.third_reality_inc_3rws18bz_firmware"
+      | "update.backyard_entrance_sensor_firmware"
+      | "update.front_door_entrance_sensor_firmware"
+      | "update.third_reality_inc_3rws18bz_firmware_2"
+      | "update.air_quality_meter_firmware"
+      | "update.office_air_quality_meter_firmware"
+      | "update.hall_way_smoke_sensor_firmware"
+      | "update.basement_smoke_detectro_firmware"
+      | "update.third_reality_inc_3rvs01031z_firmware"
+      | "update.spare_1_firmware"
+      | "update.third_reality_inc_3rws18bz_firmware_3"
+      | "update.unk_manufacturer_unk_model_firmware"
+      | "update.tze284_rccxox8p_ts0601_firmware"
+      | "update.garage_smoke_sensor_firmware"
+      | "update.laundry_area_smoke_detector_firmware"
+      | "update.tz3000_famkxci2_ts0043_firmware"
+      | "update.tz3000_famkxci2_ts0043_firmware_2"
+      | "update.sonoff_dongle_e_r_firmware"
+      | "update.tz3000_famkxci2_ts0043_firmware_3"
+      | "update.spare_2_firmware"
+      | "automation.control_humidifier_based_on_humidity"
+      | "automation.turn_on_christmas_lights_when_its_dark"
+      | "automation.turn_off_christmas_lights"
+      | "media_player.chromecast4952"
+      | "media_player.basement_tv"
+      | "media_player.basement_tv_2"
+      | "remote.basement_tv"
+      | "media_player.chromecast9104"
+      | "binary_sensor.front_yard_motion"
+      | "binary_sensor.front_yard_person"
+      | "binary_sensor.front_yard_vehicle"
+      | "binary_sensor.front_yard_animal"
+      | "binary_sensor.front_yard_sleep_status"
+      | "light.front_yard_floodlight"
+      | "light.front_yard_status_led"
+      | "number.front_yard_floodlight_turn_on_brightness"
+      | "number.front_yard_volume"
+      | "number.front_yard_pir_sensitivity"
+      | "number.front_yard_ai_person_sensitivity"
+      | "number.front_yard_ai_vehicle_sensitivity"
+      | "number.front_yard_ai_animal_sensitivity"
+      | "select.front_yard_floodlight_mode"
+      | "select.front_yard_day_night_mode"
+      | "select.front_yard_hub_alarm_ringtone"
+      | "sensor.front_yard_battery"
+      | "siren.front_yard_siren"
+      | "switch.front_yard_infrared_lights_in_night_mode"
+      | "switch.front_yard_record_audio"
+      | "switch.front_yard_siren_on_event"
+      | "switch.front_yard_email_on_event"
+      | "switch.front_yard_ftp_upload"
+      | "switch.front_yard_push_notifications"
+      | "switch.front_yard_record"
+      | "switch.front_yard_manual_record"
+      | "switch.front_yard_hub_ringtone_on_event"
+      | "update.front_yard_firmware"
+      | "camera.front_yard_fluent"
+      | "automation.new_automation"
+      | "automation.notify_when_washer_finishes_history_stats"
+      | "switch.unnamed_zone_zone"
+      | "switch.unnamed_zone_zone_2"
+      | "calendar.calgary_ab_2"
+      | "binary_sensor.sorento_engine_2"
+      | "binary_sensor.sorento_defrost_2"
+      | "binary_sensor.sorento_back_window_heater"
+      | "binary_sensor.sorento_front_left_door_2"
+      | "binary_sensor.sorento_front_right_door_2"
+      | "binary_sensor.sorento_back_left_door_2"
+      | "binary_sensor.sorento_back_right_door_2"
+      | "binary_sensor.sorento_trunk_2"
+      | "binary_sensor.sorento_hood_2"
+      | "binary_sensor.sorento_fuel_low_level_2"
+      | "binary_sensor.sorento_tire_pressure_all_2"
+      | "binary_sensor.sorento_tire_pressure_rear_left_2"
+      | "binary_sensor.sorento_tire_pressure_front_left_2"
+      | "binary_sensor.sorento_tire_pressure_front_right_2"
+      | "binary_sensor.sorento_tire_pressure_rear_right_2"
+      | "binary_sensor.sorento_air_conditioner_2"
+      | "binary_sensor.sorento_uma_ex_v6_premium_accessory"
+      | "binary_sensor.sorento_uma_ex_v6_premium_remote_ignition"
+      | "binary_sensor.sorento_uma_ex_v6_premium_transmission_condition"
+      | "binary_sensor.sorento_uma_ex_v6_premium_locked"
+      | "sensor.sorento_odometer_2"
+      | "sensor.sorento_last_service_2"
+      | "sensor.sorento_next_service_2"
+      | "sensor.sorento_car_battery_level_2"
+      | "sensor.sorento_last_updated_at_2"
+      | "sensor.sorento_fuel_driving_range"
+      | "sensor.sorento_set_temperature_2"
+      | "sensor.sorento_dtc_count_2"
+      | "sensor.sorento_vehicle_identification_number"
+      | "sensor.sorento_data_2"
+      | "device_tracker.sorento_location_2"
+      | "sensor.washer_run_time_in_last_40_min"
+      | "sensor.dryer_run_time_in_last_40_min"
+      | "automation.turn_off_office"
+      | "button.living_room_tv_favorite_current_song"
+      | "media_player.living_room_tv_3"
+      | "button.office_speaker_favorite_current_song"
+      | "button.basement_tv_favorite_current_song"
+      | "media_player.basement_tv_3"
+      | "button.living_room_speaker_favorite_current_song"
+      | "button.everywhere_favorite_current_song"
+      | "button.bedroom_speaker_favorite_current_song"
+      | "automation.dryer_finished_running"
+      | "sensor.presence_sensor_cff9_battery"
+      | "ai_task.google_ai_task"
+      | "conversation.google_ai_conversation"
+      | "stt.google_ai_stt"
+      | "tts.google_ai_tts"
+      | "lock.sorento_uma_ex_v6_premium_door_lock"
+      | "sensor.garage_meter_temperature"
+      | "sensor.garage_meter_humidity"
+      | "sensor.garage_meter_battery"
+      | "automation.alarm_disarm_on_door_unlock"
+      | "sensor.house_gas_last_seen_2"
+      | "sensor.house_water_house_water_2"
+      | "sensor.house_water_last_seen_2"
+      | "sensor.house_gas_house_gas"
+      | "sensor.house_gas_house_gas_cost"
+      | "sensor.feeding_area_presence_sensor_battery"
+      | "sensor.energy_monitor_energy_today_cost"
+      | "device_tracker.telematic_273041_d3e8"
+      | "sensor.telematic_273041_d3e8_estimated_distance"
+      | "sensor.telematic_273041_d3e8_vendor"
+      | "device_tracker.telematic_551909_28d9"
+      | "sensor.telematic_551909_28d9_estimated_distance"
+      | "device_tracker.telematic_281093_5ede"
+      | "sensor.telematic_281093_5ede_estimated_distance"
+      | "device_tracker.telematic_138566_39f6"
+      | "sensor.telematic_138566_39f6_estimated_distance"
+      | "device_tracker.telematic_730412_b3cb"
+      | "sensor.telematic_730412_b3cb_estimated_distance"
+      | "device_tracker.telematic_317608_e949"
+      | "sensor.telematic_317608_e949_estimated_distance"
+      | "device_tracker.telematic_293353_8d45"
+      | "sensor.telematic_293353_8d45_estimated_distance"
+      | "device_tracker.telematic_757993_276c"
+      | "sensor.telematic_757993_276c_estimated_distance"
+      | "device_tracker.telematic_175626_99e4"
+      | "sensor.telematic_175626_99e4_estimated_distance"
+      | "device_tracker.telematic_308292_e26e"
+      | "sensor.telematic_308292_e26e_estimated_distance"
+      | "device_tracker.telematic_761508_749e"
+      | "sensor.telematic_761508_749e_estimated_distance"
+      | "device_tracker.telematic_089306_e3b4"
+      | "sensor.telematic_089306_e3b4_estimated_distance"
+      | "device_tracker.telematic_294351_93c9"
+      | "sensor.telematic_294351_93c9_estimated_distance"
+      | "device_tracker.telematic_292041_fa92"
+      | "sensor.telematic_292041_fa92_estimated_distance"
+      | "device_tracker.telematic_309415_e976"
+      | "sensor.telematic_309415_e976_estimated_distance"
+      | "device_tracker.telematic_153284_870b"
+      | "sensor.telematic_153284_870b_estimated_distance"
+      | "device_tracker.telematic_649240_4037"
+      | "sensor.telematic_649240_4037_estimated_distance"
+      | "device_tracker.telematic_713335_7c10"
+      | "sensor.telematic_713335_7c10_estimated_distance"
+      | "device_tracker.telematic_068516_b336"
+      | "sensor.telematic_068516_b336_estimated_distance"
+      | "device_tracker.telematic_279253_096c"
+      | "sensor.telematic_279253_096c_estimated_distance"
+      | "device_tracker.telematic_642906_8231"
+      | "sensor.telematic_642906_8231_estimated_distance"
+      | "device_tracker.telematic_332771_18a4"
+      | "sensor.telematic_332771_18a4_estimated_distance"
+      | "device_tracker.rivian_sensor_2_03eb"
+      | "sensor.rivian_sensor_2_03eb_estimated_distance"
+      | "device_tracker.telematic_442356_8ec4"
+      | "sensor.telematic_442356_8ec4_estimated_distance"
+      | "device_tracker.rivian_phone_key_3198"
+      | "sensor.rivian_phone_key_3198_estimated_distance"
+      | "device_tracker.telematic_039103_fb3e"
+      | "sensor.telematic_039103_fb3e_estimated_distance"
+      | "device_tracker.telematic_164968_dd87"
+      | "sensor.telematic_164968_dd87_estimated_distance"
+      | "device_tracker.telematic_313334_11d9"
+      | "sensor.telematic_313334_11d9_estimated_distance"
+      | "device_tracker.lw_ivu"
+      | "sensor.b9407f30_f5f8_466e_aff9_25556b57fe6d_4096_5_estimated_distance"
+      | "device_tracker.telematic_562112_425e"
+      | "sensor.telematic_562112_425e_estimated_distance"
+      | "device_tracker.telematic_035184_cfe6"
+      | "sensor.telematic_035184_cfe6_estimated_distance"
+      | "device_tracker.telematic_166724_1adf"
+      | "sensor.telematic_166724_1adf_estimated_distance"
+      | "device_tracker.telematic_646360_e0bc"
+      | "sensor.telematic_646360_e0bc_estimated_distance"
+      | "device_tracker.telematic_324026_409c"
+      | "sensor.telematic_324026_409c_estimated_distance"
+      | "device_tracker.telematic_321998_8f21"
+      | "sensor.telematic_321998_8f21_estimated_distance"
+      | "device_tracker.telematic_313052_3e04"
+      | "sensor.telematic_313052_3e04_estimated_distance"
+      | "device_tracker.telematic_068755_dd0f"
+      | "sensor.telematic_068755_dd0f_estimated_distance"
+      | "device_tracker.telematic_023693_36ea"
+      | "sensor.telematic_023693_36ea_estimated_distance"
+      | "device_tracker.telematic_149068_34bb"
+      | "sensor.telematic_149068_34bb_estimated_distance"
+      | "device_tracker.telematic_149449_a733"
+      | "sensor.telematic_149449_a733_estimated_distance"
+      | "device_tracker.telematic_463485_6217"
+      | "sensor.telematic_463485_6217_estimated_distance"
+      | "device_tracker.telematic_506069_9fd1"
+      | "sensor.telematic_506069_9fd1_estimated_distance"
+      | "device_tracker.telematic_718755_25da"
+      | "sensor.telematic_718755_25da_estimated_distance"
+      | "device_tracker.telematic_424669_190f"
+      | "sensor.telematic_424669_190f_estimated_distance"
+      | "device_tracker.telematic_155313_0cb8"
+      | "sensor.telematic_155313_0cb8_estimated_distance"
+      | "device_tracker.telematic_280145_ad8d"
+      | "sensor.telematic_280145_ad8d_estimated_distance"
+      | "device_tracker.telematic_085908_d9ea"
+      | "sensor.telematic_085908_d9ea_estimated_distance"
+      | "device_tracker.telematic_084034_e8de"
+      | "sensor.telematic_084034_e8de_estimated_distance"
+      | "device_tracker.telematic_498226_be6c"
+      | "sensor.telematic_498226_be6c_estimated_distance"
+      | "device_tracker.telematic_715561_0ade"
+      | "sensor.telematic_715561_0ade_estimated_distance"
+      | "device_tracker.telematic_156246_f194"
+      | "sensor.telematic_156246_f194_estimated_distance"
+      | "device_tracker.telematic_437125_3d76"
+      | "sensor.telematic_437125_3d76_estimated_distance"
+      | "device_tracker.telematic_091138_73d7"
+      | "sensor.telematic_091138_73d7_estimated_distance"
+      | "device_tracker.telematic_260568_7c27"
+      | "sensor.telematic_260568_7c27_estimated_distance"
+      | "device_tracker.telematic_646311_8b21"
+      | "sensor.telematic_646311_8b21_estimated_distance"
+      | "device_tracker.telematic_035424_7eb5"
+      | "sensor.telematic_035424_7eb5_estimated_distance"
+      | "device_tracker.telematic_305231_42e5"
+      | "sensor.telematic_305231_42e5_estimated_distance"
+      | "device_tracker.telematic_025607_e5c8"
+      | "sensor.telematic_025607_e5c8_estimated_distance"
+      | "device_tracker.telematic_028833_9db7"
+      | "sensor.telematic_028833_9db7_estimated_distance"
+      | "device_tracker.telematic_444147_2655"
+      | "sensor.telematic_444147_2655_estimated_distance"
+      | "device_tracker.rivian_phone_key_6fc6"
+      | "sensor.rivian_phone_key_6fc6_estimated_distance"
+      | "device_tracker.telematic_744728_afe8"
+      | "sensor.telematic_744728_afe8_estimated_distance"
+      | "device_tracker.telematic_059465_7191"
+      | "sensor.telematic_059465_7191_estimated_distance"
+      | "device_tracker.telematic_550331_a2dc"
+      | "sensor.telematic_550331_a2dc_estimated_distance"
+      | "device_tracker.telematic_311718_5a60"
+      | "sensor.telematic_311718_5a60_estimated_distance"
+      | "device_tracker.telematic_322772_4a06"
+      | "sensor.telematic_322772_4a06_estimated_distance"
+      | "device_tracker.telematic_029211_3163"
+      | "sensor.telematic_029211_3163_estimated_distance"
+      | "device_tracker.telematic_099388_6434"
+      | "sensor.telematic_099388_6434_estimated_distance"
+      | "device_tracker.telematic_334751_4e7c"
+      | "sensor.telematic_334751_4e7c_estimated_distance"
+      | "device_tracker.telematic_115804_921e"
+      | "sensor.telematic_115804_921e_estimated_distance"
+      | "device_tracker.telematic_090759_ce3e"
+      | "sensor.telematic_090759_ce3e_estimated_distance"
+      | "device_tracker.telematic_544656_574d"
+      | "sensor.telematic_544656_574d_estimated_distance"
+      | "device_tracker.telematic_035119_7ef2"
+      | "sensor.telematic_035119_7ef2_estimated_distance"
+      | "device_tracker.telematic_083986_ed90"
+      | "sensor.telematic_083986_ed90_estimated_distance"
+      | "device_tracker.telematic_090890_8e31"
+      | "sensor.telematic_090890_8e31_estimated_distance"
+      | "device_tracker.telematic_121646_9566"
+      | "sensor.telematic_121646_9566_estimated_distance"
+      | "device_tracker.telematic_309662_93f6"
+      | "sensor.telematic_309662_93f6_estimated_distance"
+      | "device_tracker.telematic_129557_a296"
+      | "sensor.telematic_129557_a296_estimated_distance"
+      | "device_tracker.telematic_718102_6a83"
+      | "sensor.telematic_718102_6a83_estimated_distance"
+      | "device_tracker.telematic_462263_0920"
+      | "sensor.telematic_462263_0920_estimated_distance"
+      | "device_tracker.telematic_588273_9054"
+      | "sensor.telematic_588273_9054_estimated_distance"
+      | "device_tracker.telematic_450235_d355"
+      | "sensor.telematic_450235_d355_estimated_distance"
+      | "device_tracker.telematic_067542_7b24"
+      | "sensor.telematic_067542_7b24_estimated_distance"
+      | "sensor.basement_presence_sensor_battery"
+      | "device_tracker.telematic_539458_b169"
+      | "sensor.telematic_539458_b169_estimated_distance"
+      | "binary_sensor.washer_machine_sensor_vibration_occupancy"
+      | "button.washer_machine_sensor_vibration_identify"
+      | "sensor.washer_machine_sensor_vibration_battery"
+      | "sensor.washer_machine_sensor_vibration_battery_voltage"
+      | "sensor.washer_machine_sensor_vibration_battery_type"
+      | "device_tracker.telematic_330668_9c6e"
+      | "sensor.telematic_330668_9c6e_estimated_distance"
+      | "device_tracker.telematic_433736_947d"
+      | "sensor.telematic_433736_947d_estimated_distance"
+      | "device_tracker.telematic_333902_b9ba"
+      | "sensor.telematic_333902_b9ba_estimated_distance"
+      | "device_tracker.telematic_437182_4094"
+      | "sensor.telematic_437182_4094_estimated_distance"
+      | "device_tracker.telematic_082038_d973"
+      | "sensor.telematic_082038_d973_estimated_distance"
+      | "device_tracker.74278bda_b644_4520_8f0c_720eaf059935_0_28364_2711"
+      | "sensor.74278bda_b644_4520_8f0c_720eaf059935_0_28364_2711_estimated_distance"
+      | "device_tracker.telematic_641783_f833"
+      | "sensor.telematic_641783_f833_estimated_distance"
+      | "device_tracker.s8_dsp_1dbd"
+      | "sensor.s8_dsp_1dbd_estimated_distance"
+      | "device_tracker.telematic_111951_ded1"
+      | "sensor.telematic_111951_ded1_estimated_distance"
+      | "device_tracker.telematic_710943_5528"
+      | "sensor.telematic_710943_5528_estimated_distance"
+      | "device_tracker.telematic_296935_2d18"
+      | "sensor.telematic_296935_2d18_estimated_distance"
+      | "device_tracker.telematic_042693_65bf"
+      | "sensor.telematic_042693_65bf_estimated_distance"
+      | "device_tracker.telematic_710273_6ad9"
+      | "sensor.telematic_710273_6ad9_estimated_distance"
+      | "device_tracker.telematic_699880_8e18"
+      | "sensor.telematic_699880_8e18_estimated_distance"
+      | "device_tracker.telematic_276358_e8bb"
+      | "sensor.telematic_276358_e8bb_estimated_distance"
+      | "device_tracker.telematic_131058_cdb1"
+      | "sensor.telematic_131058_cdb1_estimated_distance"
+      | "device_tracker.telematic_280061_a117"
+      | "sensor.telematic_280061_a117_estimated_distance"
+      | "device_tracker.telematic_551305_f326"
+      | "sensor.telematic_551305_f326_estimated_distance"
+      | "device_tracker.telematic_307328_2717"
+      | "sensor.telematic_307328_2717_estimated_distance"
+      | "device_tracker.telematic_152997_f85d"
+      | "sensor.telematic_152997_f85d_estimated_distance"
+      | "device_tracker.telematic_055695_9164"
+      | "sensor.telematic_055695_9164_estimated_distance"
+      | "device_tracker.telematic_559035_a4c8"
+      | "sensor.telematic_559035_a4c8_estimated_distance"
+      | "device_tracker.telematic_712493_2ad1"
+      | "sensor.telematic_712493_2ad1_estimated_distance"
+      | "device_tracker.telematic_280343_d0f0"
+      | "sensor.telematic_280343_d0f0_estimated_distance"
+      | "device_tracker.telematic_023750_2f79"
+      | "sensor.telematic_023750_2f79_estimated_distance"
+      | "device_tracker.telematic_648929_93d2"
+      | "sensor.telematic_648929_93d2_estimated_distance"
+      | "device_tracker.telematic_082715_c5d6"
+      | "sensor.telematic_082715_c5d6_estimated_distance"
+      | "device_tracker.telematic_756334_5fa0"
+      | "sensor.telematic_756334_5fa0_estimated_distance"
+      | "device_tracker.telematic_551727_71c5"
+      | "sensor.telematic_551727_71c5_estimated_distance"
+      | "device_tracker.telematic_087995_eb03"
+      | "sensor.telematic_087995_eb03_estimated_distance"
+      | "device_tracker.telematic_321410_7451"
+      | "sensor.telematic_321410_7451_estimated_distance"
+      | "device_tracker.telematic_116349_38d7"
+      | "sensor.telematic_116349_38d7_estimated_distance"
+      | "device_tracker.telematic_021614_f89c"
+      | "sensor.telematic_021614_f89c_estimated_distance"
+      | "device_tracker.telematic_105821_b248"
+      | "sensor.telematic_105821_b248_estimated_distance"
+      | "device_tracker.telematic_275269_87ad"
+      | "sensor.telematic_275269_87ad_estimated_distance"
+      | "device_tracker.telematic_270468_d09d"
+      | "sensor.telematic_270468_d09d_estimated_distance"
+      | "device_tracker.telematic_501672_313f"
+      | "sensor.telematic_501672_313f_estimated_distance"
+      | "device_tracker.telematic_034575_aa04"
+      | "sensor.telematic_034575_aa04_estimated_distance"
+      | "device_tracker.telematic_153144_71f3"
+      | "sensor.telematic_153144_71f3_estimated_distance"
+      | "device_tracker.telematic_312492_d0ed"
+      | "sensor.telematic_312492_d0ed_estimated_distance"
+      | "device_tracker.telematic_313169_90f4"
+      | "sensor.telematic_313169_90f4_estimated_distance"
+      | "device_tracker.telematic_472221_ce2d"
+      | "sensor.telematic_472221_ce2d_estimated_distance"
+      | "device_tracker.telematic_176491_4653"
+      | "sensor.telematic_176491_4653_estimated_distance"
+      | "device_tracker.telematic_450987_67a3"
+      | "sensor.telematic_450987_67a3_estimated_distance"
+      | "device_tracker.telematic_276457_86ee"
+      | "sensor.telematic_276457_86ee_estimated_distance"
+      | "device_tracker.telematic_540126_8d6d"
+      | "sensor.telematic_540126_8d6d_estimated_distance"
+      | "device_tracker.telematic_308995_6036"
+      | "sensor.telematic_308995_6036_estimated_distance"
+      | "device_tracker.telematic_539144_b4f1"
+      | "sensor.telematic_539144_b4f1_estimated_distance"
+      | "device_tracker.telematic_546321_fdbf"
+      | "sensor.telematic_546321_fdbf_estimated_distance"
+      | "device_tracker.telematic_733945_1576"
+      | "sensor.telematic_733945_1576_estimated_distance"
+      | "device_tracker.telematic_298139_bd96"
+      | "sensor.telematic_298139_bd96_estimated_distance"
+      | "device_tracker.telematic_304903_8e74"
+      | "sensor.telematic_304903_8e74_estimated_distance"
+      | "device_tracker.telematic_140786_4ad9"
+      | "sensor.telematic_140786_4ad9_estimated_distance"
+      | "device_tracker.telematic_125407_b566"
+      | "sensor.telematic_125407_b566_estimated_distance"
+      | "device_tracker.telematic_550984_96d6"
+      | "sensor.telematic_550984_96d6_estimated_distance"
+      | "device_tracker.telematic_160289_085e"
+      | "sensor.telematic_160289_085e_estimated_distance"
+      | "device_tracker.telematic_164489_372d"
+      | "sensor.telematic_164489_372d_estimated_distance"
+      | "device_tracker.telematic_275137_9675"
+      | "sensor.telematic_275137_9675_estimated_distance"
+      | "device_tracker.telematic_303582_0e7c"
+      | "sensor.telematic_303582_0e7c_estimated_distance"
+      | "device_tracker.telematic_104923_247a"
+      | "sensor.telematic_104923_247a_estimated_distance"
+      | "device_tracker.telematic_648515_2ce5"
+      | "sensor.telematic_648515_2ce5_estimated_distance"
+      | "device_tracker.telematic_308334_a7d1"
+      | "sensor.telematic_308334_a7d1_estimated_distance"
+      | "device_tracker.telematic_707089_64c8"
+      | "sensor.telematic_707089_64c8_estimated_distance"
+      | "device_tracker.telematic_116810_a833"
+      | "sensor.telematic_116810_a833_estimated_distance"
+      | "device_tracker.telematic_539375_a5bf"
+      | "sensor.telematic_539375_a5bf_estimated_distance"
+      | "device_tracker.telematic_742896_7f49"
+      | "sensor.telematic_742896_7f49_estimated_distance"
+      | "device_tracker.telematic_308599_9cc5"
+      | "sensor.telematic_308599_9cc5_estimated_distance"
+      | "device_tracker.telematic_123600_5583"
+      | "sensor.telematic_123600_5583_estimated_distance"
+      | "device_tracker.telematic_085619_8bb1"
+      | "sensor.telematic_085619_8bb1_estimated_distance"
+      | "device_tracker.telematic_543823_a888"
+      | "sensor.telematic_543823_a888_estimated_distance"
+      | "device_tracker.telematic_088209_a8ba"
+      | "sensor.telematic_088209_a8ba_estimated_distance"
+      | "device_tracker.telematic_309696_78a9"
+      | "sensor.telematic_309696_78a9_estimated_distance"
+      | "device_tracker.telematic_336657_ca29"
+      | "sensor.telematic_336657_ca29_estimated_distance"
+      | "device_tracker.telematic_041372_a3cb"
+      | "sensor.telematic_041372_a3cb_estimated_distance"
+      | "device_tracker.telematic_095329_9b80"
+      | "sensor.telematic_095329_9b80_estimated_distance"
+      | "device_tracker.telematic_733754_f91f"
+      | "sensor.telematic_733754_f91f_estimated_distance"
+      | "device_tracker.telematic_169819_350d"
+      | "sensor.telematic_169819_350d_estimated_distance"
+      | "device_tracker.telematic_321469_222f"
+      | "sensor.telematic_321469_222f_estimated_distance"
+      | "device_tracker.telematic_133005_fc8c"
+      | "sensor.telematic_133005_fc8c_estimated_distance"
+      | "device_tracker.telematic_092961_dc1e"
+      | "sensor.telematic_092961_dc1e_estimated_distance"
+      | "device_tracker.telematic_647590_e01f"
+      | "sensor.telematic_647590_e01f_estimated_distance"
+      | "device_tracker.telematic_283222_6499"
+      | "sensor.telematic_283222_6499_estimated_distance"
+      | "device_tracker.telematic_551933_c464"
+      | "sensor.telematic_551933_c464_estimated_distance"
+      | "device_tracker.telematic_755849_7083"
+      | "sensor.telematic_755849_7083_estimated_distance"
+      | "device_tracker.telematic_151775_b6d8"
+      | "sensor.telematic_151775_b6d8_estimated_distance"
+      | "device_tracker.gvh5105_3326"
+      | "sensor.gvh5105_3326_estimated_distance"
+      | "device_tracker.telematic_647566_9ec1"
+      | "sensor.telematic_647566_9ec1_estimated_distance"
+      | "device_tracker.telematic_642955_fa7e"
+      | "sensor.telematic_642955_fa7e_estimated_distance"
+      | "device_tracker.telematic_709630_782d"
+      | "sensor.telematic_709630_782d_estimated_distance"
+      | "device_tracker.telematic_699328_a092"
+      | "sensor.telematic_699328_a092_estimated_distance"
+      | "device_tracker.telematic_135414_0c3f"
+      | "sensor.telematic_135414_0c3f_estimated_distance"
+      | "media_player.mass_living_room_speaker"
+      | "media_player.mass_bedroom_speaker"
+      | "media_player.mass_everywhere"
+      | "media_player.mass_office_speaker"
+      | "device_tracker.telematic_323127_b2fb"
+      | "sensor.telematic_323127_b2fb_estimated_distance"
+      | "device_tracker.telematic_313029_7527"
+      | "sensor.telematic_313029_7527_estimated_distance"
+      | "device_tracker.telematic_745535_d540"
+      | "sensor.telematic_745535_d540_estimated_distance"
+      | "device_tracker.telematic_745931_6837"
+      | "sensor.telematic_745931_6837_estimated_distance"
+      | "device_tracker.telematic_089355_fb7f"
+      | "sensor.telematic_089355_fb7f_estimated_distance"
+      | "device_tracker.telematic_445219_9d13"
+      | "sensor.telematic_445219_9d13_estimated_distance"
+      | "device_tracker.telematic_706883_65fc"
+      | "sensor.telematic_706883_65fc_estimated_distance"
+      | "device_tracker.telematic_054326_7272"
+      | "sensor.telematic_054326_7272_estimated_distance"
+      | "device_tracker.telematic_076139_193f"
+      | "sensor.telematic_076139_193f_estimated_distance"
+      | "device_tracker.telematic_033627_febf"
+      | "sensor.telematic_033627_febf_estimated_distance"
+      | "device_tracker.telematic_733457_5745"
+      | "sensor.telematic_733457_5745_estimated_distance"
+      | "device_tracker.telematic_293817_82db"
+      | "sensor.telematic_293817_82db_estimated_distance"
+      | "device_tracker.telematic_734182_f17d"
+      | "sensor.telematic_734182_f17d_estimated_distance"
+      | "device_tracker.telematic_148789_94aa"
+      | "sensor.telematic_148789_94aa_estimated_distance"
+      | "device_tracker.telematic_037263_bedf"
+      | "sensor.telematic_037263_bedf_estimated_distance"
+      | "device_tracker.telematic_545117_5a91"
+      | "sensor.telematic_545117_5a91_estimated_distance"
+      | "device_tracker.rivian_phone_key_c346"
+      | "sensor.rivian_phone_key_c346_estimated_distance"
+      | "device_tracker.telematic_646246_9577"
+      | "sensor.telematic_646246_9577_estimated_distance"
+      | "sensor.kia_sorrento_sorento_uma_ex_v6_premium_geocoded_location"
+      | "device_tracker.telematic_037388_9178"
+      | "sensor.telematic_037388_9178_estimated_distance"
+      | "device_tracker.telematic_305611_08b7"
+      | "sensor.telematic_305611_08b7_estimated_distance"
+      | "device_tracker.telematic_154019_76f5"
+      | "sensor.telematic_154019_76f5_estimated_distance"
+      | "device_tracker.telematic_300588_70fa"
+      | "sensor.telematic_300588_70fa_estimated_distance"
+      | "device_tracker.telematic_108379_3f3c"
+      | "sensor.telematic_108379_3f3c_estimated_distance"
+      | "device_tracker.telematic_134078_c0eb"
+      | "sensor.telematic_134078_c0eb_estimated_distance"
+      | "device_tracker.telematic_730669_3b8a"
+      | "sensor.telematic_730669_3b8a_estimated_distance"
+      | "device_tracker.telematic_153193_ddb9"
+      | "sensor.telematic_153193_ddb9_estimated_distance"
+      | "device_tracker.telematic_053625_357f"
+      | "sensor.telematic_053625_357f_estimated_distance"
+      | "device_tracker.telematic_539193_d9df"
+      | "sensor.telematic_539193_d9df_estimated_distance"
+      | "device_tracker.telematic_313177_e476"
+      | "sensor.telematic_313177_e476_estimated_distance"
+      | "device_tracker.telematic_750782_1706"
+      | "sensor.telematic_750782_1706_estimated_distance"
+      | "device_tracker.telematic_038188_5987"
+      | "sensor.telematic_038188_5987_estimated_distance"
+      | "device_tracker.telematic_322442_59bd"
+      | "sensor.telematic_322442_59bd_estimated_distance"
+      | "device_tracker.telematic_123899_ec5b"
+      | "sensor.telematic_123899_ec5b_estimated_distance"
+      | "device_tracker.genx_000036033800_decd"
+      | "sensor.genx_000036033800_decd_estimated_distance"
+      | "device_tracker.telematic_558805_99b2"
+      | "sensor.telematic_558805_99b2_estimated_distance"
+      | "device_tracker.telematic_162632_dc6d"
+      | "sensor.telematic_162632_dc6d_estimated_distance"
+      | "device_tracker.rivian_phone_key_888c"
+      | "sensor.rivian_phone_key_888c_estimated_distance"
+      | "device_tracker.rivian_phone_key_bb6b"
+      | "sensor.rivian_phone_key_bb6b_estimated_distance"
+      | "device_tracker.telematic_707998_862a"
+      | "sensor.telematic_707998_862a_estimated_distance"
+      | "device_tracker.telematic_153912_13fe"
+      | "sensor.telematic_153912_13fe_estimated_distance"
+      | "device_tracker.telematic_690186_64c1"
+      | "sensor.telematic_690186_64c1_estimated_distance"
+      | "device_tracker.telematic_272332_67e2"
+      | "sensor.telematic_272332_67e2_estimated_distance"
+      | "device_tracker.telematic_646634_3434"
+      | "sensor.telematic_646634_3434_estimated_distance"
+      | "device_tracker.telematic_278115_c931"
+      | "sensor.telematic_278115_c931_estimated_distance"
+      | "device_tracker.telematic_312732_5c15"
+      | "sensor.telematic_312732_5c15_estimated_distance"
+      | "device_tracker.wsbc018415120s_a04f"
+      | "sensor.wsbc018415120s_a04f_estimated_distance"
+      | "sensor.flightradar24_most_tracked"
+      | "sensor.flightradar24_additional_tracked"
+      | "binary_sensor.dryer_machine_sensor_vibration_occupancy"
+      | "button.dryer_machine_sensor_vibration_identify"
+      | "sensor.dryer_machine_sensor_vibration_battery"
+      | "sensor.dryer_machine_sensor_vibration_battery_voltage"
+      | "sensor.dryer_machine_sensor_vibration_battery_type"
+      | "button.kia_sorrento_sorento_uma_ex_v6_premium_force_refresh"
+      | "switch.kia_sorrento_sorento_uma_ex_v6_premium_climate"
+      | "device_tracker.rivian_phone_key_c017"
+      | "sensor.rivian_phone_key_c017_estimated_distance"
+      | "device_tracker.rivian_sensor_2_4ce8"
+      | "sensor.rivian_sensor_2_4ce8_estimated_distance"
+      | "device_tracker.pawscout_tag_0104"
+      | "sensor.pawscout_tag_0104_estimated_distance"
+      | "device_tracker.wsbc024007781v_4bf1"
+      | "sensor.wsbc024007781v_4bf1_estimated_distance"
+      | "device_tracker.rivian_sensor_2_983a"
+      | "sensor.rivian_sensor_2_983a_estimated_distance"
+      | "device_tracker.nexc1_9ea3"
+      | "sensor.nexc1_9ea3_estimated_distance"
+      | "device_tracker.genx_000036033932"
+      | "sensor.genx_000036033932_estimated_distance"
+      | "device_tracker.lw_ivu_2714"
+      | "sensor.lw_ivu_2714_estimated_distance"
+      | "button.lucianas_macbook_pro_favorite_current_song"
+      | "media_player.lucianas_macbook_pro"
+      | "device_tracker.appontrac_3b1a"
+      | "sensor.appontrac_3b1a_estimated_distance"
+      | "device_tracker.wsbc018427145t_085c"
+      | "sensor.wsbc018427145t_085c_estimated_distance"
+      | "device_tracker.wsbc001131093t_99af"
+      | "sensor.wsbc001131093t_99af_estimated_distance"
+      | "sensor.thermal_cam_certificate_expiry"
+      | "sensor.thermal_cam_response_time"
+      | "sensor.thermal_cam_status"
+      | "sensor.thermal_cam_monitor_type"
+      | "sensor.thermal_cam_monitored_url"
+      | "sensor.thermal_cam_uptime_1_day"
+      | "sensor.thermal_cam_uptime_30_days"
+      | "sensor.thermal_cam_uptime_365_days"
+      | "sensor.thermal_cam_response_time_o_1_day"
+      | "sensor.thermal_cam_response_time_o_30_days"
+      | "sensor.thermal_cam_response_time_o_365_days"
+      | "device_tracker.rivian_phone_key_2f21"
+      | "sensor.rivian_phone_key_2f21_estimated_distance"
+      | "device_tracker.4_2928"
+      | "sensor.4_2928_estimated_distance"
+      | "device_tracker.tirelinc_280a"
+      | "sensor.tirelinc_280a_estimated_distance"
+      | "device_tracker.rivian_phone_key_addb"
+      | "sensor.rivian_phone_key_addb_estimated_distance"
+      | "device_tracker.0102000000_55b8"
+      | "sensor.0102000000_55b8_estimated_distance"
+      | "device_tracker.4_5d9a"
+      | "sensor.4_5d9a_estimated_distance"
+      | "device_tracker.4_4d87"
+      | "sensor.4_4d87_estimated_distance"
+      | "device_tracker.4_d85b"
+      | "sensor.4_d85b_estimated_distance"
+      | "sensor.gw3000b_indoor_humidity"
+      | "sensor.gw3000b_humidity"
+      | "sensor.gw3000b_vapour_pressure_deficit"
+      | "sensor.gw3000b_wind_direction"
+      | "sensor.gw3000b_wind_direction_10m_avg"
+      | "sensor.gw3000b_solar_radiation"
+      | "sensor.gw3000b_uv_index"
+      | "binary_sensor.gw3000b_wh65_battery"
+      | "sensor.gw3000b_solar_lux"
+      | "sensor.gw3000b_outdoor_temperature"
+      | "sensor.gw3000b_indoor_temperature"
+      | "sensor.gw3000b_wind_speed"
+      | "sensor.gw3000b_wind_gust"
+      | "sensor.gw3000b_max_daily_gust"
+      | "sensor.gw3000b_event_rain"
+      | "sensor.gw3000b_hourly_rain"
+      | "sensor.gw3000b_daily_rain"
+      | "sensor.gw3000b_weekly_rain"
+      | "sensor.gw3000b_monthly_rain"
+      | "sensor.gw3000b_yearly_rain"
+      | "sensor.gw3000b_total_rain"
+      | "sensor.gw3000b_rain_rate"
+      | "sensor.gw3000b_24h_rain"
+      | "sensor.gw3000b_relative_pressure"
+      | "sensor.gw3000b_absolute_pressure"
+      | "sensor.gw3000b_windchill"
+      | "sensor.gw3000b_dewpoint"
+      | "sensor.gw3000b_indoor_dewpoint"
+      | "sensor.gw3000b_feels_like_temperature"
+      | "sensor.flightradar24_helicopters_in_area"
+      | "sensor.kia_sorrento"
+      | "device_tracker.wsbc018419375t_8756"
+      | "sensor.wsbc018419375t_8756_estimated_distance"
+      | "device_tracker.4_7978"
+      | "sensor.4_7978_estimated_distance"
+      | "device_tracker.rivian_phone_key_b7af"
+      | "sensor.rivian_phone_key_b7af_estimated_distance"
+      | "device_tracker.b4ma2213084036_6bdb"
+      | "sensor.b4ma2213084036_6bdb_estimated_distance"
+      | "device_tracker.4_d6d4"
+      | "sensor.4_d6d4_estimated_distance"
+      | "device_tracker.wsbc002000931t_e745"
+      | "sensor.wsbc002000931t_e745_estimated_distance"
+      | "device_tracker.rivian_phone_key_0cc9"
+      | "sensor.rivian_phone_key_0cc9_estimated_distance"
+      | "device_tracker.rivian_phone_key_aea4"
+      | "sensor.rivian_phone_key_aea4_estimated_distance"
+      | "device_tracker.wsbc018438338t_b546"
+      | "sensor.wsbc018438338t_b546_estimated_distance"
+      | "device_tracker.wsbc001037736v_c0ec"
+      | "sensor.wsbc001037736v_c0ec_estimated_distance"
+      | "device_tracker.rivian_sensor_1_c28f"
+      | "sensor.rivian_sensor_1_c28f_estimated_distance"
+      | "device_tracker.rivian_sensor_3_e7e3"
+      | "sensor.rivian_sensor_3_e7e3_estimated_distance"
+      | "device_tracker.rivian_sensor_4_81be"
+      | "sensor.rivian_sensor_4_81be_estimated_distance"
+      | "climate.garage_kia_sorrento_climate_control"
+      | "media_player.chromecast8401"
+      | "button.chromecast8401_favorite_current_song"
+      | "media_player.chromecast8401_2"
+      | "media_player.my_bedroom_tv"
+      | "button.my_bedroom_tv_favorite_current_song"
+      | "media_player.my_bedroom_tv_2"
+      | "sensor.garage_kia_sorrento_last_scanned_at"
+      | "device_tracker.rivian_phone_key_4ab1"
+      | "sensor.rivian_phone_key_4ab1_estimated_distance"
+      | "device_tracker.tirelinc_5742"
+      | "sensor.tirelinc_5742_estimated_distance"
+      | "device_tracker.nexc1_2bcf"
+      | "sensor.nexc1_2bcf_estimated_distance"
+      | "sensor.garage_kia_sorrento_location_last_updated";
   }
 }

@@ -64,7 +64,11 @@ Generates typed entity names from your live HA instance:
 npm run sync
 ```
 
-Requires `VITE_HA_URL` and `VITE_HA_TOKEN` to be set. The generated types file must then be referenced in `tsconfig.json`. See the [full instructions](https://shannonhochkins.github.io/ha-component-kit/?path=/docs/introduction-typescriptsync--docs).
+Requires `VITE_HA_URL` and `VITE_HA_TOKEN` to be set. Output goes to `supported-types.d.ts`, which is already wired into `tsconfig.app.json`'s `include` array — so every `useEntity('...')` call is checked against real entity IDs at compile time.
+
+> **Re-run this after adding or renaming entities in Home Assistant.** The file is a point-in-time snapshot; if it drifts, entity IDs stop being validated and typos fail silently at runtime instead of at build time.
+
+See the [full instructions](https://shannonhochkins.github.io/ha-component-kit/?path=/docs/introduction-typescriptsync--docs).
 
 ## Building
 
