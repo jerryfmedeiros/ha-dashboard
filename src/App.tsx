@@ -11,6 +11,7 @@ import { CommandCenterDashboard } from './components/CommandCenterDashboard.tsx'
 import { Icon } from '@iconify/react';
 import { AutoDashboardController } from './components/AutoDashboardController.tsx';
 import { MediaDashboard } from './components/MediaDashboard.tsx';
+import { ConnectionStatus } from './components/ConnectionStatus.tsx';
 
 export function App() {
   const [activeView, setActiveView] = useState('overview');
@@ -85,6 +86,8 @@ export function App() {
               </div>
             );
           })}
+
+          <ConnectionStatus />
         </Column>
 
         {/* MAIN CONTENT AREA */}
