@@ -50,6 +50,36 @@ export const cardGrid3ColStyle: React.CSSProperties = {
   gap: '0.4rem',
 };
 
+export const sparklineFixedStyle: React.CSSProperties = {
+  width: '100%',
+  height: '55px',
+  marginTop: '4px',
+  position: 'relative',
+};
+
+// Barometric tendency readout that sits above the pressure sparkline.
+export const tendencyRowStyle: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '4px',
+  marginTop: '6px',
+  paddingTop: '5px',
+  borderTop: '1px solid rgba(255,255,255,0.05)',
+};
+
+export const tendencyLabelStyle: React.CSSProperties = {
+  fontSize: '0.55rem',
+  fontWeight: 900,
+  letterSpacing: '0.5px',
+};
+
+export const tendencyDeltaStyle: React.CSSProperties = {
+  marginLeft: 'auto',
+  fontSize: '0.55rem',
+  fontWeight: 700,
+  color: 'rgba(255,255,255,0.35)',
+};
+
 export const scrollableColumnStyle: React.CSSProperties = {
   display: 'flex',
   flexDirection: 'column',

@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { useEntity, useHistory } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
+import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from './MetricUi.tsx';
 import * as styles from '../styles/MeteorologyDashboard.styles';
 
@@ -18,17 +19,75 @@ const getCardinalDirection = (degree: number) => {
   return arr[val % 16];
 };
 
+// WHO UV index exposure bands. A bare number is not actionable; the band is.
+const getUvBand = (uv: number) => {
+  if (uv < 3) return { label: 'LOW', color: '#4caf50' };
+  if (uv < 6) return { label: 'MODERATE', color: '#ffeb3b' };
+  if (uv < 8) return { label: 'HIGH', color: '#ff9800' };
+  if (uv < 11) return { label: 'VERY HIGH', color: '#f44336' };
+  return { label: 'EXTREME', color: '#9c27b0' };
+};
+
+// Standard 3-hour barometric tendency. Direction matters far more than the
+// absolute reading — falling pressure is what precedes deteriorating weather.
+const PRESSURE_WINDOW_MS = 3 * 60 * 60 * 1000;
+
+const getPressureTendency = (delta: number) => {
+  if (delta <= -2) return { label: 'FALLING FAST', icon: 'mdi:chevron-double-down', color: '#f44336' };
+  if (delta <= -0.5) return { label: 'FALLING', icon: 'mdi:chevron-down', color: '#ff9800' };
+  if (delta >= 2) return { label: 'RISING FAST', icon: 'mdi:chevron-double-up', color: '#4caf50' };
+  if (delta >= 0.5) return { label: 'RISING', icon: 'mdi:chevron-up', color: '#8bc34a' };
+  return { label: 'STEADY', icon: 'mdi:minus', color: '#90a4ae' };
+};
+
 // --- SPARKLINE CHART COMPONENT ---
-const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: string }) => {
+// `showTendency` reuses this component's existing history fetch to derive the
+// 3h barometric trend, rather than issuing a second useHistory for the same
+// entity.
+const SparklineChart = ({
+  entityId,
+  color,
+  showTendency,
+  height = 55,
+}: {
+  entityId: EntityName;
+  color: string;
+  showTendency?: boolean;
+  /**
+   * Explicit pixel height. Recharts' ResponsiveContainer cannot measure inside
+   * a flex parent without a definite height — it silently renders nothing — so
+   * this is deliberately a fixed number rather than a flex-grow.
+   */
+  height?: number;
+}) => {
   const historyData = useHistory(entityId, { hoursToShow: 12, significantChangesOnly: true });
 
   const chartData = useMemo(() => {
     if (!historyData || historyData.loading || !historyData.entityHistory) return null;
-    // HA history rows arrive either expanded ({ state }) or minified ({ s }).
-    return (historyData.entityHistory as ReadonlyArray<{ state?: string | number; s?: string | number }>)
-      .map(entry => ({ value: Number(entry.state ?? entry.s) }))
+    // HA history rows arrive either expanded ({ state, last_updated }) or
+    // minified ({ s, lu }). Timestamps are seconds since epoch.
+    return (
+      historyData.entityHistory as ReadonlyArray<{
+        state?: string | number;
+        s?: string | number;
+        last_updated?: number;
+        lu?: number;
+      }>
+    )
+      .map(entry => ({ value: Number(entry.state ?? entry.s), t: (entry.last_updated ?? entry.lu ?? 0) * 1000 }))
       .filter(entry => !isNaN(entry.value));
   }, [historyData]);
+
+  // Change across the last 3h of the series (falls back to the whole window if
+  // history is shorter than that).
+  const tendency = useMemo(() => {
+    if (!showTendency || !chartData || chartData.length < 2) return null;
+    const latest = chartData[chartData.length - 1];
+    const cutoff = latest.t - PRESSURE_WINDOW_MS;
+    const baseline = chartData.find(d => d.t >= cutoff) ?? chartData[0];
+    const delta = latest.value - baseline.value;
+    return { delta, ...getPressureTendency(delta) };
+  }, [showTendency, chartData]);
 
   if (!chartData || chartData.length === 0) {
     return (
@@ -60,31 +119,43 @@ const SparklineChart = ({ entityId, color }: { entityId: EntityName; color: stri
   const gradientId = `spark-${entityId.replace(/\./g, '-')}`;
 
   return (
-    <div style={{ width: '100%', height: '55px', marginTop: '4px', opacity: 1, position: 'relative' }}>
-      <ResponsiveContainer width='100%' height='100%'>
-        <AreaChart data={chartData} margin={{ top: 5, right: 2, left: 2, bottom: 5 }}>
-          <defs>
-            <linearGradient id={gradientId} x1='0' y1='0' x2='0' y2='1'>
-              <stop offset='0%' stopColor={color} stopOpacity={0.5} />
-              <stop offset='100%' stopColor={color} stopOpacity={0} />
-            </linearGradient>
-          </defs>
+    <div style={{ width: '100%' }}>
+      {tendency && (
+        <div style={styles.tendencyRowStyle}>
+          <Icon icon={tendency.icon} style={{ fontSize: '1rem', color: tendency.color }} />
+          <span style={{ ...styles.tendencyLabelStyle, color: tendency.color }}>{tendency.label}</span>
+          <span style={styles.tendencyDeltaStyle}>
+            {tendency.delta >= 0 ? '+' : ''}
+            {tendency.delta.toFixed(1)} hPa/3h
+          </span>
+        </div>
+      )}
+      <div style={{ ...styles.sparklineFixedStyle, height: `${height}px` }}>
+        <ResponsiveContainer width='100%' height='100%'>
+          <AreaChart data={chartData} margin={{ top: 5, right: 2, left: 2, bottom: 5 }}>
+            <defs>
+              <linearGradient id={gradientId} x1='0' y1='0' x2='0' y2='1'>
+                <stop offset='0%' stopColor={color} stopOpacity={0.5} />
+                <stop offset='100%' stopColor={color} stopOpacity={0} />
+              </linearGradient>
+            </defs>
 
-          {/* YAxis handles the scaling/domain, hide it so it doesn't draw ticks/lines */}
-          <YAxis hide domain={[min - pad, max + pad]} />
+            {/* YAxis handles the scaling/domain, hide it so it doesn't draw ticks/lines */}
+            <YAxis hide domain={[min - pad, max + pad]} />
 
-          <Area
-            type='monotone'
-            dataKey='value'
-            stroke={color}
-            strokeWidth={2}
-            fillOpacity={1}
-            fill={`url(#${gradientId})`}
-            isAnimationActive={true}
-            animationDuration={1000}
-          />
-        </AreaChart>
-      </ResponsiveContainer>
+            <Area
+              type='monotone'
+              dataKey='value'
+              stroke={color}
+              strokeWidth={2}
+              fillOpacity={1}
+              fill={`url(#${gradientId})`}
+              isAnimationActive={true}
+              animationDuration={1000}
+            />
+          </AreaChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 };
@@ -97,9 +168,20 @@ export function MeteorologyDashboard() {
   const feelsLike = useEntity('sensor.gw3000b_feels_like_temperature');
   const humidity = useEntity('sensor.gw3000b_humidity');
   const dewPoint = useEntity('sensor.gw3000b_dewpoint');
+  const windChill = useEntity('sensor.gw3000b_windchill');
+  const vpd = useEntity('sensor.gw3000b_vapour_pressure_deficit');
+
+  // Pressure. Relative (sea-level corrected) is the one that compares to a
+  // forecast; absolute is kept as a secondary reading.
+  const relPressure = useEntity('sensor.gw3000b_relative_pressure');
   const absPressure = useEntity('sensor.gw3000b_absolute_pressure');
+
   const windSpeed = useEntity('sensor.gw3000b_wind_speed');
+  const windGust = useEntity('sensor.gw3000b_wind_gust');
+  const maxGust = useEntity('sensor.gw3000b_max_daily_gust');
   const windDir = useEntity('sensor.gw3000b_wind_direction');
+
+  const hourlyRain = useEntity('sensor.gw3000b_hourly_rain');
   const dailyRain = useEntity('sensor.gw3000b_daily_rain');
   const rain24h = useEntity('sensor.gw3000b_24h_rain');
   const rainRate = useEntity('sensor.gw3000b_rain_rate');
@@ -108,6 +190,7 @@ export function MeteorologyDashboard() {
   const solarLux = useEntity('sensor.gw3000b_solar_lux');
   const solarRadiation = useEntity('sensor.gw3000b_solar_radiation');
   const uvIndex = useEntity('sensor.gw3000b_uv_index');
+  const uvBand = getUvBand(Number(uvIndex.state) || 0);
 
   // Alerts
   const weatherWarnings = useEntity('sensor.calgary_warnings');
@@ -175,7 +258,7 @@ export function MeteorologyDashboard() {
       )}
 
       <div style={styles.mainGridStyle}>
-        {/* COLUMN 1: CURRENT CONDITIONS & SKY */}
+        {/* COLUMN 1: AIR */}
         <div style={styles.scrollableColumnStyle}>
           <div style={styles.sectionHeaderStyle}>Current Conditions</div>
           <GlassCard title='Atmosphere'>
@@ -196,6 +279,22 @@ export function MeteorologyDashboard() {
                 unit='°C'
                 color='#00bcd4'
               />
+            </div>
+            <SparklineChart entityId='sensor.gw3000b_outdoor_temperature' color='#ff9800' height={140} />
+          </GlassCard>
+
+          <div style={styles.sectionHeaderStyle}>Comfort</div>
+          <GlassCard title='Derived'>
+            <div style={styles.cardGridStyle}>
+              <BigMetric
+                icon='mdi:snowflake-thermometer'
+                label='Wind Chill'
+                value={formatRawValue(windChill.state, 1)}
+                unit='°C'
+                color='#90caf9'
+              />
+              {/* Sensor reports hPa — do not relabel this kPa. */}
+              <BigMetric icon='mdi:leaf' label='VPD' value={formatRawValue(vpd.state, 2)} unit='hPa' color='#8bc34a' />
             </div>
           </GlassCard>
         </div>
@@ -225,6 +324,8 @@ export function MeteorologyDashboard() {
                 color='#cddc39'
                 onClick={() => setWindMode(prev => (prev === 'degree' ? 'cardinal' : 'degree'))}
               />
+              <BigMetric icon='mdi:weather-dust' label='Gust' value={formatRawValue(windGust.state, 1)} unit='km/h' color='#ffb300' />
+              <BigMetric icon='mdi:speedometer' label='Max Today' value={formatRawValue(maxGust.state, 1)} unit='km/h' color='#ff7043' />
             </div>
           </GlassCard>
 
@@ -232,6 +333,7 @@ export function MeteorologyDashboard() {
           <GlassCard title='Pressure Trend'>
             <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
               <div style={styles.cardGridStyle}>
+                <BigMetric icon='mdi:gauge' label='Sea Level' value={formatRawValue(relPressure.state, 1)} unit='hPa' color='#78909c' />
                 <BigMetric
                   icon='mdi:gauge-empty'
                   label='Absolute'
@@ -240,7 +342,9 @@ export function MeteorologyDashboard() {
                   color='#455a64'
                 />
               </div>
-              <SparklineChart entityId='sensor.gw3000b_absolute_pressure' color='#455a64' />
+              {/* Trend is derived from sea-level pressure — the reading that is
+                  actually comparable to a forecast. */}
+              <SparklineChart entityId='sensor.gw3000b_relative_pressure' color='#78909c' showTendency height={140} />
             </div>
           </GlassCard>
         </div>
@@ -251,15 +355,23 @@ export function MeteorologyDashboard() {
           <div style={isRaining ? { animation: 'pulse-rain 2s infinite', borderRadius: '16px' } : undefined}>
             <GlassCard title='Rain Accumulation'>
               <div style={styles.cardGridStyle}>
-                <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatRawValue(dailyRain.state, 1)} unit='mm' color='#2196f3' />
-                <BigMetric icon='mdi:history' label='24h Rain' value={formatRawValue(rain24h.state, 1)} unit='mm' color='#3f51b5' />
+                {/* 2dp: at 1dp any light drizzle reads as a flat 0.0 */}
                 <BigMetric
                   icon='mdi:weather-pouring'
                   label='Rain Rate'
-                  value={formatRawValue(rainRate.state, 1)}
+                  value={formatRawValue(rainRate.state, 2)}
                   unit='mm/h'
                   color='#00bcd4'
                 />
+                <BigMetric
+                  icon='mdi:clock-outline'
+                  label='Past Hour'
+                  value={formatRawValue(hourlyRain.state, 1)}
+                  unit='mm'
+                  color='#26c6da'
+                />
+                <BigMetric icon='mdi:weather-rainy' label='Daily' value={formatRawValue(dailyRain.state, 1)} unit='mm' color='#2196f3' />
+                <BigMetric icon='mdi:history' label='24h Rain' value={formatRawValue(rain24h.state, 1)} unit='mm' color='#3f51b5' />
               </div>
             </GlassCard>
           </div>
@@ -267,7 +379,13 @@ export function MeteorologyDashboard() {
           <div style={styles.sectionHeaderStyle}>Solar & Light</div>
           <GlassCard title='Radiation'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:sun-wireless' label='UV Index' value={formatRawValue(uvIndex.state, 0)} color='#ffeb3b' />
+              {/* Colour + band make the UV number actionable at a glance. */}
+              <BigMetric
+                icon='mdi:sun-wireless'
+                label={`UV · ${uvBand.label}`}
+                value={formatRawValue(uvIndex.state, 0)}
+                color={uvBand.color}
+              />
               <BigMetric
                 icon='mdi:solar-power'
                 label='Irradiance'
