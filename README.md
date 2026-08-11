@@ -23,7 +23,6 @@ The `AutoDashboardController` watches specific entity states (e.g. litter box oc
 - **@hakit/core** + **@hakit/components** for HA entity bindings and pre-built cards
 - **Recharts** for metric charts
 - **react-simple-keyboard** for on-screen keyboard
-- **Storybook** for isolated component development
 
 ## Prerequisites
 
@@ -90,14 +89,6 @@ https://<your-ha-url>/local/<VITE_FOLDER_NAME>/index.html
 ```
 
 Or follow the [ha-component-kit addon guide](https://shannonhochkins.github.io/ha-component-kit/?path=/docs/introduction-deploying--docs) to add it as a sidebar panel.
-
-## Storybook
-
-```bash
-npm run storybook
-```
-
-Runs on port 6006. Component stories live in `./stories/`. Tests are powered by Vitest + Playwright (headless Chromium).
 
 ## Further Reading
 
