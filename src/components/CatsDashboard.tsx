@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CameraCard } from '@hakit/components';
 import { useEntity } from '@hakit/core';
+import type { HassEntityWithService } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/CatsDashboard.styles';
 import { BigMetric, GlassCard } from './MetricUi';
@@ -11,22 +12,13 @@ import { formatScaled, formatWithUnit } from '../utils/format';
 // ==========================================
 type CameraEntity = 'camera.feeding_area_camera' | 'camera.litter_box_area_camera';
 
-type BasicEntity = {
-  state: string | number;
-  attributes: { min?: number; max?: number; step?: number; [key: string]: unknown };
-  service: {
-    press: () => void;
-    setValue: (params: { serviceData: { value: number } }) => void;
-  };
-};
-
 const SliderRowCompact = ({
   icon,
   entityObj,
   onDispense,
 }: {
   icon: string;
-  entityObj: BasicEntity | undefined;
+  entityObj: HassEntityWithService<'number'> | undefined;
   onDispense: () => void;
 }) => {
   const [dragValue, setDragValue] = useState<number | null>(null);
@@ -34,7 +26,8 @@ const SliderRowCompact = ({
   const displayValue = dragValue !== null ? dragValue : entityObj.state || 1;
 
   const handleCommit = (e: React.SyntheticEvent<HTMLInputElement>) => {
-    entityObj.service.setValue({ serviceData: { value: Number(e.currentTarget.value) } });
+    // HA's number.set_value takes the value as a string, not a number.
+    entityObj.service.setValue({ serviceData: { value: e.currentTarget.value } });
     setDragValue(null);
   };
 
@@ -75,35 +68,35 @@ const SliderRowCompact = ({
 
 export function CatsDashboard() {
   // --- ENTITIES ---
-  const feederEmpty = useEntity('binary_sensor.pet_feeder_empty_food' as never) as unknown as BasicEntity;
-  const feederPortion = useEntity('number.pet_feeder_manual_feed' as never) as unknown as BasicEntity;
-  const feedBtn = useEntity('button.pet_feeder_quick_feed' as never) as unknown as BasicEntity;
-  const fountainWater = useEntity('sensor.smart_fountain_water_level' as never) as unknown as BasicEntity;
-  const fountainFilter = useEntity('sensor.smart_fountain_filter_life' as never) as unknown as BasicEntity;
-  const fountainPump = useEntity('sensor.smart_fountain_pump_cleaning_due' as never) as unknown as BasicEntity;
+  const feederEmpty = useEntity('binary_sensor.pet_feeder_empty_food');
+  const feederPortion = useEntity('number.pet_feeder_manual_feed');
+  const feedBtn = useEntity('button.pet_feeder_quick_feed');
+  const fountainWater = useEntity('sensor.smart_fountain_water_level');
+  const fountainFilter = useEntity('sensor.smart_fountain_filter_life');
+  const fountainPump = useEntity('sensor.smart_fountain_pump_cleaning_due');
 
-  const litterState = useEntity('sensor.cat_litter_state' as never) as unknown as BasicEntity;
-  const litterBin = useEntity('sensor.litter_box_bin_state' as never) as unknown as BasicEntity;
-  const litterCycles = useEntity('counter.litter_box_waste_cycles' as never) as unknown as BasicEntity;
+  const litterState = useEntity('sensor.cat_litter_state');
+  const litterBin = useEntity('sensor.litter_box_bin_state');
+  const litterCycles = useEntity('counter.litter_box_waste_cycles');
 
-  const litterState2 = useEntity('sensor.jq01009g24410010959_cat_litter_state' as never) as unknown as BasicEntity;
-  const litterBin2 = useEntity('sensor.jq01009g24410010959_bin_state' as never) as unknown as BasicEntity;
-  const litterCycles2 = useEntity('counter.litter_box_2_waste_cycles' as never) as unknown as BasicEntity;
+  const litterState2 = useEntity('sensor.jq01009g24410010959_cat_litter_state');
+  const litterBin2 = useEntity('sensor.jq01009g24410010959_bin_state');
+  const litterCycles2 = useEntity('counter.litter_box_2_waste_cycles');
 
-  const cleanBtn = useEntity('button.litter_clean' as never) as unknown as BasicEntity;
-  const cleanBtn2 = useEntity('button.jq01009g24410010959_clean' as never) as unknown as BasicEntity;
-  const levelBtn = useEntity('button.litter_level' as never) as unknown as BasicEntity;
-  const levelBtn2 = useEntity('button.jq01009g24410010959_level' as never) as unknown as BasicEntity;
+  const cleanBtn = useEntity('button.litter_clean');
+  const cleanBtn2 = useEntity('button.jq01009g24410010959_clean');
+  const levelBtn = useEntity('button.litter_level');
+  const levelBtn2 = useEntity('button.jq01009g24410010959_level');
 
-  const occupancyLitter = useEntity('binary_sensor.litter_box_occupancy_sensor' as never) as unknown as BasicEntity;
-  const occupancyFeeding = useEntity('binary_sensor.feeding_area_presence_sensor_occupancy' as never) as unknown as BasicEntity;
+  const occupancyLitter = useEntity('binary_sensor.litter_box_occupancy_sensor');
+  const occupancyFeeding = useEntity('binary_sensor.feeding_area_presence_sensor_occupancy');
 
-  const ozzyLitter = useEntity('sensor.ozzy_visits_today' as never) as unknown as BasicEntity;
-  const ozzyFood = useEntity('sensor.ozzy_food_visits_today' as never) as unknown as BasicEntity;
-  const ozzyWater = useEntity('sensor.ozzy_water_visits_today' as never) as unknown as BasicEntity;
-  const doloresLitter = useEntity('sensor.dolores_visits_today' as never) as unknown as BasicEntity;
-  const doloresFood = useEntity('sensor.dolores_food_visits_today' as never) as unknown as BasicEntity;
-  const doloresWater = useEntity('sensor.dolores_water_visits_today' as never) as unknown as BasicEntity;
+  const ozzyLitter = useEntity('sensor.ozzy_visits_today');
+  const ozzyFood = useEntity('sensor.ozzy_food_visits_today');
+  const ozzyWater = useEntity('sensor.ozzy_water_visits_today');
+  const doloresLitter = useEntity('sensor.dolores_visits_today');
+  const doloresFood = useEntity('sensor.dolores_food_visits_today');
+  const doloresWater = useEntity('sensor.dolores_water_visits_today');
 
   const [popupCamera, setPopupCamera] = useState<CameraEntity | null>(null);
 

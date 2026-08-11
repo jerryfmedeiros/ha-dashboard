@@ -20,10 +20,14 @@ export const ClimateModalContent = () => {
       const newLow = (target_temp_low ?? current_temperature) + (activeTarget !== 'high' ? amount : 0);
       const newHigh = (target_temp_high ?? current_temperature) + (activeTarget !== 'low' ? amount : 0);
 
+      // HA nests the dual setpoints under `temperature_range`; passing
+      // target_temp_low/high at the top level is silently ignored.
       climate.service.setTemperature({
         serviceData: {
-          target_temp_low: newLow,
-          target_temp_high: newHigh,
+          temperature_range: {
+            target_temp_low: newLow,
+            target_temp_high: newHigh,
+          },
         },
       });
     } else {

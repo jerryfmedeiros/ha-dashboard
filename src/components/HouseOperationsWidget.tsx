@@ -2,8 +2,6 @@ import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/HouseOperations.styles';
 
-type BasicSensor = { state: string | number };
-
 interface HouseOperationsWidgetProps {
   onClick: () => void;
 }
@@ -34,9 +32,9 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
   const upcoming = allCarts.slice(0, 2);
 
   // --- UTILITIES LOGIC ---
-  const electricity = useEntity('sensor.energy_monitor_energy_today' as never) as unknown as BasicSensor;
-  const water = useEntity('sensor.house_water_daily' as never) as unknown as BasicSensor;
-  const gas = useEntity('sensor.house_gas_daily' as never) as unknown as BasicSensor;
+  const electricity = useEntity('sensor.energy_monitor_energy_today');
+  const water = useEntity('sensor.house_water_daily');
+  const gas = useEntity('sensor.house_gas_daily');
 
   const elecLive = useEntity('sensor.energy_monitor_power_minute_average');
   const waterLive = useEntity('sensor.house_water_flow_rate');

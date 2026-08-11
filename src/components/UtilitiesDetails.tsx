@@ -6,7 +6,6 @@ import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianG
 import * as styles from '../styles/UtilitiesDetails.styles';
 
 // --- TYPES ---
-type BasicSensor = { state: string | number };
 
 interface HistoryEntry {
   state?: string | number;
@@ -154,28 +153,28 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
 // ==========================================
 export function UtilitiesDetails() {
   // --- ELECTRICITY ---
-  const elecDaily = useEntity('sensor.house_electricity_daily' as never) as unknown as BasicSensor;
-  const elecMonthly = useEntity('sensor.energy_monitor_energy_this_month' as never) as unknown as BasicSensor;
-  const elecTotal = useEntity('sensor.house_electricity_lifetime_total' as never) as unknown as BasicSensor;
-  const elecCostToday = useEntity('sensor.house_electricity_cost_today' as never) as unknown as BasicSensor;
-  const elecCostMonth = useEntity('sensor.house_electricity_cost_month' as never) as unknown as BasicSensor;
-  const elecLive = useEntity('sensor.energy_monitor_power_minute_average' as never) as unknown as BasicSensor;
+  const elecDaily = useEntity('sensor.house_electricity_daily');
+  const elecMonthly = useEntity('sensor.energy_monitor_energy_this_month');
+  const elecTotal = useEntity('sensor.house_electricity_lifetime_total');
+  const elecCostToday = useEntity('sensor.house_electricity_cost_today');
+  const elecCostMonth = useEntity('sensor.house_electricity_cost_month');
+  const elecLive = useEntity('sensor.energy_monitor_power_minute_average');
 
   // --- WATER ---
-  const waterDaily = useEntity('sensor.house_water_daily' as never) as unknown as BasicSensor;
-  const waterMonthly = useEntity('sensor.house_water_monthly' as never) as unknown as BasicSensor;
-  const waterTotal = useEntity('sensor.house_water_house_water_2' as never) as unknown as BasicSensor;
-  const waterCostToday = useEntity('sensor.house_water_cost_today' as never) as unknown as BasicSensor;
-  const waterCostMonth = useEntity('sensor.house_water_cost_monthly' as never) as unknown as BasicSensor;
-  const waterLive = useEntity('sensor.house_water_flow_rate' as never) as unknown as BasicSensor;
+  const waterDaily = useEntity('sensor.house_water_daily');
+  const waterMonthly = useEntity('sensor.house_water_monthly');
+  const waterTotal = useEntity('sensor.house_water_house_water_2');
+  const waterCostToday = useEntity('sensor.house_water_cost_today');
+  const waterCostMonth = useEntity('sensor.house_water_cost_monthly');
+  const waterLive = useEntity('sensor.house_water_flow_rate');
 
   // --- GAS ---
-  const gasDaily = useEntity('sensor.house_gas_daily' as never) as unknown as BasicSensor;
-  const gasMonthly = useEntity('sensor.house_gas_monthly' as never) as unknown as BasicSensor;
-  const gasTotal = useEntity('sensor.house_gas_m3' as never) as unknown as BasicSensor;
-  const gasCostToday = useEntity('sensor.house_gas_cost_today' as never) as unknown as BasicSensor;
-  const gasCostMonth = useEntity('sensor.house_gas_cost_month' as never) as unknown as BasicSensor;
-  const gasLive = useEntity('sensor.house_gas_flow_rate' as never) as unknown as BasicSensor;
+  const gasDaily = useEntity('sensor.house_gas_daily');
+  const gasMonthly = useEntity('sensor.house_gas_monthly');
+  const gasTotal = useEntity('sensor.house_gas_m3');
+  const gasCostToday = useEntity('sensor.house_gas_cost_today');
+  const gasCostMonth = useEntity('sensor.house_gas_cost_month');
+  const gasLive = useEntity('sensor.house_gas_flow_rate');
 
   return (
     <div style={styles.popupContainerStyle}>

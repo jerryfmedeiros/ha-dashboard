@@ -12,8 +12,6 @@ interface Flight {
   model: string; // Added model to the interface
 }
 
-type BasicSensor = { state: string };
-
 const getCardinalDirection = (degree: number) => {
   const val = Math.floor(degree / 22.5 + 0.5);
   const arr = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
@@ -35,23 +33,23 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
   const zones = [
     {
       label: 'Outdoor',
-      t: useEntity('sensor.indoor_outdoor_meter_6287_temperature' as never) as unknown as BasicSensor,
-      h: useEntity('sensor.indoor_outdoor_meter_6287_humidity' as never) as unknown as BasicSensor,
+      t: useEntity('sensor.indoor_outdoor_meter_6287_temperature'),
+      h: useEntity('sensor.indoor_outdoor_meter_6287_humidity'),
     },
     {
       label: 'Indoor',
-      t: useEntity('sensor.indoor_outdoor_meter_0d29_temperature' as never) as unknown as BasicSensor,
-      h: useEntity('sensor.indoor_outdoor_meter_0d29_humidity' as never) as unknown as BasicSensor,
+      t: useEntity('sensor.indoor_outdoor_meter_0d29_temperature'),
+      h: useEntity('sensor.indoor_outdoor_meter_0d29_humidity'),
     },
     {
       label: 'Garage',
-      t: useEntity('sensor.garage_meter_temperature' as never) as unknown as BasicSensor,
-      h: useEntity('sensor.garage_meter_humidity' as never) as unknown as BasicSensor,
+      t: useEntity('sensor.garage_meter_temperature'),
+      h: useEntity('sensor.garage_meter_humidity'),
     },
     {
       label: 'Basement',
-      t: useEntity('sensor.indoor_outdoor_meter_4f23_temperature' as never) as unknown as BasicSensor,
-      h: useEntity('sensor.indoor_outdoor_meter_4f23_humidity' as never) as unknown as BasicSensor,
+      t: useEntity('sensor.indoor_outdoor_meter_4f23_temperature'),
+      h: useEntity('sensor.indoor_outdoor_meter_4f23_humidity'),
     },
   ];
 
