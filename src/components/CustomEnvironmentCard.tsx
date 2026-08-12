@@ -3,6 +3,7 @@ import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/MainDashboard.styles';
 import { CelestialArch } from './CelestialArch.tsx';
+import { accent, ink, slate, sun } from '../styles/tokens';
 
 interface Flight {
   id: string;
@@ -104,11 +105,11 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
           >
             {activeFlights.map(flight => (
               <div key={flight.id} style={{ display: 'flex', alignItems: 'center' }}>
-                <Icon icon='mdi:airplane' style={{ fontSize: '11px', transform: 'rotate(90deg)', color: 'rgba(255, 255, 255, 0.6)' }} />
+                <Icon icon='mdi:airplane' style={{ fontSize: '11px', transform: 'rotate(90deg)', color: ink.secondary }} />
                 <span style={{ marginLeft: '6px', fontSize: '9px', fontWeight: 'bold', color: 'rgba(255, 255, 255, 0.9)' }}>
                   {flight.callsign} ({flight.model}) {/* Added Model Here */}
                 </span>
-                <span style={{ marginLeft: '4px', fontSize: '9px', color: 'rgba(255, 255, 255, 0.6)' }}>
+                <span style={{ marginLeft: '4px', fontSize: '9px', color: ink.secondary }}>
                   {flight.from} ➔ {flight.to}
                 </span>
               </div>
@@ -120,10 +121,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
       {/* 2. TOP ROW */}
       <div style={styles.envTopRowStyle}>
         <div style={styles.envWeatherGroupStyle}>
-          <Icon
-            icon={getWeatherIcon(weather.state)}
-            style={{ fontSize: '48px', color: weather.state === 'sunny' ? '#ffeb3b' : '#03a9f4' }}
-          />
+          <Icon icon={getWeatherIcon(weather.state)} style={{ fontSize: '48px', color: weather.state === 'sunny' ? sun : accent }} />
           <div>
             <div style={styles.envTempStyle}>{Math.round(Number(weather.attributes.temperature))}°C</div>
             <div style={styles.envStateStyle}>{weather.state}</div>
@@ -135,7 +133,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
         <div style={styles.envStatsContainerStyle}>
           <div style={{ ...styles.envStatRowStyle, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
             <Icon icon='mdi:sun-wireless' style={styles.envSmallIconStyle} />
-            <span style={{ color: '#b0bec5' }}>UV:</span> <span style={styles.envStatValueStyle}>{uv.state}</span>
+            <span style={{ color: slate }}>UV:</span> <span style={styles.envStatValueStyle}>{uv.state}</span>
           </div>
           <div
             style={{
@@ -160,7 +158,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
                 transition: 'transform 0.5s ease',
               }}
             />
-            <span style={{ color: '#b0bec5' }}>Wind:</span>
+            <span style={{ color: slate }}>Wind:</span>
             <span style={styles.envStatValueStyle}>
               {Math.round(Number(windSpeed.state))}{' '}
               {windMode === 'cardinal' ? getCardinalDirection(Number(windDir.state) || 0) : `${Math.round(Number(windDir.state))}°`}
@@ -168,7 +166,7 @@ export const CustomEnvironmentCard = ({ onClick }: { onClick: () => void }) => {
           </div>
           <div style={{ ...styles.envStatRowStyle, display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '4px' }}>
             <Icon icon='mdi:thermometer-lines' style={styles.envSmallIconStyle} />
-            <span style={{ color: '#b0bec5' }}>Feels:</span>{' '}
+            <span style={{ color: slate }}>Feels:</span>{' '}
             <span style={styles.envStatValueStyle}>{Math.round(Number(feelsLike.state))}°</span>
           </div>
         </div>

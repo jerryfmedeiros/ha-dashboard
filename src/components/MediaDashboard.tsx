@@ -5,6 +5,7 @@ import { Icon } from '@iconify/react';
 import Keyboard from 'react-simple-keyboard';
 import 'react-simple-keyboard/build/css/index.css';
 import * as S from '../styles/MediaDashboard.styles';
+import { danger, fill, ink } from '../styles/tokens';
 
 // --- CONFIG ---
 const MASS_URL = (import.meta.env.VITE_MASS_API_URL as string) || '/mass-api';
@@ -95,7 +96,7 @@ const SpeakerCard = ({ entityId, isTarget, onSelect }: { entityId: EntityName; i
           style={{
             fontSize: '0.75rem',
             fontWeight: 600,
-            color: '#fff',
+            color: ink.primary,
             whiteSpace: 'nowrap',
             overflow: 'hidden',
             textOverflow: 'ellipsis',
@@ -465,7 +466,7 @@ export function MediaDashboard() {
             style={S.headerStyles.partyToggle(showKeyboard)}
             title='Start Party Mode'
           >
-            <Icon icon='mdi:party-popper' style={{ fontSize: '1.4rem', color: '#fff' }} />
+            <Icon icon='mdi:party-popper' style={{ fontSize: '1.4rem', color: ink.primary }} />
           </div>
 
           <div
@@ -473,7 +474,7 @@ export function MediaDashboard() {
             style={S.headerStyles.partyToggle(showKeyboard)}
             title='Open YouTube'
           >
-            <Icon icon='mdi:youtube' style={{ fontSize: '1.6rem', color: '#ff0000' }} />
+            <Icon icon='mdi:youtube' style={{ fontSize: '1.6rem', color: danger }} />
           </div>
 
           <div style={S.headerStyles.searchBox(showKeyboard)}>
@@ -701,8 +702,8 @@ export function MediaDashboard() {
                     style={{
                       padding: '4px 10px',
                       borderRadius: '4px',
-                      background: 'rgba(255,255,255,0.1)',
-                      color: '#fff',
+                      background: fill.hover,
+                      color: ink.primary,
                       fontSize: '0.7rem',
                       fontWeight: 700,
                       border: 'none',

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useEntity, useService } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { ControlSlider } from '@hakit/components';
+import { fill, ink, success } from '../styles/tokens';
 
 export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
   const entity = useEntity(entityId);
@@ -93,8 +94,8 @@ export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
               minWidth: 0,
               margin: 0,
               padding: 0,
-              backgroundColor: 'rgba(255, 255, 255, 0.04)', // FROSTED GLASS
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backgroundColor: fill.subtle, // FROSTED GLASS
+              border: `1px solid ${fill.hairline}`,
               boxSizing: 'border-box',
             }}
           />
@@ -106,8 +107,8 @@ export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
               width: '100%',
               height: '100%',
               borderRadius: 14, // SHRUNK rounding
-              backgroundColor: isOff ? 'rgba(255, 255, 255, 0.04)' : 'rgba(255, 255, 255, 0.15)', // FROSTED GLASS
-              border: '1px solid rgba(255, 255, 255, 0.05)',
+              backgroundColor: isOff ? fill.subtle : fill.bright, // FROSTED GLASS
+              border: `1px solid ${fill.hairline}`,
               boxSizing: 'border-box',
               cursor: 'pointer',
               transition: 'background-color 0.2s ease',
@@ -128,7 +129,7 @@ export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
             alignItems: 'center',
             padding: '0 12px',
             pointerEvents: 'none',
-            color: isOff ? '#888' : '#fff',
+            color: isOff ? '#888' : ink.primary,
             fontSize: '0.8rem',
             fontWeight: 600,
             textShadow: isOff ? 'none' : '0 1px 3px rgba(0,0,0,0.5)',
@@ -148,7 +149,7 @@ export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
           width: '32px',
           height: '18px',
           borderRadius: '9px',
-          backgroundColor: isOff ? 'rgba(255, 255, 255, 0.1)' : '#4caf50',
+          backgroundColor: isOff ? fill.hover : success,
           position: 'relative',
           cursor: 'pointer',
           flexShrink: 0,
@@ -163,7 +164,7 @@ export function LightSliderRow({ entity: entityId }: { entity: EntityName }) {
             width: '14px',
             height: '14px',
             borderRadius: '50%',
-            backgroundColor: '#fff',
+            backgroundColor: ink.primary,
             transition: 'left 0.2s ease',
             boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
           }}

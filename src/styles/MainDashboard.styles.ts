@@ -1,13 +1,6 @@
 import React, { type CSSProperties } from 'react';
+import { accent, danger, fill, ink, night, shade, slate, warning } from './tokens';
 
-export const THEME = {
-  bg: '#0b0d14', // Deep futuristic slate
-  glassBg: 'rgba(255, 255, 255, 0.03)',
-  glassBorder: 'rgba(255, 255, 255, 0.08)',
-  textMain: '#ffffff',
-  textSub: '#8b949e',
-  accent: '#3b82f6', // Modern Blue
-};
 // --- MAIN LAYOUT ---
 export const containerStyle: React.CSSProperties = {
   width: '100%',
@@ -22,7 +15,7 @@ export const containerStyle: React.CSSProperties = {
 };
 
 export const glassCardStyle: React.CSSProperties = {
-  backgroundColor: 'rgba(255, 255, 255, 0.06)', // Changed from dark slate to milky white
+  backgroundColor: fill.soft, // Changed from dark slate to milky white
   backdropFilter: 'blur(24px)',
   WebkitBackdropFilter: 'blur(24px)',
   borderRadius: '24px',
@@ -105,7 +98,7 @@ export const modalOverlayStyle: React.CSSProperties = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  backgroundColor: shade.scrim,
   zIndex: 9999,
   display: 'flex',
   justifyContent: 'center',
@@ -118,7 +111,7 @@ export const modalContentStyle: React.CSSProperties = {
   backdropFilter: 'blur(32px)',
   WebkitBackdropFilter: 'blur(32px)',
   borderRadius: '28px',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
+  border: `1px solid ${fill.hairline}`,
   borderTop: '1px solid rgba(255, 255, 255, 0.12)',
   boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
   padding: '2rem',
@@ -231,9 +224,9 @@ export const globalAnimationStyles = `
     backdrop-filter: blur(24px) !important;
     -webkit-backdrop-filter: blur(24px) !important;
     border-radius: 24px !important;
-    border: 1px solid rgba(255, 255, 255, 0.04) !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important; /* Nice top highlight */
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important; /* Deeper drop shadow */
+    border: 1px solid ${fill.subtle} !important;
+    border-top: 1px solid ${fill.hover} !important; /* Nice top highlight */
+    box-shadow: 0 10px 30px ${shade.heavy} !important; /* Deeper drop shadow */
     transition: background-color 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
   }
 
@@ -247,9 +240,9 @@ export const globalAnimationStyles = `
   }
   .night-mode .glass-card {
     background-color: rgba(60, 0, 0, 0.6) !important;
-    border-color: rgba(255, 0, 0, 0.1) !important;
-    border-top-color: rgba(255, 0, 0, 0.2) !important;
-    box-shadow: 0 10px 30px rgba(255, 0, 0, 0.05) !important;
+    border-color: ${night.fill} !important;
+    border-top-color: ${night.border} !important;
+    box-shadow: 0 10px 30px ${night.wash} !important;
   }
 `;
 
@@ -315,14 +308,14 @@ export const envTempStyle: React.CSSProperties = {
 
 export const envStateStyle: React.CSSProperties = {
   fontSize: '0.9rem',
-  color: '#b0bec5',
+  color: slate,
   textTransform: 'capitalize',
 };
 
 export const envStatsContainerStyle: React.CSSProperties = {
   textAlign: 'right',
   fontSize: '0.8rem',
-  color: '#b0bec5',
+  color: slate,
   lineHeight: '1.4',
   display: 'flex',
   flexDirection: 'column',
@@ -331,13 +324,13 @@ export const envStatsContainerStyle: React.CSSProperties = {
 };
 
 export const envStatValueStyle: React.CSSProperties = {
-  color: '#fff',
+  color: ink.primary,
   fontWeight: 600,
 };
 
 export const envDividerStyle: React.CSSProperties = {
   height: '1px',
-  backgroundColor: 'rgba(255,255,255,0.05)',
+  backgroundColor: fill.hairline,
   margin: '12px 0',
 };
 
@@ -353,15 +346,15 @@ export const envZoneItemStyle: React.CSSProperties = {
   flexDirection: 'column',
   justifyContent: 'center',
   padding: '12px 14px', // Increased padding to give the larger text some breathing room
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
-  border: '1px solid rgba(255, 255, 255, 0.02)',
+  backgroundColor: shade.deep,
+  border: `1px solid ${fill.faint}`,
   borderRadius: '16px',
   boxShadow: 'none',
 };
 
 export const envZoneLabelStyle: React.CSSProperties = {
   fontSize: '.95rem',
-  color: '#b0bec5',
+  color: slate,
   fontWeight: 700,
   textTransform: 'uppercase',
   marginBottom: '2px',
@@ -376,7 +369,7 @@ export const envZoneValueStyle: React.CSSProperties = {
 
 export const envZoneHumidityStyle: React.CSSProperties = {
   fontSize: '1.1rem', // Made slightly smaller than the temp so they don't visually compete
-  color: '#03a9f4',
+  color: accent,
   marginLeft: '8px', // Increased spacing between Temp and Humidity
   fontWeight: 800,
 };
@@ -387,7 +380,7 @@ export const weatherSummaryStyle: React.CSSProperties = {
   marginBottom: '1.5rem',
   lineHeight: '1.5',
   padding: '1.2rem 1.5rem',
-  backgroundColor: 'rgba(255, 255, 255, 0.04)',
+  backgroundColor: fill.subtle,
   borderRadius: '16px',
   border: '1px solid var(--ha-divider-color, rgba(255, 255, 255, 0.1))',
 };
@@ -397,12 +390,12 @@ export const envStatRowStyle: React.CSSProperties = {
   alignItems: 'center',
   gap: '6px',
   fontSize: '0.8rem',
-  color: 'rgba(255,255,255,0.7)',
+  color: ink.strong,
 };
 
 export const envSmallIconStyle: React.CSSProperties = {
   fontSize: '1rem',
-  color: 'rgba(255,255,255,0.4)',
+  color: ink.muted,
 };
 
 // --- CLOCK ---
@@ -417,7 +410,7 @@ export const clockContainerStyle: React.CSSProperties = {
 
 export const clockIconStyle: React.CSSProperties = {
   fontSize: '2.8rem',
-  color: '#03a9f4', // That signature blue from your sidebar
+  color: accent, // That signature blue from your sidebar
   filter: 'drop-shadow(0 0 10px rgba(3, 169, 244, 0.3))',
 };
 
@@ -425,19 +418,19 @@ export const clockTimeStyle: React.CSSProperties = {
   fontSize: '2.2rem',
   fontWeight: 900,
   lineHeight: 1,
-  color: '#fff',
+  color: ink.primary,
 };
 
 export const clockAmPmStyle: React.CSSProperties = {
   fontSize: '1rem',
   fontWeight: 600,
-  color: 'rgba(255,255,255,0.4)',
+  color: ink.muted,
 };
 
 export const clockDateStyle: React.CSSProperties = {
   fontSize: '0.85rem',
   fontWeight: 600,
-  color: 'rgba(255,255,255,0.6)',
+  color: ink.secondary,
   marginTop: '4px',
 };
 
@@ -472,7 +465,7 @@ export const climateIconWrapperStyle: React.CSSProperties = {
 export const climateTitleStyle: React.CSSProperties = {
   fontSize: '0.9rem',
   fontWeight: 800,
-  color: '#fff',
+  color: ink.primary,
 };
 
 export const climateStatusContainerStyle: React.CSSProperties = {
@@ -485,13 +478,13 @@ export const climateStatusContainerStyle: React.CSSProperties = {
 export const climateCurrentValueStyle: React.CSSProperties = {
   fontSize: '1.4rem', // Matches your massive new Environment card numbers
   fontWeight: 900,
-  color: '#ffffff',
+  color: ink.primary,
 };
 
 export const climateTargetLabelStyle: React.CSSProperties = {
   fontSize: '0.8rem',
   fontWeight: 700,
-  color: 'rgba(255,255,255,0.4)', // Muted gray so it doesn't distract
+  color: ink.muted, // Muted gray so it doesn't distract
   textTransform: 'uppercase',
   marginLeft: '4px',
 };
@@ -499,7 +492,7 @@ export const climateTargetLabelStyle: React.CSSProperties = {
 export const climateTargetValueStyle: React.CSSProperties = {
   fontSize: '1.4rem', // Massive size
   fontWeight: 900,
-  color: '#ff9800', // Signature Nest Orange
+  color: warning, // Signature Nest Orange
 };
 
 export const climateControlRowStyle: React.CSSProperties = {
@@ -516,9 +509,9 @@ export const getClimateButtonStyle = (active: boolean, color: string): React.CSS
   borderRadius: '12px',
   cursor: 'pointer',
   transition: 'all 0.2s ease',
-  backgroundColor: active ? `${color}33` : 'rgba(0, 0, 0, 0.25)',
-  border: active ? `1px solid ${color}80` : '1px solid rgba(255, 255, 255, 0.02)',
-  color: active ? color : 'rgba(255,255,255,0.4)',
+  backgroundColor: active ? `${color}33` : shade.deep,
+  border: active ? `1px solid ${color}80` : `1px solid ${fill.faint}`,
+  color: active ? color : ink.muted,
 });
 // ==========================================
 // FULLSCREEN CAMERA MODAL STYLES
@@ -529,7 +522,7 @@ export const cameraModalOverlayStyle: React.CSSProperties = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  backgroundColor: shade.scrim,
   backdropFilter: 'blur(10px)',
   display: 'flex',
   alignItems: 'center',
@@ -554,8 +547,8 @@ export const cameraCloseButtonStyle: React.CSSProperties = {
   width: '40px',
   height: '40px',
   borderRadius: '50%',
-  backgroundColor: '#f44336',
-  color: '#ffffff',
+  backgroundColor: danger,
+  color: ink.primary,
   border: '2px solid #2c2c2e',
   display: 'flex',
   alignItems: 'center',
@@ -589,13 +582,13 @@ export const planeContainerStyle = (index: number): CSSProperties => ({
 export const planeIconStyle: CSSProperties = {
   fontSize: '12px',
   transform: 'rotate(90deg)',
-  color: 'rgba(255, 255, 255, 0.3)',
+  color: ink.faint,
 };
 
 export const planeInfoStyle: CSSProperties = {
   marginLeft: '6px',
   fontSize: '8px',
-  color: 'rgba(255, 255, 255, 0.4)',
+  color: ink.muted,
   whiteSpace: 'nowrap',
 };
 

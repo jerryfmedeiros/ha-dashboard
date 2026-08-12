@@ -1,4 +1,5 @@
 import React from 'react';
+import { accent, danger, fill, ink, shade, slate } from './tokens';
 
 // --- MAIN LAYOUT ---
 export const containerStyle: React.CSSProperties = {
@@ -20,7 +21,7 @@ export const headerContainerStyle: React.CSSProperties = {
 export const headerSubtitleStyle: React.CSSProperties = {
   fontSize: '0.7rem', // Slightly smaller
   fontWeight: 800,
-  color: '#03a9f4',
+  color: accent,
   textTransform: 'uppercase',
   letterSpacing: '1px',
 };
@@ -28,7 +29,7 @@ export const headerSubtitleStyle: React.CSSProperties = {
 export const headerTitleStyle: React.CSSProperties = {
   fontSize: '1.6rem', // Scaled down from 1.8rem
   fontWeight: 900,
-  color: '#ffffff',
+  color: ink.primary,
   textTransform: 'uppercase',
   lineHeight: '1.1',
 };
@@ -53,7 +54,7 @@ export const columnStyle: React.CSSProperties = {
 export const columnTitleStyle: React.CSSProperties = {
   fontSize: '0.8rem',
   fontWeight: 800,
-  color: 'rgba(255,255,255,0.6)',
+  color: ink.secondary,
   textTransform: 'uppercase',
   letterSpacing: '0.5px',
   marginBottom: '0.2rem', // Tighter spacing under the title
@@ -87,7 +88,7 @@ export const dataRowWrapperStyle: React.CSSProperties = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '5px 10px', // Tighter top/bottom padding on the rows
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  backgroundColor: shade.deep,
   border: '1px solid rgba(255, 255, 255, 0.02)',
   borderRadius: '10px',
   boxSizing: 'border-box',
@@ -107,14 +108,14 @@ export const iconStyle: React.CSSProperties = {
 
 export const nameStyle: React.CSSProperties = {
   fontSize: '0.75rem',
-  color: '#b0bec5',
+  color: slate,
   fontWeight: 600,
 };
 
 export const valueStyle: React.CSSProperties = {
   fontSize: '0.8rem',
   fontWeight: 800,
-  color: '#fff',
+  color: ink.primary,
 };
 
 // --- SLIDER SPECIFIC ---
@@ -134,7 +135,7 @@ export const sliderHeaderStyle: React.CSSProperties = {
 export const sliderInputStyle: React.CSSProperties = {
   width: '100%',
   margin: 0,
-  accentColor: '#03a9f4',
+  accentColor: accent,
   cursor: 'pointer',
 };
 
@@ -152,7 +153,7 @@ export const buttonFlex1Style: React.CSSProperties = {
 export const buttonTitleStyle: React.CSSProperties = {
   fontSize: '0.8rem',
   fontWeight: 700,
-  color: '#fff',
+  color: ink.primary,
 };
 
 export const getActionButtonStyle = (color: string): React.CSSProperties => ({
@@ -173,7 +174,7 @@ export const getActionButtonStyle = (color: string): React.CSSProperties => ({
 // --- MISC ---
 export const catNameStyle: React.CSSProperties = {
   fontSize: '0.75rem',
-  color: 'rgba(255,255,255,0.7)', // Softened the label color
+  color: ink.strong, // Softened the label color
   fontWeight: 800,
   textTransform: 'uppercase',
   paddingLeft: '4px',
@@ -183,7 +184,7 @@ export const catNameStyle: React.CSSProperties = {
 
 export const dividerStyle: React.CSSProperties = {
   height: '1px',
-  background: 'rgba(255,255,255,0.05)',
+  background: fill.hairline,
   margin: '4px 0', // Reduced divider spacing
 };
 
@@ -193,7 +194,7 @@ export const modalOverlayStyle: React.CSSProperties = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  backgroundColor: shade.scrim,
   backdropFilter: 'blur(10px)',
   display: 'flex',
   alignItems: 'center',
@@ -218,8 +219,8 @@ export const closeButtonStyle: React.CSSProperties = {
   width: '40px',
   height: '40px',
   borderRadius: '50%',
-  backgroundColor: '#f44336',
-  color: '#ffffff',
+  backgroundColor: danger,
+  color: ink.primary,
   border: '2px solid #2c2c2e',
   display: 'flex',
   alignItems: 'center',

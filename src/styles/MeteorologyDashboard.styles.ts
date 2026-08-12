@@ -1,4 +1,5 @@
 import React from 'react';
+import { fill, ink } from './tokens';
 
 export const containerStyle: React.CSSProperties = {
   width: '100%',
@@ -31,7 +32,7 @@ export const mainGridStyle: React.CSSProperties = {
 export const sectionHeaderStyle: React.CSSProperties = {
   fontSize: '0.65rem',
   fontWeight: 900,
-  color: 'rgba(255,255,255,0.4)',
+  color: ink.muted,
   textTransform: 'uppercase',
   letterSpacing: '1.5px',
   marginBottom: '0.2rem',
@@ -64,7 +65,7 @@ export const tendencyRowStyle: React.CSSProperties = {
   gap: '4px',
   marginTop: '6px',
   paddingTop: '5px',
-  borderTop: '1px solid rgba(255,255,255,0.05)',
+  borderTop: `1px solid ${fill.hairline}`,
 };
 
 export const tendencyLabelStyle: React.CSSProperties = {

@@ -3,6 +3,7 @@ import { useEntity, useHass } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from './MetricUi.tsx';
 import * as styles from '../styles/AstroDashboard.styles';
+import { accent, alpha, danger, fill, ink, muted, success, violet, warning } from '../styles/tokens';
 
 // 1. Made all properties optional (?) to satisfy the compiler
 interface AstroWeatherAttributes {
@@ -33,7 +34,7 @@ export function AstroDashboard() {
   const conditionPercent = attrs.condition_percentage || 0;
 
   const THEME = isNightMode ? styles.nightModeTheme : styles.defaultTheme;
-  const statusColor = isNightMode ? '#ff4444' : conditionText.toLowerCase().includes('excellent') ? '#4caf50' : '#ffc107';
+  const statusColor = isNightMode ? danger : conditionText.toLowerCase().includes('excellent') ? success : warning;
 
   // Helper for date formatting
   const nextDarkDate = attrs.moon_next_dark_night
@@ -55,7 +56,7 @@ export function AstroDashboard() {
         <div
           onClick={() => setIsNightMode(!isNightMode)}
           style={{
-            backgroundColor: isNightMode ? 'rgba(255, 68, 68, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+            backgroundColor: isNightMode ? alpha(danger, 0.2) : fill.hairline,
             border: `1px solid ${THEME.accent}`,
             padding: '8px 16px',
             borderRadius: '12px',
@@ -79,7 +80,7 @@ export function AstroDashboard() {
               borderRadius: '20px',
               overflow: 'hidden',
               backgroundColor: '#000',
-              border: isNightMode ? '2px solid #ff4444' : '1px solid rgba(255,255,255,0.05)',
+              border: isNightMode ? `2px solid ${danger}` : `1px solid ${fill.hairline}`,
               boxShadow: isNightMode ? '0 0 20px rgba(255, 68, 68, 0.1)' : 'none',
             }}
           >
@@ -105,14 +106,14 @@ export function AstroDashboard() {
                 icon='mdi:weather-night'
                 label='Tonight'
                 value={attrs.deepsky_forecast_today_plain || 'Fair'}
-                color='#9c27b0'
+                color={violet}
                 nightMode={isNightMode}
               />
-              <BigMetric icon='mdi:cloud-percent' label='Clouds' value={`${cloudSensor.state}%`} color='#8e8e93' nightMode={isNightMode} />
+              <BigMetric icon='mdi:cloud-percent' label='Clouds' value={`${cloudSensor.state}%`} color={muted} nightMode={isNightMode} />
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <BigMetric icon='mdi:eye-outline' label='Seeing' value={attrs.seeing || '--'} color='#4caf50' nightMode={isNightMode} />
-              <BigMetric icon='mdi:blur' label='Transp.' value={attrs.transparency || '--'} color='#ffc107' nightMode={isNightMode} />
+              <BigMetric icon='mdi:eye-outline' label='Seeing' value={attrs.seeing || '--'} color={success} nightMode={isNightMode} />
+              <BigMetric icon='mdi:blur' label='Transp.' value={attrs.transparency || '--'} color={warning} nightMode={isNightMode} />
             </div>
           </GlassCard>
 
@@ -122,27 +123,27 @@ export function AstroDashboard() {
                 icon='mdi:moon-waning-gibbous'
                 label='Phase'
                 value={`${attrs.moon_phase || 0}%`}
-                color='#03a9f4'
+                color={accent}
                 nightMode={isNightMode}
               />
               <BigMetric
                 icon='mdi:format-vertical-align-top'
                 label='Altitude'
                 value={`${Math.round(Number(moonAlt.state))}°`}
-                color='#ff9800'
+                color={warning}
                 nightMode={isNightMode}
               />
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
-              <BigMetric icon='mdi:aurora' label='Aurora' value={`${aurora.state}%`} color='#4caf50' nightMode={isNightMode} />
-              <BigMetric icon='mdi:calendar-star' label='Next Dark' value={nextDarkDate} color='#9c27b0' nightMode={isNightMode} />
+              <BigMetric icon='mdi:aurora' label='Aurora' value={`${aurora.state}%`} color={success} nightMode={isNightMode} />
+              <BigMetric icon='mdi:calendar-star' label='Next Dark' value={nextDarkDate} color={violet} nightMode={isNightMode} />
             </div>
           </GlassCard>
 
           {Number(cloudSensor.state) < 20 && (
             <div
               style={{
-                backgroundColor: isNightMode ? 'rgba(255, 68, 68, 0.1)' : 'rgba(76, 175, 80, 0.1)',
+                backgroundColor: isNightMode ? alpha(danger, 0.1) : alpha(success, 0.1),
                 padding: '12px',
                 borderRadius: '12px',
                 border: `1px dashed ${THEME.accent}`,
@@ -152,7 +153,7 @@ export function AstroDashboard() {
               }}
             >
               <Icon icon='mdi:telescope' style={{ color: THEME.accent, fontSize: '1.5rem' }} />
-              <span style={{ fontSize: '0.7rem', fontWeight: 800, color: isNightMode ? '#ff4444' : '#fff' }}>
+              <span style={{ fontSize: '0.7rem', fontWeight: 800, color: isNightMode ? danger : ink.primary }}>
                 CLEAR SKIES DETECTED. PREPARE MOUNT.
               </span>
             </div>

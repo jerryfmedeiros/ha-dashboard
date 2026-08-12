@@ -1,6 +1,7 @@
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/HouseOperations.styles';
+import { accent, gold, heat, ink, muted, success } from '../styles/tokens';
 
 interface HouseOperationsWidgetProps {
   onClick: () => void;
@@ -23,9 +24,9 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
   const numGreen = !isNaN(Number(greenDays.state)) ? Number(greenDays.state) : 999;
 
   const allCarts = [
-    { name: 'Waste', icon: 'mdi:trash-can', days: numBlack, color: '#9e9e9e' },
+    { name: 'Waste', icon: 'mdi:trash-can', days: numBlack, color: muted },
     { name: 'Recycle', icon: 'mdi:recycle', days: numBlue, color: '#2196f3' },
-    { name: 'Organic', icon: 'mdi:leaf', days: numGreen, color: '#4caf50' },
+    { name: 'Organic', icon: 'mdi:leaf', days: numGreen, color: success },
   ];
 
   allCarts.sort((a, b) => a.days - b.days);
@@ -67,7 +68,7 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
               icon='mdi:flash'
               style={{
                 fontSize: iconSize,
-                color: '#FFD700',
+                color: gold,
                 animation: isElecActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
               }}
             />
@@ -83,7 +84,7 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
               icon='mdi:water'
               style={{
                 fontSize: iconSize,
-                color: '#00d4ff',
+                color: accent,
                 animation: isWaterActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
               }}
             />
@@ -99,7 +100,7 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
               icon='mdi:fire'
               style={{
                 fontSize: iconSize,
-                color: '#ff5722',
+                color: heat,
                 animation: isGasActive ? 'utility-pulse 2s infinite ease-in-out' : 'none',
               }}
             />
@@ -121,9 +122,9 @@ export function HouseOperationsWidget({ onClick }: HouseOperationsWidgetProps) {
 
           return (
             <div key={cart.name} style={styles.getGarbagePillStyle(cart.color, isUrgent)}>
-              <Icon icon={cart.icon} style={{ fontSize: '1.4rem', color: isUrgent ? '#fff' : cart.color }} />
-              <span style={{ fontSize: '0.95rem', color: '#fff', fontWeight: 800 }}>
-                {cart.name} <span style={{ color: 'rgba(255,255,255,0.5)', fontWeight: 600 }}>• {timeText}</span>
+              <Icon icon={cart.icon} style={{ fontSize: '1.4rem', color: isUrgent ? ink.primary : cart.color }} />
+              <span style={{ fontSize: '0.95rem', color: ink.primary, fontWeight: 800 }}>
+                {cart.name} <span style={{ color: ink.half, fontWeight: 600 }}>• {timeText}</span>
               </span>
             </div>
           );

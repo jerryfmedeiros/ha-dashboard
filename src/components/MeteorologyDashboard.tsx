@@ -5,6 +5,7 @@ import { AreaChart, Area, ResponsiveContainer, YAxis } from 'recharts';
 import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from './MetricUi.tsx';
 import * as styles from '../styles/MeteorologyDashboard.styles';
+import { accent, alpha, cool, danger, frost, heat, ink, night, success, sun, violet, warning } from '../styles/tokens';
 
 const formatRawValue = (value: string | undefined | null, decimals = 1) => {
   if (value === undefined || value === null || value === 'unknown' || value === 'unavailable') return undefined;
@@ -21,11 +22,11 @@ const getCardinalDirection = (degree: number) => {
 
 // WHO UV index exposure bands. A bare number is not actionable; the band is.
 const getUvBand = (uv: number) => {
-  if (uv < 3) return { label: 'LOW', color: '#4caf50' };
-  if (uv < 6) return { label: 'MODERATE', color: '#ffeb3b' };
-  if (uv < 8) return { label: 'HIGH', color: '#ff9800' };
-  if (uv < 11) return { label: 'VERY HIGH', color: '#f44336' };
-  return { label: 'EXTREME', color: '#9c27b0' };
+  if (uv < 3) return { label: 'LOW', color: success };
+  if (uv < 6) return { label: 'MODERATE', color: sun };
+  if (uv < 8) return { label: 'HIGH', color: warning };
+  if (uv < 11) return { label: 'VERY HIGH', color: danger };
+  return { label: 'EXTREME', color: violet };
 };
 
 // Standard 3-hour barometric tendency. Direction matters far more than the
@@ -33,9 +34,9 @@ const getUvBand = (uv: number) => {
 const PRESSURE_WINDOW_MS = 3 * 60 * 60 * 1000;
 
 const getPressureTendency = (delta: number) => {
-  if (delta <= -2) return { label: 'FALLING FAST', icon: 'mdi:chevron-double-down', color: '#f44336' };
-  if (delta <= -0.5) return { label: 'FALLING', icon: 'mdi:chevron-down', color: '#ff9800' };
-  if (delta >= 2) return { label: 'RISING FAST', icon: 'mdi:chevron-double-up', color: '#4caf50' };
+  if (delta <= -2) return { label: 'FALLING FAST', icon: 'mdi:chevron-double-down', color: danger };
+  if (delta <= -0.5) return { label: 'FALLING', icon: 'mdi:chevron-down', color: warning };
+  if (delta >= 2) return { label: 'RISING FAST', icon: 'mdi:chevron-double-up', color: success };
   if (delta >= 0.5) return { label: 'RISING', icon: 'mdi:chevron-up', color: '#8bc34a' };
   return { label: 'STEADY', icon: 'mdi:minus', color: '#90a4ae' };
 };
@@ -98,7 +99,7 @@ const SparklineChart = ({
           alignItems: 'center',
           justifyContent: 'center',
           fontSize: '0.5rem',
-          color: 'rgba(255,255,255,0.2)',
+          color: ink.ghost,
         }}
       >
         {historyData.loading ? 'Gathering history...' : 'No trend data'}
@@ -209,27 +210,23 @@ export function MeteorologyDashboard() {
           100% { transform: rotate(-10deg); }
         }
         @keyframes pulse-rain {
-          0% { box-shadow: 0 0 5px rgba(0, 188, 212, 0.2); }
-          50% { box-shadow: 0 0 20px rgba(0, 188, 212, 0.6); }
-          100% { box-shadow: 0 0 5px rgba(0, 188, 212, 0.2); }
+          0% { box-shadow: 0 0 5px ${alpha(cool, 0.2)}; }
+          50% { box-shadow: 0 0 20px ${alpha(cool, 0.6)}; }
+          100% { box-shadow: 0 0 5px ${alpha(cool, 0.2)}; }
         }
         /* Namespaced: 'alert-pulse' is already taken by MainDashboard.styles.ts
            with a different body, and @keyframes are global. */
         @keyframes weather-alert-pulse {
-          0% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
+          0% { opacity: 1; box-shadow: 0 0 10px ${night.border}; }
           50% { opacity: 0.8; box-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
-          100% { opacity: 1; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
+          100% { opacity: 1; box-shadow: 0 0 10px ${night.border}; }
         }
       `}</style>
 
       <div style={styles.headerStyle}>
         <div>
-          <div style={{ fontSize: '0.65rem', fontWeight: 800, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase' }}>
-            Meteorological Station
-          </div>
-          <div style={{ fontSize: '1.6rem', fontWeight: 900, color: '#03a9f4', textTransform: 'uppercase', lineHeight: 1 }}>
-            Weather & Sky
-          </div>
+          <div style={{ fontSize: '0.65rem', fontWeight: 800, color: ink.muted, textTransform: 'uppercase' }}>Meteorological Station</div>
+          <div style={{ fontSize: '1.6rem', fontWeight: 900, color: accent, textTransform: 'uppercase', lineHeight: 1 }}>Weather & Sky</div>
         </div>
       </div>
 
@@ -237,12 +234,12 @@ export function MeteorologyDashboard() {
       {hasAlert && (
         <div
           style={{
-            backgroundColor: 'rgba(255, 0, 0, 0.1)',
+            backgroundColor: night.fill,
             border: '1px solid rgba(255, 68, 68, 0.5)',
             borderRadius: '12px',
             padding: '8px 16px',
             marginBottom: '12px',
-            color: '#ff4444',
+            color: danger,
             fontWeight: 800,
             textTransform: 'uppercase',
             fontSize: '0.8rem',
@@ -263,24 +260,12 @@ export function MeteorologyDashboard() {
           <div style={styles.sectionHeaderStyle}>Current Conditions</div>
           <GlassCard title='Atmosphere'>
             <div style={styles.cardGridStyle}>
-              <BigMetric icon='mdi:thermometer' label='Temp' value={formatRawValue(temp.state, 1)} unit='°C' color='#ff9800' />
-              <BigMetric
-                icon='mdi:account-question'
-                label='Feels Like'
-                value={formatRawValue(feelsLike.state, 1)}
-                unit='°C'
-                color='#ff5722'
-              />
-              <BigMetric icon='mdi:water-percent' label='Humidity' value={formatRawValue(humidity.state, 0)} unit='%' color='#03a9f4' />
-              <BigMetric
-                icon='mdi:thermometer-water'
-                label='Dew Point'
-                value={formatRawValue(dewPoint.state, 1)}
-                unit='°C'
-                color='#00bcd4'
-              />
+              <BigMetric icon='mdi:thermometer' label='Temp' value={formatRawValue(temp.state, 1)} unit='°C' color={warning} />
+              <BigMetric icon='mdi:account-question' label='Feels Like' value={formatRawValue(feelsLike.state, 1)} unit='°C' color={heat} />
+              <BigMetric icon='mdi:water-percent' label='Humidity' value={formatRawValue(humidity.state, 0)} unit='%' color={accent} />
+              <BigMetric icon='mdi:thermometer-water' label='Dew Point' value={formatRawValue(dewPoint.state, 1)} unit='°C' color={cool} />
             </div>
-            <SparklineChart entityId='sensor.gw3000b_outdoor_temperature' color='#ff9800' height={140} />
+            <SparklineChart entityId='sensor.gw3000b_outdoor_temperature' color={warning} height={140} />
           </GlassCard>
 
           <div style={styles.sectionHeaderStyle}>Comfort</div>
@@ -291,7 +276,7 @@ export function MeteorologyDashboard() {
                 label='Wind Chill'
                 value={formatRawValue(windChill.state, 1)}
                 unit='°C'
-                color='#90caf9'
+                color={frost}
               />
               {/* Sensor reports hPa — do not relabel this kPa. */}
               <BigMetric icon='mdi:leaf' label='VPD' value={formatRawValue(vpd.state, 2)} unit='hPa' color='#8bc34a' />
@@ -310,7 +295,7 @@ export function MeteorologyDashboard() {
                 label='Speed'
                 value={formatRawValue(windSpeed.state, 1)}
                 unit='km/h'
-                color='#4caf50'
+                color={success}
               />
               <BigMetric
                 icon='mdi:navigation'
@@ -361,7 +346,7 @@ export function MeteorologyDashboard() {
                   label='Rain Rate'
                   value={formatRawValue(rainRate.state, 2)}
                   unit='mm/h'
-                  color='#00bcd4'
+                  color={cool}
                 />
                 <BigMetric
                   icon='mdi:clock-outline'
@@ -391,9 +376,9 @@ export function MeteorologyDashboard() {
                 label='Irradiance'
                 value={formatRawValue(solarRadiation.state, 0)}
                 unit='W/m²'
-                color='#ff9800'
+                color={warning}
               />
-              <BigMetric icon='mdi:brightness-5' label='Illuminance' value={formatRawValue(solarLux.state, 0)} unit='lx' color='#ffc107' />
+              <BigMetric icon='mdi:brightness-5' label='Illuminance' value={formatRawValue(solarLux.state, 0)} unit='lx' color={warning} />
             </div>
           </GlassCard>
         </div>

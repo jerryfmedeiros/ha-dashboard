@@ -12,6 +12,7 @@ import { Icon } from '@iconify/react';
 import { AutoDashboardController } from './components/AutoDashboardController.tsx';
 import { MediaDashboard } from './components/MediaDashboard.tsx';
 import { ConnectionStatus } from './components/ConnectionStatus.tsx';
+import { accent, alpha, fill, inactive } from './styles/tokens';
 
 export function App() {
   const [activeView, setActiveView] = useState('overview');
@@ -36,8 +37,8 @@ export function App() {
         <Column
           style={{
             width: '84px', // Slightly wider for a comfortable touch target
-            backgroundColor: 'rgba(255, 255, 255, 0.02)', // A very subtle lightness to separate it from the background
-            borderRight: '1px solid rgba(255, 255, 255, 0.05)',
+            backgroundColor: fill.faint, // A very subtle lightness to separate it from the background
+            borderRight: `1px solid ${fill.hairline}`,
             padding: '2rem 0',
             flexShrink: 0,
             display: 'flex',
@@ -71,8 +72,8 @@ export function App() {
                   width: '56px',
                   height: '56px',
                   borderRadius: '16px', // Sleek rounded square (Apple style)
-                  backgroundColor: isActive ? 'rgba(3, 169, 244, 0.15)' : 'transparent', // Glowing pill background when active
-                  color: isActive ? '#03a9f4' : '#71717a', // Bright blue when active, muted grey when inactive
+                  backgroundColor: isActive ? alpha(accent, 0.15) : 'transparent', // Glowing pill background when active
+                  color: isActive ? accent : inactive, // Bright blue when active, muted grey when inactive
                   transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
                 }}
               >

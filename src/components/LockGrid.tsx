@@ -2,6 +2,7 @@ import { useEntity } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import { GlassCard } from './MetricUi.tsx';
+import { alpha, danger, ink, shade, success } from '../styles/tokens';
 
 type SecurityEntity = `lock.${string}` | `cover.${string}`;
 
@@ -21,7 +22,7 @@ function CustomSecurityItem({ entityId }: { entityId: SecurityEntity }) {
   const domain = entityId.split('.')[0];
   // Consolidating both states into one "Secure" check
   const isSecure = domain === 'lock' ? entity.state === 'locked' : entity.state === 'closed';
-  const color = isSecure ? '#4caf50' : '#ff4444';
+  const color = isSecure ? success : danger;
 
   const toggleStatus = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -59,11 +60,11 @@ function CustomSecurityItem({ entityId }: { entityId: SecurityEntity }) {
         alignItems: 'center',
         justifyContent: 'center',
         padding: '16px 8px',
-        backgroundColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: shade.inset,
         borderRadius: '12px',
         cursor: 'pointer',
         gap: '8px',
-        border: `1px solid ${isSecure ? 'transparent' : 'rgba(255, 68, 68, 0.2)'}`,
+        border: `1px solid ${isSecure ? 'transparent' : alpha(danger, 0.2)}`,
         transition: 'all 0.3s ease',
       }}
     >
@@ -82,12 +83,14 @@ function CustomSecurityItem({ entityId }: { entityId: SecurityEntity }) {
         <Icon icon={getIcon()} style={{ fontSize: '1.6rem' }} />
       </div>
       <div style={{ textAlign: 'center' }}>
-        <div style={{ fontSize: '1.1rem', fontWeight: 900, color: '#fff', textTransform: 'uppercase', lineHeight: 1 }}>{entity.state}</div>
+        <div style={{ fontSize: '1.1rem', fontWeight: 900, color: ink.primary, textTransform: 'uppercase', lineHeight: 1 }}>
+          {entity.state}
+        </div>
         <div
           style={{
             fontSize: '0.6rem',
             fontWeight: 800,
-            color: 'rgba(255,255,255,0.3)',
+            color: ink.faint,
             textTransform: 'uppercase',
             letterSpacing: '0.5px',
             marginTop: '4px',

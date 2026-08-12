@@ -1,4 +1,5 @@
 import React from 'react';
+import { fill, ink, shade } from './tokens';
 
 export const containerStyle: React.CSSProperties = {
   padding: '10px 12px', // 💥 Shaved pixels off the outer edge so the inside has more room
@@ -28,7 +29,7 @@ export const getGarbagePillStyle = (color: string, isUrgent: boolean): React.CSS
   borderRadius: '12px',
   whiteSpace: 'nowrap',
   minWidth: 0, // 💥 CRITICAL: Prevents flex items from busting out of their container
-  backgroundColor: isUrgent ? `${color}25` : 'rgba(0, 0, 0, 0.25)',
+  backgroundColor: isUrgent ? `${color}25` : shade.deep,
   border: isUrgent ? `1px solid ${color}50` : '1px solid rgba(255, 255, 255, 0.02)',
   boxShadow: isUrgent ? `0 0 12px ${color}20` : 'none',
 });
@@ -36,7 +37,7 @@ export const getGarbagePillStyle = (color: string, isUrgent: boolean): React.CSS
 // --- DIVIDER ---
 export const dividerStyle: React.CSSProperties = {
   height: '1px',
-  backgroundColor: 'rgba(255,255,255,0.06)',
+  backgroundColor: fill.soft,
   margin: '0', // 💥 Removed margin completely to save vertical space
 };
 
@@ -64,7 +65,7 @@ export const utilityItemStyle: React.CSSProperties = {
   flex: 1,
   padding: '8px 2px', // 💥 Shaved vertical padding to pull the divider up
   borderRadius: '12px',
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
+  backgroundColor: shade.deep,
   border: '1px solid rgba(255, 255, 255, 0.02)',
   boxShadow: 'none',
 };
@@ -72,7 +73,7 @@ export const utilityItemStyle: React.CSSProperties = {
 export const utilityValueStyle: React.CSSProperties = {
   fontSize: '1rem',
   fontWeight: 800,
-  color: '#ffffff',
+  color: ink.primary,
   marginTop: '2px',
 };
 

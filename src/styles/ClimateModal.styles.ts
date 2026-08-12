@@ -1,4 +1,5 @@
 import React from 'react';
+import { fill, ink, shade } from './tokens';
 
 export const modalInnerWrapperStyle: React.CSSProperties = {
   display: 'flex',
@@ -11,7 +12,7 @@ export const modalInnerWrapperStyle: React.CSSProperties = {
 export const targetTempLabelStyle: React.CSSProperties = {
   fontSize: '0.85rem',
   fontWeight: 800,
-  color: 'rgba(255,255,255,0.4)',
+  color: ink.muted,
   textTransform: 'uppercase',
   letterSpacing: '1px',
 };
@@ -19,7 +20,7 @@ export const targetTempLabelStyle: React.CSSProperties = {
 export const mainTempStyle: React.CSSProperties = {
   fontSize: '5rem',
   fontWeight: 900,
-  color: '#fff',
+  color: ink.primary,
   lineHeight: 1,
   margin: '1rem 0',
   textShadow: '0 10px 20px rgba(0,0,0,0.3)',
@@ -28,7 +29,7 @@ export const mainTempStyle: React.CSSProperties = {
 export const currentTempStyle: React.CSSProperties = {
   fontSize: '1.1rem',
   fontWeight: 700,
-  color: 'rgba(255,255,255,0.6)',
+  color: ink.secondary,
   display: 'flex',
   alignItems: 'center',
   gap: '8px',
@@ -49,8 +50,8 @@ export const roundButtonStyle: React.CSSProperties = {
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
-  border: '1px solid rgba(255, 255, 255, 0.02)',
-  color: '#fff',
+  backgroundColor: shade.deep,
+  border: `1px solid ${fill.faint}`,
+  color: ink.primary,
   transition: 'transform 0.1s active, background-color 0.2s',
 };

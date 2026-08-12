@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/ClimateModal.styles';
+import { accent, alpha, heat, ink, shade } from '../styles/tokens';
 
 export const ClimateModalContent = () => {
   const climate = useEntity('climate.nest_learning_thermostat_4th_gen');
@@ -46,14 +47,14 @@ export const ClimateModalContent = () => {
     <div style={styles.modalInnerWrapperStyle}>
       <style>{`
         @keyframes heatPulse {
-          0% { box-shadow: 0 0 20px rgba(255, 87, 34, 0.2); }
-          50% { box-shadow: 0 0 40px rgba(255, 87, 34, 0.5); }
-          100% { box-shadow: 0 0 20px rgba(255, 87, 34, 0.2); }
+          0% { box-shadow: 0 0 20px ${alpha(heat, 0.2)}; }
+          50% { box-shadow: 0 0 40px ${alpha(heat, 0.5)}; }
+          100% { box-shadow: 0 0 20px ${alpha(heat, 0.2)}; }
         }
         @keyframes coolPulse {
-          0% { box-shadow: 0 0 20px rgba(3, 169, 244, 0.2); }
-          50% { box-shadow: 0 0 40px rgba(3, 169, 244, 0.5); }
-          100% { box-shadow: 0 0 20px rgba(3, 169, 244, 0.2); }
+          0% { box-shadow: 0 0 20px ${alpha(accent, 0.2)}; }
+          50% { box-shadow: 0 0 40px ${alpha(accent, 0.5)}; }
+          100% { box-shadow: 0 0 20px ${alpha(accent, 0.2)}; }
         }
         @keyframes float {
           0% { transform: translateY(0px); }
@@ -69,7 +70,7 @@ export const ClimateModalContent = () => {
         style={{
           ...styles.mainTempStyle,
           animation: isHeating || isCooling ? 'float 4s ease-in-out infinite' : 'none',
-          color: isHeating ? '#ff5722' : isCooling ? '#03a9f4' : '#fff',
+          color: isHeating ? heat : isCooling ? accent : ink.primary,
           textShadow: isHeating ? '0 0 20px rgba(255, 87, 34, 0.5)' : isCooling ? '0 0 20px rgba(3, 169, 244, 0.5)' : 'none',
           transition: 'color 0.5s ease, text-shadow 0.5s ease',
         }}
@@ -79,7 +80,7 @@ export const ClimateModalContent = () => {
             <span
               onClick={() => toggleTarget('low')}
               style={{
-                color: activeTarget === 'high' ? 'rgba(255, 87, 34, 0.3)' : '#ff5722',
+                color: activeTarget === 'high' ? alpha(heat, 0.3) : heat,
                 cursor: 'pointer',
                 transition: 'color 0.2s, opacity 0.2s',
                 opacity: activeTarget === 'high' ? 0.5 : 1,
@@ -87,11 +88,11 @@ export const ClimateModalContent = () => {
             >
               {target_temp_low?.toFixed(1)}°
             </span>
-            <span style={{ opacity: 0.2, color: '#fff', textShadow: 'none' }}>|</span>
+            <span style={{ opacity: 0.2, color: ink.primary, textShadow: 'none' }}>|</span>
             <span
               onClick={() => toggleTarget('high')}
               style={{
-                color: activeTarget === 'low' ? 'rgba(3, 169, 244, 0.3)' : '#03a9f4',
+                color: activeTarget === 'low' ? alpha(accent, 0.3) : accent,
                 cursor: 'pointer',
                 transition: 'color 0.2s, opacity 0.2s',
                 opacity: activeTarget === 'low' ? 0.5 : 1,
@@ -109,7 +110,7 @@ export const ClimateModalContent = () => {
       </div>
 
       <div style={styles.currentTempStyle}>
-        <Icon icon='mdi:thermometer' style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.3)' }} />
+        <Icon icon='mdi:thermometer' style={{ fontSize: '1.2rem', color: ink.faint }} />
         Current: {current_temperature}°
       </div>
 
@@ -125,14 +126,14 @@ export const ClimateModalContent = () => {
             ...styles.roundButtonStyle,
             width: '70px',
             height: '70px',
-            backgroundColor: isHeating ? 'rgba(255, 87, 34, 0.2)' : isCooling ? 'rgba(3, 169, 244, 0.2)' : 'rgba(0,0,0,0.25)',
+            backgroundColor: isHeating ? alpha(heat, 0.2) : isCooling ? alpha(accent, 0.2) : shade.deep,
             border: isHeating ? '1px solid #ff572280' : isCooling ? '1px solid #03a9f480' : '1px solid rgba(255,255,255,0.05)',
             animation: isHeating ? 'heatPulse 2s infinite' : isCooling ? 'coolPulse 2s infinite' : 'none',
           }}
         >
           <Icon
             icon={isHeating ? 'mdi:fire' : isCooling ? 'mdi:snowflake' : mode === 'heat_cool' ? 'mdi:autorenew' : 'mdi:power'}
-            style={{ fontSize: '2.2rem', color: isHeating ? '#ff5722' : isCooling ? '#03a9f4' : '#fff' }}
+            style={{ fontSize: '2.2rem', color: isHeating ? heat : isCooling ? accent : ink.primary }}
           />
         </div>
 

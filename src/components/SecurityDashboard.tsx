@@ -4,6 +4,7 @@ import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from '../components/MetricUi';
 import * as styles from '../styles/SecurityDashboard.styles';
+import { accent, alpha, danger, fill, ink, muted, shade, success, warning } from '../styles/tokens';
 
 const SECURITY_CAMERAS = [
   { entity: 'camera.reolink_video_doorbell_camera_fluent', label: 'Doorbell' },
@@ -42,7 +43,7 @@ export function SecurityDashboard() {
   const isTriggered = state === 'triggered';
   const isArmed = state.includes('armed');
   const isArming = state === 'arming' || state === 'pending';
-  const statusColor = isTriggered ? '#f44336' : isArmed ? '#4caf50' : '#03a9f4';
+  const statusColor = isTriggered ? danger : isArmed ? success : accent;
 
   const getStatusText = () => {
     if (isTriggered) return 'ALARM TRIGGERED';
@@ -92,12 +93,12 @@ export function SecurityDashboard() {
                   bottom: '8px',
                   left: '8px',
                   zIndex: 11,
-                  backgroundColor: 'rgba(0,0,0,0.6)',
+                  backgroundColor: shade.dark,
                   padding: '2px 8px',
                   borderRadius: '6px',
                   fontSize: '0.6rem',
                   fontWeight: 800,
-                  color: '#fff',
+                  color: ink.primary,
                 }}
               >
                 {cam.label.toUpperCase()}
@@ -109,7 +110,7 @@ export function SecurityDashboard() {
         {/* DATA COLUMN */}
         <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '12px', minWidth: 0 }}>
           <div onClick={() => setShowAlarmModal(true)} style={{ cursor: 'pointer' }}>
-            <GlassCard title='Alarm System' statusColor={isTriggered ? 'rgba(244, 67, 54, 0.4)' : 'rgba(255,255,255,0.05)'}>
+            <GlassCard title='Alarm System' statusColor={isTriggered ? alpha(danger, 0.4) : fill.hairline}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
                 <div
                   style={{
@@ -125,8 +126,8 @@ export function SecurityDashboard() {
                   <Icon icon={getStatusIcon()} style={{ fontSize: '1.8rem', color: statusColor }} />
                 </div>
                 <div style={{ display: 'flex', flexDirection: 'column' }}>
-                  <span style={{ fontSize: '1.2rem', fontWeight: 900, color: '#fff' }}>{getStatusText()}</span>
-                  <span style={{ fontSize: '0.6rem', fontWeight: 800, color: 'rgba(255,255,255,0.4)' }}>TAP TO MANAGE PERIMETER</span>
+                  <span style={{ fontSize: '1.2rem', fontWeight: 900, color: ink.primary }}>{getStatusText()}</span>
+                  <span style={{ fontSize: '0.6rem', fontWeight: 800, color: ink.muted }}>TAP TO MANAGE PERIMETER</span>
                 </div>
               </div>
             </GlassCard>
@@ -138,13 +139,13 @@ export function SecurityDashboard() {
                 icon={frontLock.state === 'locked' ? 'mdi:lock' : 'mdi:lock-open-variant'}
                 label='Front Lock'
                 value={frontLock.state}
-                color={frontLock.state === 'locked' ? '#4caf50' : '#ff9800'}
+                color={frontLock.state === 'locked' ? success : warning}
               />
               <BigMetric
                 icon='mdi:door'
                 label='Front Door'
                 value={frontDoor.state === 'on' ? 'Open' : 'Closed'}
-                color={frontDoor.state === 'on' ? '#f44336' : '#8e8e93'}
+                color={frontDoor.state === 'on' ? danger : muted}
               />
             </div>
             <div style={{ display: 'flex', gap: '8px' }}>
@@ -152,13 +153,13 @@ export function SecurityDashboard() {
                 icon={backLock.state === 'locked' ? 'mdi:lock' : 'mdi:lock-open-variant'}
                 label='Back Lock'
                 value={backLock.state}
-                color={backLock.state === 'locked' ? '#4caf50' : '#ff9800'}
+                color={backLock.state === 'locked' ? success : warning}
               />
               <BigMetric
                 icon='mdi:door'
                 label='Back Door'
                 value={backDoor.state === 'on' ? 'Open' : 'Closed'}
-                color={backDoor.state === 'on' ? '#f44336' : '#8e8e93'}
+                color={backDoor.state === 'on' ? danger : muted}
               />
             </div>
           </GlassCard>
@@ -169,19 +170,19 @@ export function SecurityDashboard() {
                 icon='mdi:car'
                 label='Sorento'
                 value={sorentoLock.state === 'locked' ? 'Locked' : 'Unlocked'}
-                color={sorentoLock.state === 'locked' ? '#4caf50' : '#ff9800'}
+                color={sorentoLock.state === 'locked' ? success : warning}
               />
               <BigMetric
                 icon='mdi:garage'
                 label='Garage'
                 value={garageCover.state}
-                color={garageCover.state === 'closed' ? '#8e8e93' : '#ff9800'}
+                color={garageCover.state === 'closed' ? muted : warning}
               />
               <BigMetric
                 icon='mdi:door'
                 label='Man Door'
                 value={manDoor.state === 'on' ? 'Open' : 'Closed'}
-                color={manDoor.state === 'on' ? '#f44336' : '#8e8e93'}
+                color={manDoor.state === 'on' ? danger : muted}
               />
             </div>
           </GlassCard>

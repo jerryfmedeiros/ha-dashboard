@@ -1,5 +1,6 @@
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
+import { frost, ink, sun as sunColor } from '../styles/tokens';
 
 export function CelestialArch() {
   const sun = useEntity('sun.sun');
@@ -60,7 +61,7 @@ export function CelestialArch() {
         <path d='M 8 45 A 42 20 0 0 1 92 45' fill='none' stroke='rgba(144, 202, 249, 0.4)' strokeWidth='1' strokeDasharray='2 3' />
 
         {/* Horizon Line */}
-        <line x1='5' y1='45' x2='95' y2='45' stroke='rgba(255, 255, 255, 0.2)' strokeWidth='1.2' />
+        <line x1='5' y1='45' x2='95' y2='45' stroke={ink.ghost} strokeWidth='1.2' />
 
         {/* CARDINAL POINTS - Positioned slightly lower to handle larger font */}
         <text x='8' y='60' style={labelStyle}>
@@ -73,7 +74,7 @@ export function CelestialArch() {
         {/* Sun Icon */}
         {sun.attributes.elevation > -0.5 && (
           <g style={{ transform: `translate(${sunPos.x}px, ${sunPos.y}px)`, transition: 'all 1.5s ease-in-out' }}>
-            <circle cx='0' cy='0' r='5' fill='#ffeb3b' style={{ filter: 'drop-shadow(0 0 5px #ffeb3b)' }} />
+            <circle cx='0' cy='0' r='5' fill={sunColor} style={{ filter: `drop-shadow(0 0 5px ${sunColor})` }} />
           </g>
         )}
 
@@ -82,7 +83,7 @@ export function CelestialArch() {
           <g style={{ transform: `translate(${moonPos.x}px, ${moonPos.y}px)`, transition: 'all 1.5s ease-in-out' }}>
             <foreignObject x='-6' y='-6' width='12' height='12'>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: '100%' }}>
-                <Icon icon={currentMoonIcon} style={{ fontSize: '12px', color: '#90caf9', filter: 'drop-shadow(0 0 4px #90caf9)' }} />
+                <Icon icon={currentMoonIcon} style={{ fontSize: '12px', color: frost, filter: 'drop-shadow(0 0 4px #90caf9)' }} />
               </div>
             </foreignObject>
           </g>

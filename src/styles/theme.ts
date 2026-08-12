@@ -1,4 +1,6 @@
-// theme.ts
+// theme.ts — hakit ThemeProvider config, derived from the shared tokens.
+import { accent, appBg, cool, danger, fill, heat, ink, shade, success, warning, alpha } from './tokens';
+
 export const appTheme = {
   hue: 220, // Keeps your cool blueish base
   lightness: 54,
@@ -6,34 +8,32 @@ export const appTheme = {
   darkMode: true,
   customColors: {
     // --- APP BACKGROUND ---
-    // Moving from flat black to a very deep, rich slate/black for depth
-    appBg: '#0d0f14',
-    modalOverlay: 'rgba(0,0,0,0.85)',
+    appBg,
+    modalOverlay: shade.scrim,
 
     // --- MODERN GLASS CARDS ---
-    // Translucent dark colors for the frosted glass effect
     roomCardBg: 'rgba(28, 28, 32, 0.65)',
-    roomCardBorder: 'rgba(255, 255, 255, 0.08)',
+    roomCardBorder: fill.edge,
     cardBoxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)', // Soft ambient shadow
 
     // --- TYPOGRAPHY & ACCENTS ---
-    roomCardTitle: '#03a9f4', // Match the sleek blue from your running badges
+    roomCardTitle: accent,
     secondaryText: '#a0a0a8', // Soft grey for subtext
-    accentColor: '#03a9f4',
+    accentColor: accent,
 
     // --- CONTROLS & TOGGLES ---
-    sliderTrackBg: 'rgba(255, 255, 255, 0.05)',
-    toggleOn: '#30D158', // Apple's modern green (matches your organic bin)
-    toggleOff: 'rgba(255,255,255,0.1)',
+    sliderTrackBg: fill.hairline,
+    toggleOn: success,
+    toggleOff: fill.hover,
     fabBg: 'rgba(32, 41, 54, 0.8)', // Translucent floating action button
-    fabBorder: 'rgba(255, 255, 255, 0.1)',
+    fabBorder: fill.hover,
 
-    // --- GARBAGE WIDGET COLORS (Unchanged) ---
+    // --- GARBAGE WIDGET COLORS ---
     garbageBg: 'var(--ha-S300)',
     garbageCardBg: 'var(--ha-300-a3-contrast)',
     binWaste: '#9e9e9e',
     binRecycle: '#0A84FF',
-    binOrganic: '#30D158',
+    binOrganic: success,
   },
 };
 
@@ -43,19 +43,36 @@ export const sliderColors = {
   off: [35, 35, 35] as [number, number, number],
 };
 
+/**
+ * Shared dashboard palette. Previously each dashboard's styles file declared
+ * its own conflicting `THEME`; they now all point here.
+ */
 export const THEME = {
-  // Deep, rich futuristic slate
-  background: '#0b0d14',
-  // Frosted glass panel background
-  glassBg: 'rgba(20, 24, 34, 0.6)',
-  // Subtle border for the glass
-  glassBorder: 'rgba(255, 255, 255, 0.08)',
-  textMain: '#ffffff',
-  textSub: '#8b949e',
-  accent: '#3b82f6',
-  // Status colors for badges
-  activeGlow: 'rgba(59, 130, 246, 0.15)',
-  warning: '#f59e0b',
-  danger: '#ef4444',
-  success: '#10b981',
+  bg: 'transparent',
+  card: fill.card,
+  cardAlt: fill.faint,
+  border: fill.hairline,
+  borderStrong: fill.edge,
+  hover: fill.hover,
+  inset: shade.inset,
+  insetDeep: shade.deep,
+
+  text: ink.primary,
+  textMain: ink.primary,
+  textSub: ink.muted,
+  header: ink.muted,
+  muted: ink.muted,
+
+  accent,
+  activeGlow: alpha(accent, 0.15),
+  warning,
+  danger,
+  success,
+  heat,
+  cool,
+  // Not `as const`: consumers spread these into style objects and override
+  // individual properties, which literal types would reject.
 };
+
+// Re-exported so a styles file can pull everything from one place.
+export { accent, appBg, danger, warning, success, heat, cool, muted, fill, shade, ink, alpha } from './tokens';

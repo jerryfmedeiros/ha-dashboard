@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHass } from '@hakit/core';
 import { Icon } from '@iconify/react';
+import { accent, alpha, danger, inactive, success, warning } from '../styles/tokens';
 
 // Sits at the foot of the sidebar on every dashboard. The point is to make a
 // dead link visually distinct from healthy data: without it, stale values and
@@ -36,14 +37,14 @@ type Presentation = {
 };
 
 const PRESENTATION: Record<string, Presentation> = {
-  connected: { icon: 'mdi:lan-connect', label: 'LIVE', color: '#4caf50' },
-  syncing: { icon: 'mdi:sync', label: 'SYNC', color: '#03a9f4' },
-  pending: { icon: 'mdi:lan-pending', label: 'CONN', color: '#ff9800' },
-  'pending-suspension': { icon: 'mdi:pause-circle-outline', label: 'IDLE', color: '#71717a' },
-  suspended: { icon: 'mdi:pause-circle-outline', label: 'IDLE', color: '#71717a' },
-  disconnected: { icon: 'mdi:lan-disconnect', label: 'OFFLINE', color: '#f44336', isFault: true },
+  connected: { icon: 'mdi:lan-connect', label: 'LIVE', color: success },
+  syncing: { icon: 'mdi:sync', label: 'SYNC', color: accent },
+  pending: { icon: 'mdi:lan-pending', label: 'CONN', color: warning },
+  'pending-suspension': { icon: 'mdi:pause-circle-outline', label: 'IDLE', color: inactive },
+  suspended: { icon: 'mdi:pause-circle-outline', label: 'IDLE', color: inactive },
+  disconnected: { icon: 'mdi:lan-disconnect', label: 'OFFLINE', color: danger, isFault: true },
   // Socket claims to be open but pings are not coming back.
-  stale: { icon: 'mdi:lan-disconnect', label: 'NO DATA', color: '#f44336', isFault: true },
+  stale: { icon: 'mdi:lan-disconnect', label: 'NO DATA', color: danger, isFault: true },
 };
 
 const formatOutage = (ms: number) => {
@@ -160,7 +161,7 @@ export function ConnectionStatus() {
         width: view.isFault ? '44px' : '14px',
         height: view.isFault ? 'auto' : '14px',
         boxSizing: 'border-box',
-        backgroundColor: view.isFault ? 'rgba(244, 67, 54, 0.15)' : 'transparent',
+        backgroundColor: view.isFault ? alpha(danger, 0.15) : 'transparent',
         border: view.isFault ? '1px solid rgba(244, 67, 54, 0.45)' : 'none',
         animation: view.isFault ? 'conn-fault-pulse 1.6s ease-in-out infinite' : undefined,
         // Deliberately no CSS transition anywhere on this element. Chrome stalls
@@ -171,8 +172,8 @@ export function ConnectionStatus() {
     >
       <style>{`
         @keyframes conn-fault-pulse {
-          0%, 100% { box-shadow: 0 0 4px rgba(244, 67, 54, 0.25); }
-          50% { box-shadow: 0 0 14px rgba(244, 67, 54, 0.7); }
+          0%, 100% { box-shadow: 0 0 4px ${alpha(danger, 0.25)}; }
+          50% { box-shadow: 0 0 14px ${alpha(danger, 0.7)}; }
         }
         @keyframes conn-spin {
           from { transform: rotate(0deg); }

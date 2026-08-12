@@ -1,4 +1,5 @@
 import React from 'react';
+import { fill, ink, shade } from './tokens';
 
 // --- MAIN LAYOUT ---
 export const popupContainerStyle: React.CSSProperties = {
@@ -16,8 +17,8 @@ export const columnStyle: React.CSSProperties = {
   gap: '0.6rem', // Tighter vertical gap
   padding: '0.8rem', // Reduced padding
   borderRadius: '20px',
-  backgroundColor: 'rgba(255, 255, 255, 0.03)',
-  border: '1px solid rgba(255, 255, 255, 0.05)',
+  backgroundColor: fill.card,
+  border: `1px solid ${fill.hairline}`,
   minWidth: 0, // Allows column to shrink
 };
 
@@ -34,7 +35,7 @@ export const headerTitleStyle: React.CSSProperties = {
   fontWeight: 900,
   textTransform: 'uppercase',
   letterSpacing: '0.5px',
-  color: '#fff',
+  color: ink.primary,
 };
 
 // --- DATA ROWS (Recessed Plates) ---
@@ -43,15 +44,15 @@ export const dataRowStyle: React.CSSProperties = {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '8px 10px', // Tighter padding
-  backgroundColor: 'rgba(0, 0, 0, 0.25)',
-  border: '1px solid rgba(255, 255, 255, 0.02)',
+  backgroundColor: shade.deep,
+  border: `1px solid ${fill.faint}`,
   borderRadius: '12px',
 };
 
 export const labelStyle: React.CSSProperties = {
   fontSize: '0.65rem', // Smaller label
   fontWeight: 800,
-  color: 'rgba(255,255,255,0.5)',
+  color: ink.half,
   textTransform: 'uppercase',
   letterSpacing: '0.5px',
 };
@@ -59,13 +60,13 @@ export const labelStyle: React.CSSProperties = {
 export const valueStyle: React.CSSProperties = {
   fontSize: '0.95rem', // Scaled down from 1.1rem
   fontWeight: 900,
-  color: '#fff',
+  color: ink.primary,
 };
 
 export const unitStyle: React.CSSProperties = {
   fontSize: '0.65rem',
   fontWeight: 700,
-  color: 'rgba(255,255,255,0.4)',
+  color: ink.muted,
   marginLeft: '2px',
 };
 
@@ -86,7 +87,7 @@ export const chartLoadingStyle: React.CSSProperties = {
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'rgba(255,255,255,0.3)',
+  color: ink.faint,
   fontSize: '0.75rem',
   textAlign: 'center',
 };

@@ -6,6 +6,7 @@ import { Icon } from '@iconify/react';
 import * as styles from '../styles/CatsDashboard.styles';
 import { BigMetric, GlassCard } from './MetricUi';
 import { formatScaled, formatWithUnit } from '../utils/format';
+import { accent, alpha, danger, fill, ink, success, violet, warning } from '../styles/tokens';
 
 // ==========================================
 // TYPES & HELPER COMPONENTS
@@ -37,7 +38,7 @@ const SliderRowCompact = ({
         display: 'flex',
         alignItems: 'center',
         gap: '8px',
-        background: 'rgba(255,255,255,0.05)',
+        background: fill.hairline,
         padding: '4px 10px',
         borderRadius: '10px',
         marginTop: '4px',
@@ -58,9 +59,9 @@ const SliderRowCompact = ({
       <span style={{ fontSize: '0.65rem', minWidth: '30px', fontWeight: 800 }}>{displayValue}pt</span>
       <div
         onClick={onDispense}
-        style={{ cursor: 'pointer', padding: '4px', borderRadius: '6px', background: 'rgba(76, 175, 80, 0.2)', display: 'flex' }}
+        style={{ cursor: 'pointer', padding: '4px', borderRadius: '6px', background: alpha(success, 0.2), display: 'flex' }}
       >
-        <Icon icon='mdi:bowl-mix' style={{ color: '#4caf50', fontSize: '1rem' }} />
+        <Icon icon='mdi:bowl-mix' style={{ color: success, fontSize: '1rem' }} />
       </div>
     </div>
   );
@@ -176,11 +177,11 @@ export function CatsDashboard() {
                 icon='mdi:tray-alert'
                 label='Hopper'
                 value={feederEmpty?.state === 'on' ? 'Empty' : 'OK'}
-                color={feederEmpty?.state === 'on' ? '#f44336' : '#4caf50'}
+                color={feederEmpty?.state === 'on' ? danger : success}
               />
-              <BigMetric icon='mdi:water-percent' label='Water' value={formatScaled(fountainWater?.state, 1000, 1)} color='#03a9f4' />
-              <BigMetric icon='mdi:air-filter' label='Filter' value={formatWithUnit(fountainFilter?.state, 'd')} color='#9c27b0' />
-              <BigMetric icon='mdi:water-pump' label='Pump' value={formatWithUnit(fountainPump?.state, 'd')} color='#ff9800' />
+              <BigMetric icon='mdi:water-percent' label='Water' value={formatScaled(fountainWater?.state, 1000, 1)} color={accent} />
+              <BigMetric icon='mdi:air-filter' label='Filter' value={formatWithUnit(fountainFilter?.state, 'd')} color={violet} />
+              <BigMetric icon='mdi:water-pump' label='Pump' value={formatWithUnit(fountainPump?.state, 'd')} color={warning} />
             </div>
 
             <div
@@ -192,15 +193,12 @@ export function CatsDashboard() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  background: 'rgba(255,255,255,0.03)',
+                  background: fill.card,
                   padding: '4px 8px',
                   borderRadius: '6px',
                 }}
               >
-                <Icon
-                  icon='mdi:silverware'
-                  style={{ color: occupancyFeeding?.state === 'on' ? '#ff9800' : 'rgba(255,255,255,0.2)', fontSize: '0.9rem' }}
-                />
+                <Icon icon='mdi:silverware' style={{ color: occupancyFeeding?.state === 'on' ? warning : ink.ghost, fontSize: '0.9rem' }} />
                 <span style={{ fontSize: '0.6rem', fontWeight: 800 }}>{occupancyFeeding?.state === 'on' ? 'BUSY' : 'CLEAR'}</span>
               </div>
               <div
@@ -209,15 +207,12 @@ export function CatsDashboard() {
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
-                  background: 'rgba(255,255,255,0.03)',
+                  background: fill.card,
                   padding: '4px 8px',
                   borderRadius: '6px',
                 }}
               >
-                <Icon
-                  icon='mdi:toilet'
-                  style={{ color: occupancyLitter?.state === 'on' ? '#ff9800' : 'rgba(255,255,255,0.2)', fontSize: '0.9rem' }}
-                />
+                <Icon icon='mdi:toilet' style={{ color: occupancyLitter?.state === 'on' ? warning : ink.ghost, fontSize: '0.9rem' }} />
                 <span style={{ fontSize: '0.6rem', fontWeight: 800 }}>{occupancyLitter?.state === 'on' ? 'BUSY' : 'CLEAR'}</span>
               </div>
             </div>
@@ -231,26 +226,26 @@ export function CatsDashboard() {
           <GlassCard title='Litter Station'>
             <div style={{ fontSize: '0.55rem', opacity: 0.4, marginBottom: '2px', fontWeight: 800 }}>BOX 01 - MAIN</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 0.9fr', gap: '4px', marginBottom: '8px' }}>
-              <BigMetric icon='mdi:star-four-points' label='State' value={litterState?.state || '--'} color='#03a9f4' />
+              <BigMetric icon='mdi:star-four-points' label='State' value={litterState?.state || '--'} color={accent} />
               <BigMetric
                 icon='mdi:delete'
                 label='Bin'
                 value={litterBin?.state || '--'}
-                color={litterBin?.state === 'full' ? '#f44336' : '#fff'}
+                color={litterBin?.state === 'full' ? danger : ink.primary}
               />
-              <BigMetric icon='mdi:cached' label='Cycles' value={litterCycles?.state || '0'} color='#ff9800' />
+              <BigMetric icon='mdi:cached' label='Cycles' value={litterCycles?.state || '0'} color={warning} />
             </div>
 
             <div style={{ fontSize: '0.55rem', opacity: 0.4, marginBottom: '2px', fontWeight: 800 }}>BOX 02 - JQ01</div>
             <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.9fr 0.9fr', gap: '4px', marginBottom: '8px' }}>
-              <BigMetric icon='mdi:star-four-points' label='State' value={litterState2?.state || '--'} color='#03a9f4' />
+              <BigMetric icon='mdi:star-four-points' label='State' value={litterState2?.state || '--'} color={accent} />
               <BigMetric
                 icon='mdi:delete'
                 label='Bin'
                 value={litterBin2?.state || '--'}
-                color={litterBin2?.state === 'full' ? '#f44336' : '#fff'}
+                color={litterBin2?.state === 'full' ? danger : ink.primary}
               />
-              <BigMetric icon='mdi:cached' label='Cycles' value={litterCycles2?.state || '0'} color='#ff9800' />
+              <BigMetric icon='mdi:cached' label='Cycles' value={litterCycles2?.state || '0'} color={warning} />
             </div>
 
             <div style={{ display: 'flex', gap: '6px' }}>
@@ -261,9 +256,9 @@ export function CatsDashboard() {
                 }}
                 style={{
                   flex: 1,
-                  background: 'rgba(3,169,244,0.12)',
+                  background: alpha(accent, 0.12),
                   border: '1px solid rgba(3,169,244,0.2)',
-                  color: '#03a9f4',
+                  color: accent,
                   padding: '8px',
                   borderRadius: '8px',
                   fontSize: '0.65rem',
@@ -280,9 +275,9 @@ export function CatsDashboard() {
                 }}
                 style={{
                   flex: 1,
-                  background: 'rgba(255,152,0,0.12)',
+                  background: alpha(warning, 0.12),
                   border: '1px solid rgba(255,152,0,0.2)',
-                  color: '#ff9800',
+                  color: warning,
                   padding: '8px',
                   borderRadius: '8px',
                   fontSize: '0.65rem',
@@ -300,19 +295,19 @@ export function CatsDashboard() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <GlassCard title='Activity (Today)'>
             <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '6px', marginBottom: '6px' }}>
-              <div style={{ fontSize: '0.6rem', fontWeight: 900, color: '#ff9800', marginBottom: '4px' }}>OZZY</div>
+              <div style={{ fontSize: '0.6rem', fontWeight: 900, color: warning, marginBottom: '4px' }}>OZZY</div>
               <div style={{ display: 'flex', gap: '3px' }}>
                 <BigMetric icon='mdi:toilet' label='Litter' value={ozzyLitter?.state || '0'} color='#8d6e63' />
-                <BigMetric icon='mdi:bowl' label='Food' value={ozzyFood?.state || '0'} color='#4caf50' />
-                <BigMetric icon='mdi:water' label='Water' value={ozzyWater?.state || '0'} color='#03a9f4' />
+                <BigMetric icon='mdi:bowl' label='Food' value={ozzyFood?.state || '0'} color={success} />
+                <BigMetric icon='mdi:water' label='Water' value={ozzyWater?.state || '0'} color={accent} />
               </div>
             </div>
             <div>
               <div style={{ fontSize: '0.6rem', fontWeight: 900, color: '#e91e63', marginBottom: '4px' }}>DOLORES</div>
               <div style={{ display: 'flex', gap: '3px' }}>
                 <BigMetric icon='mdi:toilet' label='Litter' value={doloresLitter?.state || '0'} color='#8d6e63' />
-                <BigMetric icon='mdi:bowl' label='Food' value={doloresFood?.state || '0'} color='#4caf50' />
-                <BigMetric icon='mdi:water' label='Water' value={doloresWater?.state || '0'} color='#03a9f4' />
+                <BigMetric icon='mdi:bowl' label='Food' value={doloresFood?.state || '0'} color={success} />
+                <BigMetric icon='mdi:water' label='Water' value={doloresWater?.state || '0'} color={accent} />
               </div>
             </div>
           </GlassCard>

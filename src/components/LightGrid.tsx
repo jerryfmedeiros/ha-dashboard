@@ -2,6 +2,7 @@ import { useEntity } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { LightSliderRow } from './LightSliderRow';
 import { GlassCard, GlassRow } from './MetricUi.tsx';
+import { accent, warning } from '../styles/tokens';
 
 type LightEntity = `light.${string}` | `switch.${string}`;
 
@@ -13,7 +14,7 @@ interface RoomData {
 function LightRowWrapper({ entityId }: { entityId: LightEntity }) {
   const entity = useEntity(entityId as EntityName);
   const isOn = entity?.state === 'on';
-  const accentColor = entityId.startsWith('light') ? '#ffc107' : '#03a9f4';
+  const accentColor = entityId.startsWith('light') ? warning : accent;
 
   return (
     <GlassRow isActive={isOn} activeColor={accentColor}>

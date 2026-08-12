@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEntity, useService } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { Icon } from '@iconify/react';
+import { accent, fill, ink } from '../styles/tokens';
 
 interface RoomControlButtonProps {
   entity: EntityName;
@@ -72,8 +73,8 @@ export function RoomControlButton({ entity: entityId, icon, action, actionData }
         width: '32px',
         height: '32px',
         borderRadius: '10px',
-        backgroundColor: isActive ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.04)',
-        border: `1px solid ${isActive ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.08)'}`,
+        backgroundColor: isActive ? fill.bright : fill.subtle,
+        border: `1px solid ${isActive ? ink.faint : fill.edge}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -97,7 +98,7 @@ export function RoomControlButton({ entity: entityId, icon, action, actionData }
           icon={icon}
           style={{
             fontSize: '1.2rem',
-            color: isActive ? '#03a9f4' : '#ffffff',
+            color: isActive ? accent : ink.primary,
           }}
         />
       </div>

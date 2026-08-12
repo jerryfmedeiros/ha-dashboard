@@ -1,14 +1,9 @@
 import React from 'react';
 
-export const THEME = {
-  bg: 'transparent',
-  card: 'rgba(0, 0, 0, 0.25)',
-  border: 'rgba(255, 255, 255, 0.03)',
-  text: '#ffffff',
-  header: 'rgba(255, 255, 255, 0.4)',
-  muted: 'rgba(255, 255, 255, 0.4)',
-  accent: '#03a9f4',
-};
+// Palette lives in theme.ts; re-exported so existing `styles.THEME` usage works.
+export { THEME } from './theme';
+import { THEME } from './theme';
+import { accent, alpha, danger, fill, ink, shade } from './tokens';
 
 export const dashboardWrapperStyle: React.CSSProperties = {
   width: '100%',
@@ -38,7 +33,7 @@ export const perimeterStatusStyle: React.CSSProperties = {
 export const mainTitleStyle: React.CSSProperties = {
   fontSize: '1.6rem',
   fontWeight: 900,
-  color: '#ffffff',
+  color: ink.primary,
   textTransform: 'uppercase',
   lineHeight: '1',
 };
@@ -138,7 +133,7 @@ export const internalHeaderStyle: React.CSSProperties = {
 
 export const dividerStyle: React.CSSProperties = {
   height: '1px',
-  backgroundColor: 'rgba(255, 255, 255, 0.05)',
+  backgroundColor: fill.hairline,
   margin: '4px 16px',
 };
 
@@ -159,13 +154,13 @@ export const alarmoPillStyle = (state: string): React.CSSProperties => {
   const isTriggered = state === 'triggered';
   const isArming = state === 'arming' || state === 'pending';
 
-  let bgColor = 'rgba(255, 255, 255, 0.05)';
+  let bgColor = fill.hairline;
   let borderColor = THEME.border;
   let shadow = 'none';
 
   if (isTriggered) {
-    bgColor = '#ff4444'; // Red
-    borderColor = '#fff';
+    bgColor = danger; // Red
+    borderColor = ink.primary;
     shadow = '0 0 20px rgba(255, 68, 68, 0.4)';
   } else if (isArming) {
     bgColor = 'rgba(255, 193, 7, 0.15)'; // Amber
@@ -200,7 +195,7 @@ export const alarmoTextStyle: React.CSSProperties = {
   fontWeight: 900,
   textTransform: 'uppercase',
   letterSpacing: '1px',
-  color: '#fff',
+  color: ink.primary,
 };
 
 // --- MODAL STYLES ---
@@ -210,7 +205,7 @@ export const modalOverlayStyle: React.CSSProperties = {
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: 'rgba(0, 0, 0, 0.85)',
+  backgroundColor: shade.scrim,
   backdropFilter: 'blur(16px)',
   WebkitBackdropFilter: 'blur(16px)',
   zIndex: 9999,
@@ -229,7 +224,7 @@ export const modalContentStyle: React.CSSProperties = {
   borderRadius: '24px',
   position: 'relative',
   boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.75)',
-  border: `1px solid rgba(255, 255, 255, 0.1)`,
+  border: `1px solid ${fill.hover}`,
   overflow: 'hidden',
   display: 'flex',
 };
@@ -241,9 +236,9 @@ export const closeButtonStyle: React.CSSProperties = {
   width: '44px',
   height: '44px',
   borderRadius: '22px',
-  backgroundColor: 'rgba(0,0,0,0.6)',
-  border: '1px solid rgba(255,255,255,0.2)',
-  color: '#fff',
+  backgroundColor: shade.dark,
+  border: `1px solid ${ink.ghost}`,
+  color: ink.primary,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
@@ -262,7 +257,7 @@ export const alarmModalContentStyle: React.CSSProperties = {
   padding: '2rem',
   position: 'relative',
   boxShadow: '0 40px 60px -15px rgba(0, 0, 0, 0.8)',
-  border: `1px solid rgba(255, 255, 255, 0.1)`,
+  border: `1px solid ${fill.hover}`,
   display: 'flex',
   flexDirection: 'column',
   gap: '16px',
@@ -271,7 +266,7 @@ export const alarmModalContentStyle: React.CSSProperties = {
 export const alarmModalHeaderStyle: React.CSSProperties = {
   fontSize: '1.2rem',
   fontWeight: 900,
-  color: '#ffffff',
+  color: ink.primary,
   textTransform: 'uppercase',
   textAlign: 'center',
   marginBottom: '8px',
@@ -280,9 +275,9 @@ export const alarmModalHeaderStyle: React.CSSProperties = {
 export const alarmButtonStyle = (type: 'arm' | 'disarm'): React.CSSProperties => ({
   padding: '18px',
   borderRadius: '20px',
-  backgroundColor: type === 'arm' ? 'rgba(3, 169, 244, 0.1)' : 'rgba(255, 68, 68, 0.1)',
-  color: type === 'arm' ? '#03a9f4' : '#ff4444',
-  border: `1px solid ${type === 'arm' ? 'rgba(3, 169, 244, 0.3)' : 'rgba(255, 68, 68, 0.3)'}`,
+  backgroundColor: type === 'arm' ? alpha(accent, 0.1) : alpha(danger, 0.1),
+  color: type === 'arm' ? accent : danger,
+  border: `1px solid ${type === 'arm' ? alpha(accent, 0.3) : alpha(danger, 0.3)}`,
   fontSize: '1rem',
   fontWeight: 900,
   textTransform: 'uppercase',

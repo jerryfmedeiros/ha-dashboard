@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useEntity, useService } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
+import { fill, ink, success } from '../styles/tokens';
 
 // 1. Define the supported domains and the service interface
 type SupportedDomains = 'switch' | 'fan' | 'input_boolean' | 'light' | 'button' | 'script' | 'scene';
@@ -61,7 +62,7 @@ export function MiniControlRow({ entity: entityId, icon }: { entity: EntityName;
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          color: isOff ? '#888' : '#fff',
+          color: isOff ? '#888' : ink.primary,
           fontSize: '0.8rem',
           fontWeight: 600,
           whiteSpace: 'nowrap',
@@ -82,8 +83,8 @@ export function MiniControlRow({ entity: entityId, icon }: { entity: EntityName;
             padding: '0 12px',
             height: '20px',
             borderRadius: '10px',
-            backgroundColor: isPressed ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)',
-            color: '#fff',
+            backgroundColor: isPressed ? ink.faint : fill.hover,
+            color: ink.primary,
             fontSize: '0.65rem',
             fontWeight: 800,
             textTransform: 'uppercase',
@@ -105,7 +106,7 @@ export function MiniControlRow({ entity: entityId, icon }: { entity: EntityName;
             width: '32px',
             height: '18px',
             borderRadius: '9px',
-            backgroundColor: isOff ? 'rgba(255,255,255,0.1)' : '#4caf50',
+            backgroundColor: isOff ? fill.hover : success,
             position: 'relative',
             cursor: 'pointer',
             flexShrink: 0,
@@ -120,7 +121,7 @@ export function MiniControlRow({ entity: entityId, icon }: { entity: EntityName;
               width: '14px',
               height: '14px',
               borderRadius: '50%',
-              backgroundColor: '#fff',
+              backgroundColor: ink.primary,
               transition: 'left 0.2s ease',
               boxShadow: '0 1px 3px rgba(0,0,0,0.3)',
             }}

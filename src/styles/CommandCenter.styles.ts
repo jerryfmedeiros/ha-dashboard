@@ -1,14 +1,9 @@
 import React from 'react';
 
-// --- THEME ---
-export const THEME = {
-  bg: 'transparent',
-  card: 'rgba(255, 255, 255, 0.05)', // White-based frosted glass
-  border: 'rgba(255, 255, 255, 0.08)', // Crisper edge
-  text: '#ffffff',
-  header: 'rgba(255, 255, 255, 0.5)', // Brighter muted text
-  accent: '#03a9f4',
-};
+// Palette lives in theme.ts; re-exported so existing `styles.THEME` usage works.
+export { THEME } from './theme';
+import { THEME } from './theme';
+import { fill, ink } from './tokens';
 
 // --- LAYOUT ---
 export const dashboardWrapperStyle: React.CSSProperties = {
@@ -41,7 +36,7 @@ export const subtitleStyle: React.CSSProperties = {
 export const titleStyle: React.CSSProperties = {
   fontSize: '1.6rem',
   fontWeight: 900,
-  color: '#ffffff',
+  color: ink.primary,
   textTransform: 'uppercase',
   lineHeight: '1',
 };
@@ -81,13 +76,13 @@ export const roomHeaderStyle: React.CSSProperties = {
   alignItems: 'flex-end',
   marginBottom: '8px', // TIGHTENED margin
   paddingBottom: '6px', // TIGHTENED padding
-  borderBottom: `1px solid rgba(255, 255, 255, 0.05)`,
+  borderBottom: `1px solid ${fill.hairline}`,
 };
 
 export const roomNameStyle: React.CSSProperties = {
   fontSize: '0.9rem',
   fontWeight: 900,
-  color: '#fff',
+  color: ink.primary,
   textTransform: 'uppercase',
   letterSpacing: '1px',
 };

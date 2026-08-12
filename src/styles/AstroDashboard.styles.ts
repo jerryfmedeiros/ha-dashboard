@@ -1,4 +1,5 @@
 import React from 'react';
+import { accent, danger, fill, ink, night, shade } from './tokens';
 
 export type AstroTheme = {
   isNightMode: boolean;
@@ -7,17 +8,17 @@ export type AstroTheme = {
 
 export const defaultTheme: AstroTheme = {
   isNightMode: false,
-  accent: '#03a9f4',
+  accent: accent,
 };
 
 export const nightModeTheme: AstroTheme = {
   isNightMode: true,
-  accent: '#ff4444',
+  accent: danger,
 };
 export const sectionHeaderStyle: React.CSSProperties = {
   fontSize: '0.7rem', // Slightly smaller
   fontWeight: 900,
-  color: 'rgba(255,255,255,0.2)',
+  color: ink.ghost,
   textTransform: 'uppercase',
   letterSpacing: '1.5px',
   marginBottom: '2px', // Tightened
@@ -86,8 +87,8 @@ export const getDataRowStyle = (isNight: boolean): React.CSSProperties => ({
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '6px 12px', // Ultra-tight vertical padding
-  backgroundColor: isNight ? 'rgba(255, 0, 0, 0.03)' : 'rgba(0, 0, 0, 0.25)',
-  border: `1px solid ${isNight ? 'rgba(255, 0, 0, 0.05)' : 'rgba(255, 255, 255, 0.02)'}`,
+  backgroundColor: isNight ? night.dim : shade.deep,
+  border: `1px solid ${isNight ? night.wash : fill.faint}`,
   borderRadius: '12px',
 });
 
@@ -98,7 +99,7 @@ export const getDataRowLabelGroupStyle: React.CSSProperties = {
 };
 
 export const getDataRowLabelStyle = (): React.CSSProperties => ({
-  color: 'rgba(255, 255, 255, 0.4)',
+  color: ink.muted,
   fontSize: '0.75rem',
   fontWeight: 800,
   textTransform: 'uppercase',
@@ -108,7 +109,7 @@ export const getDataRowLabelStyle = (): React.CSSProperties => ({
 export const dataRowValueStyle: React.CSSProperties = {
   fontWeight: 900,
   fontSize: '0.95rem',
-  color: '#fff',
+  color: ink.primary,
 };
 
 // --- CAMERA ---
@@ -120,7 +121,7 @@ export const getCameraWrapperStyle = (isNight: boolean): React.CSSProperties => 
   overflow: 'hidden',
   backgroundColor: '#000',
   flexShrink: 1, // Allow the camera to shrink slightly if needed
-  border: `1px solid ${isNight ? 'rgba(255, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.05)'}`,
+  border: `1px solid ${isNight ? night.fill : fill.hairline}`,
 });
 export const globalAstroStyles = `
   .astro-right-column::-webkit-scrollbar {

@@ -3,6 +3,7 @@ import { useEntity, useEntities, useService } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import * as styles from '../styles/MainDashboard.styles';
 import { formatScaled, isUnavailable } from '../utils/format';
+import { accent, danger, success, warning } from '../styles/tokens';
 
 export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
   // ==========================================
@@ -157,14 +158,14 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
     <div style={styles.badgeTrayStyle} className='badge-tray'>
       {/* CRITICAL ALERTS */}
       {smokeSensor.state === 'on' && (
-        <div style={styles.getBadgeStyle('#ff4d4d', true)}>
+        <div style={styles.getBadgeStyle(danger, true)}>
           <Icon icon='mdi:smoke-detector-variant-alert' style={styles.badgeIconStyle} />
           <span>SMOKE DETECTED</span>
         </div>
       )}
 
       {leakSensor.state === 'on' && (
-        <div style={styles.getBadgeStyle('#00d4ff', true)}>
+        <div style={styles.getBadgeStyle(accent, true)}>
           <Icon icon='mdi:water-alert' style={styles.badgeIconStyle} />
           <span>LEAK DETECTED</span>
         </div>
@@ -172,7 +173,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* DELIVERY */}
       {deliveryStatus.state === 'on' && (
-        <div style={styles.getBadgeStyle('#4caf50', true)} onClick={() => deliveryStatus.service.turnOff()} role='button'>
+        <div style={styles.getBadgeStyle(success, true)} onClick={() => deliveryStatus.service.turnOff()} role='button'>
           <Icon icon='mdi:package-variant-closed' style={styles.badgeIconStyle} />
           <span>PACKAGE DELIVERED ×</span>
         </div>
@@ -180,21 +181,21 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* SECURITY */}
       {doorbellPerson.state === 'on' && (
-        <div style={styles.getBadgeStyle('#ffa500')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:motion-sensor' style={styles.badgeIconStyle} />
           <span>PERSON AT DOOR</span>
         </div>
       )}
 
       {drivewayVehicle.state === 'on' && (
-        <div style={styles.getBadgeStyle('#ffa500')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:car-side' style={styles.badgeIconStyle} />
           <span>VEHICLE DETECTED</span>
         </div>
       )}
 
       {garageDoor.state === 'open' && (
-        <div style={styles.getBadgeStyle('#ff4d4d')}>
+        <div style={styles.getBadgeStyle(danger)}>
           <Icon icon='mdi:garage-open-variant' style={styles.badgeIconStyle} />
           <span>GARAGE OPEN</span>
         </div>
@@ -202,7 +203,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* WASHER / DRYER / DISHWASHER */}
       {washerRunning.state === 'on' ? (
-        <div style={styles.getBadgeStyle('#03a9f4')}>
+        <div style={styles.getBadgeStyle(accent)}>
           <span className='washer-anim' style={styles.animWrapperStyle}>
             <Icon icon='mdi:washing-machine' style={styles.badgeIconStyle} />
           </span>
@@ -210,7 +211,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         </div>
       ) : (
         washerFinished.state === 'on' && (
-          <div style={styles.getBadgeStyle('#4caf50', true)} onClick={() => washerFinished.service.turnOff()} role='button'>
+          <div style={styles.getBadgeStyle(success, true)} onClick={() => washerFinished.service.turnOff()} role='button'>
             <Icon icon='mdi:check-circle-outline' style={styles.badgeIconStyle} />
             <span>🧺 WASHER DONE ×</span>
           </div>
@@ -218,7 +219,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
       )}
 
       {dryerRunning.state === 'on' ? (
-        <div style={styles.getBadgeStyle('#03a9f4')}>
+        <div style={styles.getBadgeStyle(accent)}>
           <span className='dryer-anim' style={styles.animWrapperStyle}>
             <Icon icon='mdi:tumble-dryer' style={styles.badgeIconStyle} />
           </span>
@@ -226,7 +227,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         </div>
       ) : (
         dryerFinished.state === 'on' && (
-          <div style={styles.getBadgeStyle('#4caf50', true)} onClick={() => dryerFinished.service.turnOff()} role='button'>
+          <div style={styles.getBadgeStyle(success, true)} onClick={() => dryerFinished.service.turnOff()} role='button'>
             <Icon icon='mdi:check-circle-outline' style={styles.badgeIconStyle} />
             <span>DRYER DONE ×</span>
           </div>
@@ -234,7 +235,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
       )}
 
       {dishwasherStatus.state === 'Running' ? (
-        <div style={styles.getBadgeStyle('#03a9f4')}>
+        <div style={styles.getBadgeStyle(accent)}>
           <span className='dishwasher-anim' style={styles.animWrapperStyle}>
             <Icon icon='mdi:dishwasher' style={styles.badgeIconStyle} />
           </span>
@@ -242,7 +243,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         </div>
       ) : (
         dishwasherFinished.state === 'on' && (
-          <div style={styles.getBadgeStyle('#4caf50', true)} onClick={() => dishwasherFinished.service.turnOff()} role='button'>
+          <div style={styles.getBadgeStyle(success, true)} onClick={() => dishwasherFinished.service.turnOff()} role='button'>
             <Icon icon='mdi:check-circle-outline' style={styles.badgeIconStyle} />
             <span>DISHWASHER DONE ×</span>
           </div>
@@ -251,7 +252,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* VACUUM */}
       {isVacuumCleaning && (
-        <div style={styles.getBadgeStyle('#03a9f4')}>
+        <div style={styles.getBadgeStyle(accent)}>
           <span className='vacuum-anim' style={styles.animWrapperStyle}>
             <Icon icon='mdi:robot-vacuum' style={styles.badgeIconStyle} />
           </span>
@@ -261,21 +262,21 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* AIR QUALITY */}
       {maxPM25 > 15 && (
-        <div style={styles.getBadgeStyle('#ffcc00')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:blur' style={styles.badgeIconStyle} />
           <span>PM2.5: {maxPM25}</span>
         </div>
       )}
 
       {maxCO2 > 1000 && (
-        <div style={styles.getBadgeStyle('#ffcc00')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:molecule-co2' style={styles.badgeIconStyle} />
           <span>CO2: {maxCO2}</span>
         </div>
       )}
 
       {maxVOC > 250 && (
-        <div style={styles.getBadgeStyle('#ffcc00')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:test-tube' style={styles.badgeIconStyle} />
           <span>VOC HIGH</span>
         </div>
@@ -283,7 +284,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* CATS & LITTER BOXES */}
       {feederEmpty.state === 'on' && (
-        <div style={styles.getBadgeStyle('#ff4d4d', true)}>
+        <div style={styles.getBadgeStyle(danger, true)}>
           <Icon icon='mdi:paw-off' style={styles.badgeIconStyle} />
           <span>FEEDER EMPTY</span>
         </div>
@@ -294,7 +295,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
         isBinFullBinary2.state === 'on' ||
         litterBinStatus.state === 'full' ||
         litterBinStatus2.state === 'full') && (
-        <div style={styles.getBadgeStyle('#ff4d4d', true)}>
+        <div style={styles.getBadgeStyle(danger, true)}>
           <Icon icon='mdi:delete-alert' style={styles.badgeIconStyle} />
           <span>CAT BIN FULL</span>
         </div>
@@ -302,7 +303,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* COMBINED BIN MISSING */}
       {(litterBinStatus.state === 'missing' || litterBinStatus2.state === 'missing') && (
-        <div style={styles.getBadgeStyle('#ffa500')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:delete-variant' style={styles.badgeIconStyle} />
           <span>BIN MISSING</span>
         </div>
@@ -310,7 +311,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* COMBINED LOW LITTER */}
       {(litterLevel.state === 'insufficient' || litterLevel2.state === 'insufficient') && (
-        <div style={styles.getBadgeStyle('#ffcc00')}>
+        <div style={styles.getBadgeStyle(warning)}>
           <Icon icon='mdi:tray-full' style={styles.badgeIconStyle} />
           <span>LOW LITTER</span>
         </div>
@@ -319,7 +320,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
       {/* Box 1 & 2 Waste Counters */}
       {(Number(wasteCounter.state) >= 20 || Number(wasteCounter2.state) >= 20) && (
         <div
-          style={styles.getBadgeStyle('#ffa500')}
+          style={styles.getBadgeStyle(warning)}
           onClick={() => {
             wasteCounter.service.reset();
             wasteCounter2.service.reset();
@@ -333,21 +334,21 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* FOUNTAIN ALERTS */}
       {isFountainLow && (
-        <div style={styles.getBadgeStyle('#ff4d4d', true)}>
+        <div style={styles.getBadgeStyle(danger, true)}>
           <Icon icon='mdi:water-percent-alert' style={styles.badgeIconStyle} />
           <span>FOUNTAIN LOW: {waterLiters}L</span>
         </div>
       )}
 
       {Number(fountainFilter.state) <= 0 && (
-        <div style={styles.getBadgeStyle('#ffa500', true)} onClick={() => filterResetBtn.service.press()} role='button'>
+        <div style={styles.getBadgeStyle(warning, true)} onClick={() => filterResetBtn.service.press()} role='button'>
           <Icon icon='mdi:air-filter' style={styles.badgeIconStyle} />
           <span>REPLACE FILTER ×</span>
         </div>
       )}
 
       {Number(fountainPump.state) <= 0 && (
-        <div style={styles.getBadgeStyle('#ffa500', true)} onClick={() => pumpResetBtn.service.press()} role='button'>
+        <div style={styles.getBadgeStyle(warning, true)} onClick={() => pumpResetBtn.service.press()} role='button'>
           <Icon icon='mdi:water-pump-off' style={styles.badgeIconStyle} />
           <span>CLEAN PUMP ×</span>
         </div>
@@ -355,7 +356,7 @@ export function BadgeTray({ onNewBadge }: { onNewBadge?: () => void }) {
 
       {/* UTILITIES */}
       {isGarbageTomorrow && (
-        <div style={styles.getBadgeStyle('#4caf50')}>
+        <div style={styles.getBadgeStyle(success)}>
           <Icon icon='mdi:delete-empty' style={styles.badgeIconStyle} />
           <span>BINS OUT TOMORROW</span>
         </div>

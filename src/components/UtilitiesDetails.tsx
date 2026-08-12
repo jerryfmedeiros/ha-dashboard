@@ -4,6 +4,7 @@ import { Icon } from '@iconify/react';
 import type { EntityName } from '@hakit/core';
 import { AreaChart, Area, ResponsiveContainer, Tooltip, XAxis, YAxis, CartesianGrid } from 'recharts';
 import * as styles from '../styles/UtilitiesDetails.styles';
+import { accent, fill, gold, heat, ink, shade } from '../styles/tokens';
 
 // --- TYPES ---
 
@@ -41,7 +42,7 @@ const LiveFlowIndicator = ({ isActive, color }: { isActive: boolean; color: stri
       style={{
         width: '4px',
         height: '30px',
-        backgroundColor: 'rgba(0,0,0,0.2)',
+        backgroundColor: shade.inset,
         borderRadius: '2px',
         margin: '0 auto',
         position: 'relative',
@@ -114,16 +115,16 @@ const UtilityChart = ({ entityId, color, unit }: { entityId: EntityName; color: 
           </linearGradient>
         </defs>
 
-        <CartesianGrid strokeDasharray='3 3' stroke='rgba(255,255,255,0.05)' vertical={false} />
+        <CartesianGrid strokeDasharray='3 3' stroke={fill.hairline} vertical={false} />
 
-        <XAxis dataKey='time' stroke='rgba(255,255,255,0.2)' fontSize={9} tickLine={false} axisLine={false} minTickGap={40} />
+        <XAxis dataKey='time' stroke={ink.ghost} fontSize={9} tickLine={false} axisLine={false} minTickGap={40} />
 
-        <YAxis domain={['auto', 'auto']} stroke='rgba(255,255,255,0.2)' fontSize={9} tickLine={false} axisLine={false} />
+        <YAxis domain={['auto', 'auto']} stroke={ink.ghost} fontSize={9} tickLine={false} axisLine={false} />
 
         <Tooltip
           contentStyle={{
             backgroundColor: 'rgba(20,20,25,0.95)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            border: `1px solid ${fill.hover}`,
             borderRadius: '12px',
           }}
           itemStyle={{ color: color, fontWeight: 800 }}
@@ -188,16 +189,16 @@ export function UtilitiesDetails() {
       {/* ELECTRICITY COLUMN */}
       <div style={styles.columnStyle}>
         <div style={styles.headerStyle}>
-          <Icon icon='mdi:flash' style={{ fontSize: '1.8rem', color: '#FFD700' }} />
+          <Icon icon='mdi:flash' style={{ fontSize: '1.8rem', color: gold }} />
           <span style={styles.headerTitleStyle}>Electricity</span>
         </div>
 
-        <LiveFlowIndicator isActive={Number(elecLive?.state) > 10} color='#FFD700' />
+        <LiveFlowIndicator isActive={Number(elecLive?.state) > 10} color={gold} />
 
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>Today</div>
-            <div style={{ fontSize: '0.75rem', color: '#FFD700', fontWeight: 700 }}>{formatCurrency(elecCostToday?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: gold, fontWeight: 700 }}>{formatCurrency(elecCostToday?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(elecDaily?.state, 1)}</span>
@@ -208,7 +209,7 @@ export function UtilitiesDetails() {
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>This Month</div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>{formatCurrency(elecCostMonth?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: ink.secondary }}>{formatCurrency(elecCostMonth?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(elecMonthly?.state, 0)}</span>
@@ -225,23 +226,23 @@ export function UtilitiesDetails() {
         </div>
 
         <div style={styles.graphWrapperStyle}>
-          <UtilityChart entityId={'sensor.energy_monitor_power_minute_average' as EntityName} color='#FFD700' unit='W' />
+          <UtilityChart entityId={'sensor.energy_monitor_power_minute_average' as EntityName} color={gold} unit='W' />
         </div>
       </div>
 
       {/* WATER COLUMN */}
       <div style={styles.columnStyle}>
         <div style={styles.headerStyle}>
-          <Icon icon='mdi:water' style={{ fontSize: '1.8rem', color: '#00d4ff' }} />
+          <Icon icon='mdi:water' style={{ fontSize: '1.8rem', color: accent }} />
           <span style={styles.headerTitleStyle}>Water</span>
         </div>
 
-        <LiveFlowIndicator isActive={Number(waterLive?.state) > 0.5} color='#00d4ff' />
+        <LiveFlowIndicator isActive={Number(waterLive?.state) > 0.5} color={accent} />
 
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>Today</div>
-            <div style={{ fontSize: '0.75rem', color: '#00d4ff', fontWeight: 700 }}>{formatCurrency(waterCostToday?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: accent, fontWeight: 700 }}>{formatCurrency(waterCostToday?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(waterDaily?.state, 0)}</span>
@@ -252,7 +253,7 @@ export function UtilitiesDetails() {
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>This Month</div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>{formatCurrency(waterCostMonth?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: ink.secondary }}>{formatCurrency(waterCostMonth?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(waterMonthly?.state, 0)}</span>
@@ -271,23 +272,23 @@ export function UtilitiesDetails() {
         </div>
 
         <div style={styles.graphWrapperStyle}>
-          <UtilityChart entityId={'sensor.house_water_flow_rate' as EntityName} color='#00d4ff' unit='L/min' />
+          <UtilityChart entityId={'sensor.house_water_flow_rate' as EntityName} color={accent} unit='L/min' />
         </div>
       </div>
 
       {/* GAS COLUMN */}
       <div style={styles.columnStyle}>
         <div style={styles.headerStyle}>
-          <Icon icon='mdi:fire' style={{ fontSize: '1.8rem', color: '#ff5722' }} />
+          <Icon icon='mdi:fire' style={{ fontSize: '1.8rem', color: heat }} />
           <span style={styles.headerTitleStyle}>Gas</span>
         </div>
 
-        <LiveFlowIndicator isActive={Number(gasLive?.state) > 0.1} color='#ff5722' />
+        <LiveFlowIndicator isActive={Number(gasLive?.state) > 0.1} color={heat} />
 
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>Today</div>
-            <div style={{ fontSize: '0.75rem', color: '#ff5722', fontWeight: 700 }}>{formatCurrency(gasCostToday?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: heat, fontWeight: 700 }}>{formatCurrency(gasCostToday?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(gasDaily?.state, 2)}</span>
@@ -298,7 +299,7 @@ export function UtilitiesDetails() {
         <div style={styles.dataRowStyle}>
           <div>
             <div style={styles.labelStyle}>This Month</div>
-            <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.6)' }}>{formatCurrency(gasCostMonth?.state)}</div>
+            <div style={{ fontSize: '0.75rem', color: ink.secondary }}>{formatCurrency(gasCostMonth?.state)}</div>
           </div>
           <div>
             <span style={styles.valueStyle}>{formatUtility(gasMonthly?.state, 2)}</span>
@@ -315,7 +316,7 @@ export function UtilitiesDetails() {
         </div>
 
         <div style={styles.graphWrapperStyle}>
-          <UtilityChart entityId={'sensor.house_gas_flow_rate' as EntityName} color='#ff5722' unit='m³/h' />
+          <UtilityChart entityId={'sensor.house_gas_flow_rate' as EntityName} color={heat} unit='m³/h' />
         </div>
       </div>
     </div>

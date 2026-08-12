@@ -7,6 +7,7 @@ import { RoomControlButton } from './RoomControlButton';
 import * as styles from '../styles/CommandCenter.styles.ts';
 import { StateBadge } from './StateBadge.tsx';
 import { CoverStatus } from './CoverStatus.tsx';
+import { accent, danger, fill, ink, success, warning } from '../styles/tokens';
 
 // Define what we expect from an entity to avoid 'never' errors
 interface SimplifiedEntity {
@@ -47,7 +48,7 @@ export function SectionDivider({ label }: SectionDividerProps) {
         style={{
           fontSize: '0.65rem',
           textTransform: 'uppercase',
-          color: 'rgba(255, 255, 255, 0.4)',
+          color: ink.muted,
           fontWeight: 600,
           letterSpacing: '0.5px',
         }}
@@ -58,7 +59,7 @@ export function SectionDivider({ label }: SectionDividerProps) {
         style={{
           flex: 1,
           height: '1px',
-          backgroundColor: 'rgba(255, 255, 255, 0.08)', // Subtle line
+          backgroundColor: fill.edge, // Subtle line
         }}
       />
     </div>
@@ -101,23 +102,23 @@ export function CommandCenterDashboard() {
         {/* ROOM 1: OFFICE */}
         <RoomCard title='Office' icon='mdi:laptop'>
           <SensorGrid>
-            <CompactSensor icon='mdi:thermometer' value={officeTemp?.state} unit='°C' color='#ff9800' />
-            <CompactSensor icon='mdi:water-percent' value={officeHum?.state} unit='%' color='#03a9f4' />
-            <CompactSensor icon='mdi:molecule-co2' value={officeCo2?.state} unit='ppm' color='#4caf50' />
-            <CompactSensor icon='mdi:sun-wireless' value={officeLuminance?.state} unit='lx' color='#db7500' />
+            <CompactSensor icon='mdi:thermometer' value={officeTemp?.state} unit='°C' color={warning} />
+            <CompactSensor icon='mdi:water-percent' value={officeHum?.state} unit='%' color={accent} />
+            <CompactSensor icon='mdi:molecule-co2' value={officeCo2?.state} unit='ppm' color={success} />
+            <CompactSensor icon='mdi:sun-wireless' value={officeLuminance?.state} unit='lx' color={warning} />
             <StateBadge
               entity='binary_sensor.office_motion'
               iconOn='mdi:motion-sensor'
               iconOff='mdi:motion-sensor-off'
               label='Motion'
-              activeColor='#f44336'
+              activeColor={danger}
             />
             <StateBadge
               entity='binary_sensor.feeding_area_presence_sensor_occupancy'
               iconOn='mdi:motion-sensor'
               iconOff='mdi:motion-sensor-off'
               label='Cats'
-              activeColor='#f44336'
+              activeColor={danger}
             />
           </SensorGrid>
 
@@ -136,8 +137,8 @@ export function CommandCenterDashboard() {
         <RoomCard title='Living Room' icon='mdi:sofa'>
           <SensorGrid>
             <CompactSensor icon='mdi:thermometer' value={livingRoomTemp?.state} unit='°C' />
-            <CompactSensor icon='mdi:water-percent' value={livingRoomHum?.state} unit='%' color='#03a9f4' />
-            <CompactSensor icon='mdi:sun-wireless' value={livingRoomLuminance?.state} unit='lx' color='#db7500' />
+            <CompactSensor icon='mdi:water-percent' value={livingRoomHum?.state} unit='%' color={accent} />
+            <CompactSensor icon='mdi:sun-wireless' value={livingRoomLuminance?.state} unit='lx' color={warning} />
           </SensorGrid>
           <LightSliderRow entity='light.living_room_light' />
           <LightSliderRow entity='light.island_light' />
@@ -186,35 +187,35 @@ export function CommandCenterDashboard() {
         {/* ROOM 5: GARAGE */}
         <RoomCard title='Garage' icon='mdi:garage'>
           <SensorGrid>
-            <CompactSensor icon='mdi:thermometer' value={garageTemp?.state} unit='°C' color='#ff9800' />
-            <CompactSensor icon='mdi:water-percent' value={garageHum?.state} unit='%' color='#03a9f4' />
+            <CompactSensor icon='mdi:thermometer' value={garageTemp?.state} unit='°C' color={warning} />
+            <CompactSensor icon='mdi:water-percent' value={garageHum?.state} unit='%' color={accent} />
             <StateBadge
               entity='binary_sensor.garage_interior_motion_sensor'
               iconOn='mdi:motion-sensor'
               iconOff='mdi:motion-sensor-off'
               label='Motion'
-              activeColor='#f44336'
+              activeColor={danger}
             />
             <StateBadge
               entity='binary_sensor.ratgdov25i_e5f7cc_obstruction'
               iconOn='mdi:motion-sensor'
               iconOff='mdi:motion-sensor-off'
               label='Obstruction'
-              activeColor='#f44336'
+              activeColor={danger}
             />
             <StateBadge
               entity='binary_sensor.garage_smoke_detector'
               iconOn='mdi:smoke-detector-variant'
               iconOff='mdi:smoke-detector-variant-alert'
               label='Smoke'
-              activeColor='#f44336'
+              activeColor={danger}
             />
             <StateBadge
               entity='binary_sensor.garage_man_door_sensor_contact_door'
               iconOff='mdi:door'
               iconOn='mdi:door-closed'
               label='Man Door'
-              activeColor='#f44336'
+              activeColor={danger}
             />
           </SensorGrid>
 
@@ -237,14 +238,14 @@ export function CommandCenterDashboard() {
         {/* ROOM 6: BASEMENT */}
         <RoomCard title='Basement' icon='mdi:controller-classic'>
           <SensorGrid>
-            <CompactSensor icon='mdi:thermometer' value={basementTemp?.state} unit='°C' color='#ff9800' />
-            <CompactSensor icon='mdi:water-percent' value={basementHum?.state} unit='%' color='#03a9f4' />
+            <CompactSensor icon='mdi:thermometer' value={basementTemp?.state} unit='°C' color={warning} />
+            <CompactSensor icon='mdi:water-percent' value={basementHum?.state} unit='%' color={accent} />
             <StateBadge
               entity='binary_sensor.basement_smoke_sensors'
               iconOn='mdi:smoke-detector-variant'
               iconOff='mdi:smoke-detector-variant-alert'
               label='Smoke'
-              activeColor='#f44336'
+              activeColor={danger}
             />
           </SensorGrid>
           <LightSliderRow entity='light.basement_1' />

@@ -1,19 +1,15 @@
 import type { CSSProperties } from 'react';
 
-export const THEME = {
-  accent: '#00d1ff',
-  bgCard: 'rgba(255, 255, 255, 0.02)',
-  bgHover: 'rgba(255, 255, 255, 0.06)',
-  border: 'rgba(255, 255, 255, 0.08)',
-  textMain: '#ffffff',
-  textSub: 'rgba(255, 255, 255, 0.45)',
-};
+// Palette lives in theme.ts; re-exported so existing `S.THEME` usage works.
+export { THEME } from './theme';
+import { THEME } from './theme';
+import { accent, fill, ink, shade } from './tokens';
 
 export const globalCss = `
   .no-scrollbar::-webkit-scrollbar { display: none; } 
-  .hg-theme-default { background-color: rgba(20, 20, 25, 0.98) !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: white; padding: 4px; } 
-  .hg-theme-default .hg-button { background: rgba(255,255,255,0.08) !important; color: white !important; height: 32px !important; font-size: 0.85rem; border: none !important; border-radius: 6px !important; } 
-  .hg-theme-default .hg-enter-btn { background: #00d1ff !important; color: #000 !important; font-weight: 700; height: 38px !important; }
+  .hg-theme-default { background-color: rgba(20, 20, 25, 0.98) !important; border: 1px solid ${fill.hover}; border-radius: 8px; color: white; padding: 4px; } 
+  .hg-theme-default .hg-button { background: ${fill.edge} !important; color: white !important; height: 32px !important; font-size: 0.85rem; border: none !important; border-radius: 6px !important; } 
+  .hg-theme-default .hg-enter-btn { background: ${accent} !important; color: #000 !important; font-weight: 700; height: 38px !important; }
   .chip { padding: 4px 12px; border-radius: 16px; font-size: 0.75rem; font-weight: 600; cursor: pointer; border: 1px solid transparent; transition: all 0.2s; }
   @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
   .spin { animation: spin 1s linear infinite; }
@@ -30,18 +26,18 @@ export const globalCss = `
   .sync-container::-webkit-scrollbar { display: none; }
   
   .lyric-line {
-    font-size: 2.2rem; font-weight: 700; color: rgba(255,255,255,0.3); margin: 18px 0; 
+    font-size: 2.2rem; font-weight: 700; color: ${ink.faint}; margin: 18px 0; 
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); cursor: pointer; max-width: 800px;
   }
   .lyric-line.active {
-    color: #fff; transform: scale(1.15); text-shadow: 0 0 24px rgba(255,255,255,0.4);
+    color: ${ink.primary}; transform: scale(1.15); text-shadow: 0 0 24px ${ink.muted};
   }
   .plain-lyrics-container {
     height: 100%; width: 100%; overflow-y: auto; padding: 40px;
     display: flex; flex-direction: column; align-items: center;
   }
   .plain-lyrics-text {
-    margin: auto 0; font-size: 2rem; font-weight: 700; color: #fff; line-height: 1.5; 
+    margin: auto 0; font-size: 2rem; font-weight: 700; color: ${ink.primary}; line-height: 1.5; 
     white-space: pre-wrap; text-align: center; max-width: 800px;
   }
 `;
@@ -67,7 +63,7 @@ export const layoutStyles = {
   }),
   main: { gridArea: 'results', overflowY: 'auto', minHeight: 0, position: 'relative' } as CSSProperties,
   sidebar: { gridArea: 'sidebar', display: 'flex', flexDirection: 'column', gap: '6px', overflowY: 'auto', minHeight: 0 } as CSSProperties,
-  keyboard: { gridArea: 'keyboard', background: 'rgba(0,0,0,0.2)', borderRadius: '8px', overflow: 'hidden' } as CSSProperties,
+  keyboard: { gridArea: 'keyboard', background: shade.inset, borderRadius: '8px', overflow: 'hidden' } as CSSProperties,
 };
 
 export const headerStyles = {
@@ -78,7 +74,7 @@ export const headerStyles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    background: THEME.bgCard,
+    background: THEME.cardAlt,
     borderRadius: '10px',
     border: `1px solid ${THEME.border}`,
     cursor: 'pointer',
@@ -88,7 +84,7 @@ export const headerStyles = {
     display: 'flex',
     alignItems: 'center',
     padding: '0 14px',
-    background: 'rgba(0,0,0,0.4)',
+    background: shade.medium,
     borderRadius: '10px',
     border: `1px solid ${THEME.border}`,
     height: showKeyboard ? '40px' : '48px',
@@ -97,7 +93,7 @@ export const headerStyles = {
     flex: 1,
     background: 'transparent',
     border: 'none',
-    color: '#fff',
+    color: ink.primary,
     padding: '0 12px',
     outline: 'none',
     fontSize: '0.9rem',
@@ -117,7 +113,10 @@ export const listStyles = {
     borderBottom: showKeyboard ? 'none' : `1px solid ${THEME.border}`,
     marginBottom: '8px',
   }),
-  tab: (isActive: boolean): CSSProperties => ({ background: isActive ? THEME.accent : THEME.bgCard, color: isActive ? '#000' : '#fff' }),
+  tab: (isActive: boolean): CSSProperties => ({
+    background: isActive ? THEME.accent : THEME.cardAlt,
+    color: isActive ? '#000' : ink.primary,
+  }),
   queueHeader: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 4px 6px 4px' } as CSSProperties,
   queueItem: (isFirst: boolean): CSSProperties => ({
     display: 'flex',
@@ -125,7 +124,7 @@ export const listStyles = {
     gap: '10px',
     padding: '8px',
     borderRadius: '8px',
-    background: isFirst ? 'rgba(0,209,255,0.05)' : THEME.bgCard,
+    background: isFirst ? 'rgba(0,209,255,0.05)' : THEME.cardAlt,
     position: 'relative',
     marginBottom: '6px',
   }),
@@ -133,7 +132,7 @@ export const listStyles = {
   itemTitle: (highlight: boolean): CSSProperties => ({
     fontSize: '0.8rem',
     fontWeight: 600,
-    color: highlight ? THEME.accent : '#fff',
+    color: highlight ? THEME.accent : ink.primary,
     whiteSpace: 'nowrap',
     overflow: 'hidden',
     textOverflow: 'ellipsis',
@@ -144,7 +143,7 @@ export const listStyles = {
     flexDirection: 'column',
     padding: '6px 10px',
     borderRadius: '8px',
-    background: isExpanded ? THEME.bgHover : THEME.bgCard,
+    background: isExpanded ? THEME.hover : THEME.cardAlt,
     marginBottom: '6px',
   }),
   resultHeader: { display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' } as CSSProperties,
@@ -187,14 +186,14 @@ export const partyStyles = {
     flexDirection: 'column',
     gap: '24px',
     padding: '24px',
-    background: 'rgba(0,0,0,0.5)',
+    background: shade.heavy,
     borderRight: `1px solid ${THEME.border}`,
     flexShrink: 0,
     overflowY: 'auto',
   } as CSSProperties,
   headerRow: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 } as CSSProperties,
   qrContainer: {
-    background: '#fff',
+    background: ink.primary,
     padding: '16px',
     borderRadius: '16px',
     display: 'flex',
@@ -212,7 +211,7 @@ export const partyStyles = {
     alignItems: 'center',
     gap: '12px',
     padding: '10px',
-    background: 'rgba(255,255,255,0.05)',
+    background: fill.hairline,
     borderRadius: '10px',
     flexShrink: 0,
   } as CSSProperties,
@@ -222,7 +221,7 @@ export const partyStyles = {
 export const playerStyles = {
   container: {
     gridArea: 'player',
-    background: THEME.bgCard,
+    background: THEME.cardAlt,
     borderRadius: '12px',
     border: `1px solid ${THEME.border}`,
     display: 'flex',
@@ -251,7 +250,7 @@ export const sidebarStyles = {
   card: (isTarget: boolean): CSSProperties => ({
     padding: '8px 10px',
     borderRadius: '10px',
-    background: isTarget ? 'rgba(0, 209, 255, 0.08)' : THEME.bgCard,
+    background: isTarget ? 'rgba(0, 209, 255, 0.08)' : THEME.cardAlt,
     border: `1px solid ${isTarget ? THEME.accent : THEME.border}`,
     cursor: 'pointer',
     display: 'flex',

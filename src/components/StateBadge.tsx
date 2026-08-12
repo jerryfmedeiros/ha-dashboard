@@ -1,13 +1,14 @@
 import { useEntity } from '@hakit/core';
 import type { EntityName } from '@hakit/core';
 import { Icon } from '@iconify/react';
+import { ink, shade, warning } from '../styles/tokens';
 
 export const StateBadge = ({
   entity: entityId,
   iconOn,
   iconOff,
   label,
-  activeColor = '#ff9800', // Default active color (e.g., amber for motion)
+  activeColor = warning, // Default active color (e.g., amber for motion)
 }: {
   entity: EntityName;
   iconOn: string;
@@ -30,7 +31,7 @@ export const StateBadge = ({
         display: 'flex',
         alignItems: 'center',
         gap: '6px',
-        backgroundColor: isActive ? `${activeColor}20` : 'rgba(0,0,0,0.2)',
+        backgroundColor: isActive ? `${activeColor}20` : shade.inset,
         padding: '4px 10px',
         borderRadius: '8px',
         border: `1px solid ${isActive ? `${activeColor}50` : 'transparent'}`,
@@ -41,7 +42,7 @@ export const StateBadge = ({
         icon={currentIcon}
         style={{
           fontSize: '1rem',
-          color: isActive ? activeColor : 'rgba(255,255,255,0.4)',
+          color: isActive ? activeColor : ink.muted,
         }}
       />
       {label && (
@@ -51,7 +52,7 @@ export const StateBadge = ({
             fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: '0.5px',
-            color: isActive ? '#fff' : 'rgba(255,255,255,0.4)',
+            color: isActive ? ink.primary : ink.muted,
           }}
         >
           {label}
