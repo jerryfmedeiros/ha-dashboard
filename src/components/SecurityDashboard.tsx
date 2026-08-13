@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CameraCard } from '@hakit/components';
 import { useEntity } from '@hakit/core';
 import { Icon } from '@iconify/react';
 import { GlassCard, BigMetric } from '../components/MetricUi';
 import * as styles from '../styles/SecurityDashboard.styles';
 import { accent, alpha, danger, fill, ink, muted, shade, success, warning } from '../styles/tokens';
+import { PinPad } from './PinPad';
 
 const SECURITY_CAMERAS = [
   { entity: 'camera.reolink_video_doorbell_camera_fluent', label: 'Doorbell' },
@@ -15,15 +16,16 @@ const SECURITY_CAMERAS = [
 
 type SecurityCamera = (typeof SECURITY_CAMERAS)[number]['entity'];
 
-interface AlarmService {
-  alarmArmHome: (args?: { code?: string }) => void;
-  alarmArmAway: (args?: { code?: string }) => void;
-  alarmDisarm: (args?: { code?: string }) => void;
-}
+/** How long to wait for HA to report 'disarmed' before calling the PIN wrong. */
+const DISARM_TIMEOUT_MS = 3000;
 
 export function SecurityDashboard() {
   const alarm = useEntity('alarm_control_panel.house');
-  const alarmService = alarm.service as unknown as AlarmService;
+  // No hand-written service interface / `as unknown as` cast here. That cast is
+  // what allowed `alarmDisarm({ code })` to compile — hakit expects the payload
+  // under `serviceData`, so the code was never actually sent and every disarm
+  // silently failed.
+  const alarmService = alarm.service;
   const state = alarm.state || 'disarmed';
 
   // Perimeter Entities
@@ -58,12 +60,42 @@ export function SecurityDashboard() {
     return 'mdi:shield-off';
   };
 
-  const handleDisarm = () => {
-    const pin = window.prompt('Enter PIN:');
-    if (pin) {
-      alarmService.alarmDisarm({ code: pin });
-      setShowAlarmModal(false);
-    }
+  // Disarm flow. The service call is fire-and-forget — HA reports a bad code by
+  // simply not changing state — so we submit, then watch `alarm.state` and treat
+  // "still armed after DISARM_TIMEOUT_MS" as a rejected PIN. window.prompt gave
+  // no feedback at all: a wrong code looked identical to a correct one.
+  const [showPinPad, setShowPinPad] = useState(false);
+  const [pinPending, setPinPending] = useState(false);
+  const [pinError, setPinError] = useState<string | null>(null);
+
+  const disarmed = state === 'disarmed';
+
+  // Success is *derived*, not synced: once a submitted code lands and the panel
+  // reports disarmed, the pad simply stops rendering. Gated on `pinPending` so
+  // opening the pad while already disarmed still works. Only the failure path
+  // needs a timer, and its setState happens in the timeout callback rather than
+  // the effect body.
+  const pinPadOpen = showPinPad && !(pinPending && disarmed);
+
+  useEffect(() => {
+    if (!pinPending || disarmed) return;
+    const id = setTimeout(() => {
+      setPinPending(false);
+      setPinError('Incorrect PIN');
+    }, DISARM_TIMEOUT_MS);
+    return () => clearTimeout(id);
+  }, [pinPending, disarmed]);
+
+  const openPinPad = () => {
+    setPinPending(false);
+    setPinError(null);
+    setShowPinPad(true);
+  };
+
+  const handlePinSubmit = (code: string) => {
+    setPinError(null);
+    setPinPending(true);
+    alarmService.alarmDisarm({ serviceData: { code } });
   };
 
   return (
@@ -237,9 +269,33 @@ export function SecurityDashboard() {
             >
               <Icon icon='mdi:shield-lock' style={{ fontSize: '1.5rem' }} /> Arm Away
             </button>
-            <button style={styles.alarmButtonStyle('disarm')} onClick={handleDisarm}>
+            <button style={styles.alarmButtonStyle('disarm')} onClick={openPinPad}>
               <Icon icon='mdi:shield-off' style={{ fontSize: '1.5rem' }} /> Disarm System
             </button>
+          </div>
+        </div>
+      )}
+
+      {/* PIN ENTRY — sits above the alarm modal so cancelling returns to it. */}
+      {pinPadOpen && (
+        <div
+          style={{ ...styles.modalOverlayStyle, zIndex: 1000 }}
+          onClick={() => {
+            if (!pinPending) setShowPinPad(false);
+          }}
+        >
+          <div style={styles.pinPadContentStyle} onClick={e => e.stopPropagation()}>
+            <PinPad
+              title='Disarm System'
+              subtitle={getStatusText()}
+              error={pinError}
+              pending={pinPending}
+              onSubmit={handlePinSubmit}
+              onCancel={() => {
+                setShowPinPad(false);
+                setPinError(null);
+              }}
+            />
           </div>
         </div>
       )}

@@ -263,6 +263,20 @@ export const alarmModalContentStyle: React.CSSProperties = {
   gap: '16px',
 };
 
+/** Narrower than the alarm modal so the keypad stays thumb-reachable. */
+export const pinPadContentStyle: React.CSSProperties = {
+  width: '100%',
+  maxWidth: '320px',
+  backgroundColor: 'rgba(20, 22, 28, 0.98)',
+  borderRadius: '28px',
+  padding: '1.5rem',
+  position: 'relative',
+  boxShadow: '0 40px 60px -15px rgba(0, 0, 0, 0.8)',
+  border: `1px solid ${fill.hover}`,
+  display: 'flex',
+  flexDirection: 'column',
+};
+
 export const alarmModalHeaderStyle: React.CSSProperties = {
   fontSize: '1.2rem',
   fontWeight: 900,
